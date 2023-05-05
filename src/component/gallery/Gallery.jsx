@@ -5,7 +5,7 @@ import {Link} from "react-router-dom"
 import { MyContext } from '../../data/ThemeProvider';
 
 function Gallery() {
-  const [galleryImages, setGalleryImages] = useState(GalleryData);
+  const [galleryImages] = useState(GalleryData);
   const [currentGroup, setCurrentGroup] = useState(1);
   const { setImageIndex } = useContext(MyContext);
 

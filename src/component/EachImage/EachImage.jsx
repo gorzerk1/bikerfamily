@@ -4,7 +4,7 @@ import GalleryData from '../../data/GalleryData.jsx';
 import { MyContext } from '../../data/ThemeProvider';
 
 function EachImage() {
-  const { imageIndex, setImageIndex } = useContext(MyContext);
+  const { imageIndex } = useContext(MyContext);
   const [index, setIndex] = useState(imageIndex || 0);
   const [currentImage, setCurrentImage] = useState(GalleryData[0]?.src || '');
 
