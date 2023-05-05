@@ -37,7 +37,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .EachImage--arrow > img {
@@ -50,7 +50,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 .EachImage--arrow1 > img {
   width: 45px;

@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const GalleryData = [
     { src: '../../NewGallery/image0045.jpg' },

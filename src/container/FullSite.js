@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import Main from '../component/main/Main.jsx'
 import Navbar from '../component/navbar/Navbar.jsx'
-import Upcoming from '../component/upcoming/Upcoming.jsx'
 import AboutUs from '../component/aboutUs/AboutUs.jsx'
 import Gallery from '../component/gallery/Gallery.jsx'
 import Contact from '../component/contact/Contact.jsx'
