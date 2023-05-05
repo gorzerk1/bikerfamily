@@ -1,0 +1,132 @@
+body {
+    font-size: medium;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size);
+}
+
+.contact--body {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.contact--body > img {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.contact--container{
+    position: relative;
+    z-index: 2;
+    width: 40%;
+    height: auto;
+    padding: 2% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.contact--container > button {
+    width: 61.2%;
+    height: 4.6vh;
+    background-color: orange;
+    font-weight: bolder;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    margin-top:15px;
+    cursor: pointer;
+}
+.contact--title {
+    font-weight: bolder;
+    font-size: 3rem;
+    margin-bottom:10px
+}
+.contact--subtitle {
+    font-weight: bolder;
+    color:rgba(128, 128, 128, 0.6);
+    letter-spacing: 1px;
+}
+.contact-textarea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+input[type="text"] {
+    margin-top:25px;
+    width: 60%;
+    height: 5vh;
+    font-size: 1.3rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+textarea {
+    width:60%;
+    margin-top:25px;
+    font-size: 1.3rem;
+}
+
+.contract-button2 {
+    transition: font-size 250ms;
+    width: 63.3%;
+    height: 4.6vh;
+    background-color: orange;
+    font-weight: bolder;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    margin-top:15px;
+    cursor: pointer;
+    border:0;
+}
+
+.contract-button2:hover {
+    border: 2px solid black;
+    font-size: 1.3rem;
+}
+
+.contract-button2:active {
+    transform: scale(0.95);
+}
+.contact-whatsapp {
+    position: absolute;
+    bottom:13%;
+    width: 24.5%;
+    height: 4.2vh;
+    z-index: 2;
+    background-color: green;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    cursor: pointer;
+    border: 0;
+    transition: font-size 250ms;
+}
+
+.contact-whatsapp:hover {
+    border: 2px solid black;
+    font-size: 1.3rem;
+}
+
+.contact-whatsapp:active {
+    transform: scale(0.95);
+}
+
+.contact--title, .contact--subtitle, input[type="text"], textarea, .contract-button2, .contact-whatsapp {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

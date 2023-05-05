@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --font-size: 16px;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  scroll-behavior: smooth;
+}
+
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
