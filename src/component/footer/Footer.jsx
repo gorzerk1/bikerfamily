@@ -9,11 +9,11 @@ function Footer() {
           <h3>צרו קשר</h3>
           <div>
             <img src="../../mailIcon.png" alt="Email" />
-            <a> bikerfamily@gmail.com</a>
+            <a href=""> bikerfamily@gmail.com</a>
           </div>
           <div>
             <img src="../../phoneIcon.png" alt="Phone" />
-            <a> 0524342623</a>
+            <a href=""> 0524342623</a>
           </div>
         </div>
         <div className="footer--follow-us" dir="rtl">
