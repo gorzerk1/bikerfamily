@@ -9,15 +9,12 @@ body {
     width: 100%;
     min-height: 100vh;
     max-height: 100vh;
-    overflow: auto;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     z-index: 10;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.3), 0 4px 10px rgba(0, 0, 0, 0.3);
-
 }
 .aboutUs--body::before {
     content: '';
@@ -72,7 +69,7 @@ body {
 }
 .aboutUs--paragraph {
     font-size: 1.4rem;
-    line-height: 1.6;
+
     direction: rtl;
     display: flex;
 }
