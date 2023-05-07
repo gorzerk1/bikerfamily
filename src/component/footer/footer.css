@@ -102,7 +102,7 @@ img {
         width: 25%;
     }
     .footer--container2 {
-        justify-content: end;
+        justify-content: flex-end;
         align-items: center;
     }
     .footer--container2 :first-child {
