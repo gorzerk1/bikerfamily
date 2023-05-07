@@ -4,44 +4,33 @@ import "./footer.css";
 function Footer() {
   return (
     <div className="footer--body">
-          <div className="footer--container">
-      <div className="footer--address">
-        <h3>Address</h3>
-        <div>
-          <img src="../../pin.png" alt="" />
-          <p>123 Street, City, Country</p>
+      <div className="footer--container">
+        <div className="footer--contact" dir="rtl">
+          <h3>צרו קשר</h3>
+          <div>
+            <img src="../../mailIcon.png" alt="Email" />
+            <a> bikerfamily@gmail.com</a>
+          </div>
+          <div>
+            <img src="../../phoneIcon.png" alt="Phone" />
+            <a> 0524342623</a>
+          </div>
         </div>
-      </div>
-      <div className="footer--contact">
-        <h3>Contact</h3>
+        <div className="footer--follow-us" dir="rtl">
+        <h3>עקבו אחרינו</h3>
         <div>
-          <img src="../../mailIcon.png" alt="Email" />
-          <p> example@example.com</p>
-        </div>
-        <div>
-          <img src="../../phoneIcon.png" alt="Phone" />
-          <p> 05240502402</p>
-        </div>
-      </div>
-      <div className="footer--follow-us">
-        <h3>Follow Us</h3>
-        <div>
-          <img src="../../facebook.png" alt="Facebook" />
-          <p> family.bikers.il</p>
+          <img src="../../instagram.png" alt="Instagram" />
+          <a href="https://www.instagram.com/family.bikers.il">family.bikers.il</a>
         </div>
         <div>
           <img src="../../instagram.png" alt="Instagram" />
-          <p> family.bikers.il</p>
-        </div>
-        <div>
-          <img src="../../twitter.png" alt="Twitter" />
-          <p> family.bikers.il</p>
+          <a href="https://www.instagram.com/ridersgetaway">RidersGetaway</a>
         </div>
       </div>
     </div>
     <div className="footer--container2">
-      <div>זכויות יוצרים © 2023 יונתן. כל הזכויות שמורות.</div>
-      <div className="dima">Built by Dima</div>
+      <div dir="rtl">זכויות יוצרים © 2023 יונתן. כל הזכויות שמורות.</div>
+      <a className="dima">Built by Dima</a>
     </div>
     </div>
   );
