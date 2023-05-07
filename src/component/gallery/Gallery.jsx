@@ -27,7 +27,6 @@ function Gallery() {
       <div className="gallery--title">
         <div>גלריה שלנו</div>
       </div>
-      <div className="gallery--width">
         <div className="gallery--container">
           {galleryImages
             .slice((currentGroup - 1) * imagesPerGroup, currentGroup * imagesPerGroup)
@@ -56,7 +55,7 @@ function Gallery() {
             onClick={() => moveGroup('right')}
           />
         </div>
-      </div>
+
     </div>
   );
 }
