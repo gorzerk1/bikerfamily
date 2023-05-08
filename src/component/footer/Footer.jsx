@@ -5,6 +5,10 @@ function Footer() {
   return (
     <div className="footer--body">
       <div className="footer--container">
+        <div className="footer--logos">
+          <img src="../../bikerlogo.png" alt="" />
+          <img src="../../getaway.png" alt="" />
+        </div>
         <div className="footer--contact" dir="rtl">
           <h3>צרו קשר</h3>
           <div>
