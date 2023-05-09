@@ -13,8 +13,7 @@ function AboutUs() {
     }
   };
 
-  const [backgroundImageSource, setBackgroundImageSource] = useState(getBackgroundImageSource());
-  const lala = backgroundImageSource
+  const [setBackgroundImageSource] = useState(getBackgroundImageSource());
   useEffect(() => {
     const handleResize = () => {
       setBackgroundImageSource(getBackgroundImageSource());
