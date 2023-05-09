@@ -26,7 +26,7 @@ function AboutUs() {
 
   return (
     <div className="aboutUs--body">
-      <img src="../../backgroundbike.png" alt="" />
+      <img src={backgroundImageSrc} alt="Background" />
       <div className='aboutUs--container'>
         <div className='aboutUs--half aboutUs--half--first'>
           <div className='aboutUs--half__title'>עלינו</div>
