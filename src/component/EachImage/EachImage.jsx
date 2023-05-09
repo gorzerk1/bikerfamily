@@ -36,7 +36,6 @@ function EachImage() {
         </div>
         <div className='EachImage--MainPicture EachImage--download'>
           <img src={src} alt="" style={{ width, height }} />
-
         </div>
         <div className='EachImage--arrow1'>
           <img src="../../eventsup/right-arrow.png" onClick={handleNext} alt="" />

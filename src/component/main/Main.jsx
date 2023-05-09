@@ -2,14 +2,14 @@ import './main.css';
 import { useState, useEffect } from 'react';
 
 function Main() {
-  const [videoSrc, setVideoSrc] = useState("../../video/DeadSeaEnd169.mp4");
+  const [videoSrc, setVideoSrc] = useState("https://bikerpicture.s3.eu-south-1.amazonaws.com/video/DeadSeaEnd169.mp4");
 
   useEffect(() => {
-    function handleResize(){
+    function handleResize() {
       if (window.innerWidth < 700) {
-        setVideoSrc("../../video/DeadSeaEnd916.mp4");
+        setVideoSrc("https://bikerpicture.s3.eu-south-1.amazonaws.com/video/DeadSeaEnd916.mp4");
       } else {
-        setVideoSrc("../../video/DeadSeaEnd169.mp4");
+        setVideoSrc("https://bikerpicture.s3.eu-south-1.amazonaws.com/video/DeadSeaEnd169.mp4");
       }
     };
 
@@ -23,11 +23,10 @@ function Main() {
 
   return (
     <div className="Main--body">
-        <video src={videoSrc} autoPlay loop muted />
-        <img src="../../down-arrow.png" alt="" className="Main--arrow" />
+      <video src={videoSrc} autoPlay loop muted playsInline preload="auto" />
+      <img src="../../down-arrow.png" alt="" className="Main--arrow" />
     </div>
   );
 }
-
 
 export default Main;
