@@ -13,15 +13,16 @@ function AboutUs() {
     }
   };
 
-  const [setBackgroundImageSource] = useState(getBackgroundImageSource());
+  const [backgroundImageSrc, setBackgroundImageSrc] = useState(getBackgroundImageSource());
   useEffect(() => {
     const handleResize = () => {
-      setBackgroundImageSource(getBackgroundImageSource());
+      setBackgroundImageSrc(getBackgroundImageSource());
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
 
   return (
     <div className="aboutUs--body">
