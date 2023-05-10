@@ -32,13 +32,13 @@ function EachImage() {
       <div className={`EachImage--amountImages ${isWide ? 'EachImage--isWide' : ""}`}>{`${index + 1} / ${GalleryData.length}`}</div>
       <div className='EachImage--container'>
         <div className='EachImage--arrow'>
-          <img src="../../eventsup/left-arrow.png" onClick={handlePrev} alt="" />
+          <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="" />
         </div>
         <div className='EachImage--MainPicture EachImage--download'>
           <img src={src} alt="" style={{ width, height }} />
         </div>
         <div className='EachImage--arrow1'>
-          <img src="../../eventsup/right-arrow.png" onClick={handleNext} alt="" />
+          <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="" />
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ const GalleryData = [
     { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3754-min.JPG', width: 500, height: 651 },
     { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3769-min.JPG', width: 500, height: 651 },
     { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3774-min.JPG', width: 500, height: 651 },
-    { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3791-min.JPG', width: 650, height: 433 , isWide: true},
+    { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3791-min.JPG', width: 650, height: 433 , asdasdsad: true},
     { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3800-min.JPG', width: 650, height: 433 , isWide: true},
     { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3809-min.JPG', width: 650, height: 433 , isWide: true},
     { src: 'https://bikerpicture.s3.eu-south-1.amazonaws.com/compressed/20230113-IMG_3939-min.JPG', width: 650, height: 433 , isWide: true},
@@ -23,3 +23,4 @@ const GalleryData = [
   ]
   export default GalleryData;
   
+//0502828803 מוסטפה

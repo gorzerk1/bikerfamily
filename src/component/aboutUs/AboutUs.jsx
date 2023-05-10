@@ -43,7 +43,7 @@ function AboutUs() {
               <div style={{color:"red"}}>300+</div>
             </div>
             <div className='aboutUs--amount'>
-              <div>ס"הכ אירועים</div>
+              <div>סה"כ אירועים</div>
               <div style={{color:"red"}}>50+</div>
             </div>
           </div>
