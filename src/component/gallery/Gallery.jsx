@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './gallery.css';
-import GalleryData from '../../data/GalleryData.jsx';
+import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 import {Link} from "react-router-dom"
 import { MyContext } from '../../data/ThemeProvider';
 
 function Gallery() {
-  const [galleryImages] = useState(GalleryData);
+  const [galleryImages] = useState([...GalleryHeight, ...GalleryWidth]);
   const [currentGroup, setCurrentGroup] = useState(1);
   const { setImageIndex } = useContext(MyContext);
 

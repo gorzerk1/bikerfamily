@@ -1,41 +1,41 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './eachImage.css';
-import GalleryData from '../../data/GalleryData.jsx';
-import { MyContext } from '../../data/ThemeProvider';
+import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 
 function EachImage() {
-  const { imageIndex } = useContext(MyContext);
-  const [index, setIndex] = useState(imageIndex || 0);
-  const [currentImage, setCurrentImage] = useState(GalleryData[0] || {});
-  const { src, width, height, isWide } = currentImage;
+  const [allImages, setAllImages] = useState([...GalleryHeight, ...GalleryWidth]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const currentImage = allImages[currentImageIndex];
 
-  useEffect(() => {
-    setCurrentImage(GalleryData[index] || {});
-  }, [index]);
+  const handleNext = () => {
+    setCurrentImageIndex((prevImageIndex) => {
+      return (prevImageIndex + 1) % allImages.length;
+    });
+  };
 
-  function handleNext() {
-    if (index < GalleryData.length - 1) {
-      setIndex(index + 1);
-    }
-  }
-
-  function handlePrev() {
-    if (index > 0) {
-      setIndex(index - 1);
-    }
-  }
-
+  const handlePrev = () => {
+    setCurrentImageIndex((prevImageIndex) => {
+      return (prevImageIndex - 1 + allImages.length) % allImages.length;
+    });
+  };
 
   return (
     <div className="EachImage--body">
-      <img src={src} alt="" />
-      <div className={`EachImage--amountImages ${isWide ? 'EachImage--isWide' : ""}`}>{`${index + 1} / ${GalleryData.length}`}</div>
+      <img src={currentImage.src} alt="" />
+      <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
       <div className='EachImage--container'>
         <div className='EachImage--arrow'>
           <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="" />
         </div>
         <div className='EachImage--MainPicture EachImage--download'>
-          <img src={src} alt="" style={{ width, height }} />
+          <img 
+            src={currentImage.src} 
+            alt="" 
+            style={{ 
+              width: `${currentImage.width}px`, 
+              height: `${currentImage.height}px`
+            }} 
+          />
         </div>
         <div className='EachImage--arrow1'>
           <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="" />
