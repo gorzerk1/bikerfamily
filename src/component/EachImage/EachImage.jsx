@@ -5,7 +5,7 @@ import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom"
 
 function EachImage() {
-  const [allImages, setAllImages] = useState([...GalleryHeight, ...GalleryWidth]);
+  const [allImages] = useState([...GalleryHeight, ...GalleryWidth]);
   const { imageIndex } = useContext(MyContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(
     Math.max(0, Math.min(imageIndex, allImages.length - 1))
