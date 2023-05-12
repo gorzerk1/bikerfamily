@@ -59,12 +59,16 @@ body {
   cursor: pointer;
 }
 
-.EachImage--MainPicture {
-  width: 60%;
-  height: 100%;
+.EachImage--computersize {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 60%;
+  height: 100%;
+}
+
+.EachImage--computersize > img {
+
 }
 
 
@@ -79,8 +83,8 @@ body {
 }
 .EachImage--exitIcon {
   position: absolute;
-  top:5.2%;
-  left:10%;
+  top:7%;
+  left:4.2%;
   z-index: 3;
 }
   
@@ -94,14 +98,11 @@ body {
 .download:active {
   transform: scale(0.9);
 }
-.EachImage--MainPicture :last-child{
-  position: absolute;
-}
 
 
 
 
-@media (max-width:1220px) {
+@media (max-width:1440px) {
   .EachImage--arrow {
     width: 20%;
     height: 100%;
@@ -116,10 +117,18 @@ body {
     align-items: center;
     justify-content: center;
   }
+  .EachImage--amountImages {
+    top:2.5%;
+    right:5%;
+  }
+  .EachImage--exitIcon {
+    left:2%;
+    top:2%;
+  }
 }
 
 @media (max-width:910px) {
-  .EachImage--MainPicture {
+  .EachImage--computersize {
     width: 100%;
   }
   .EachImage--arrow {
@@ -130,20 +139,27 @@ body {
     position: absolute;
     right:0;
     justify-content: flex-end;
-    
+  }
+  .EachImage--amountImages {
+    top:2%;
+    right:4%;
+  }
+  .EachImage--exitIcon {
+    left:2%;
+    top:2%;
   }
 }
 
 @media (max-width:540px) {
-  .EachImage--MainPicture > img {
-    margin:0;
-    width: 100vw;
-    height: 80vh;
-  }
   .EachImage--amountImages {
-    left:39%;
+    top:5.5%;
+    right:10%;
   }
   .EachImage--isWide {
     top:22%
   }
+}
+
+@media (max-width:450px) {
+
 }

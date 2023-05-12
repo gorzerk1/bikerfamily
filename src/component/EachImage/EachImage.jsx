@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import './eachImage.css';
 import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 import { MyContext } from '../../data/ThemeProvider';
@@ -10,36 +10,43 @@ function EachImage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(
     Math.max(0, Math.min(imageIndex, allImages.length - 1))
   );
-  
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
   }, [imageIndex]);
-  
+
+  useLayoutEffect(() => {
+    const handleWindowResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
 
   const currentImage = allImages[currentImageIndex];
 
-  const handleNext = () => {
+  function handleNext(){
     setCurrentImageIndex((prevImageIndex) => {
       return (prevImageIndex + 1) % allImages.length;
     });
   };
 
-  const handlePrev = () => {
+  function handlePrev(){
     setCurrentImageIndex((prevImageIndex) => {
       return (prevImageIndex - 1 + allImages.length) % allImages.length;
     });
   };
+
   return (
     <div className="EachImage--body">
-      <img src={currentImage.src} alt="" />
+      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="" />
       <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
       <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="" /></Link>
       <div className='EachImage--container'>
         <div className='EachImage--arrow'>
           <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="" />
         </div>
-        <div className='EachImage--MainPicture EachImage--download'>
+        <div className='EachImage--computersize'>
+        {windowWidth >= 450 &&
           <img 
             src={currentImage.src} 
             alt="" 
@@ -48,6 +55,7 @@ function EachImage() {
               height: `${currentImage.height}px`
             }} 
           />
+        }
         </div>
         <div className='EachImage--arrow1'>
           <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="" />
