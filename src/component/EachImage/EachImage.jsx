@@ -14,7 +14,8 @@ function EachImage() {
 
   useEffect(() => {
     setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
-  }, [imageIndex]);
+  }, [imageIndex, allImages.length]);
+  
 
   useLayoutEffect(() => {
     const handleWindowResize = () => setWindowWidth(window.innerWidth);
@@ -38,7 +39,7 @@ function EachImage() {
 
   return (
     <div className="EachImage--body">
-      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="" />
+      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="background" />
       <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
       <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="" /></Link>
       <div className='EachImage--container'>
@@ -49,7 +50,7 @@ function EachImage() {
         {windowWidth >= 450 &&
           <img 
             src={currentImage.src} 
-            alt="" 
+            alt="image" 
             style={{ 
               width: `${currentImage.width}px`, 
               height: `${currentImage.height}px`
