@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './eachImage.css';
 import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
+import { MyContext } from '../../data/ThemeProvider';
+import { Link } from "react-router-dom"
 
 function EachImage() {
   const [allImages, setAllImages] = useState([...GalleryHeight, ...GalleryWidth]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { imageIndex } = useContext(MyContext);
+  const [currentImageIndex, setCurrentImageIndex] = useState(
+    Math.max(0, Math.min(imageIndex, allImages.length - 1))
+  );
+  
+
+  useEffect(() => {
+    setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
+  }, [imageIndex]);
+  
+
   const currentImage = allImages[currentImageIndex];
 
   const handleNext = () => {
@@ -18,11 +30,11 @@ function EachImage() {
       return (prevImageIndex - 1 + allImages.length) % allImages.length;
     });
   };
-
   return (
     <div className="EachImage--body">
       <img src={currentImage.src} alt="" />
       <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
+      <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="" /></Link>
       <div className='EachImage--container'>
         <div className='EachImage--arrow'>
           <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="" />

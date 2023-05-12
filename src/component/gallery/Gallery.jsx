@@ -45,7 +45,7 @@ function Gallery() {
     <div className="gallery--body">
       <img src="../../marblebackground.png" alt="" />
       <div className="gallery--title">
-        <div>גלריה שלנו</div>
+        <div>הטיולים שלנו</div>
       </div>
       <div className="gallery--container">
           {galleryImages
