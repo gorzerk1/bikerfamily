@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './eachImage.css';
 import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 
