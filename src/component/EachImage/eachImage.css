@@ -67,9 +67,6 @@ body {
   height: 100%;
 }
 
-.EachImage--computersize > img {
-
-}
 
 
 .EachImage--amountImages {
@@ -158,8 +155,4 @@ body {
   .EachImage--isWide {
     top:22%
   }
-}
-
-@media (max-width:450px) {
-
 }

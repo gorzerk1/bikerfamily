@@ -39,7 +39,7 @@ function EachImage() {
 
   return (
     <div className="EachImage--body">
-      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="leonardo devichi" />
+      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="leonardo" />
       <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
       <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="Exit button" /></Link>
       <div className='EachImage--container'>
@@ -50,7 +50,7 @@ function EachImage() {
         {windowWidth >= 450 &&
           <img 
             src={currentImage.src} 
-            alt="leonardo devichi" 
+            alt="leonardo"
             style={{ 
               width: `${currentImage.width}px`, 
               height: `${currentImage.height}px`
