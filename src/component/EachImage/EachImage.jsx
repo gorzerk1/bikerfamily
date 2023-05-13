@@ -39,12 +39,12 @@ function EachImage() {
 
   return (
     <div className="EachImage--body">
-      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="leonardo" />
+      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="leonardoback" />
       <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
-      <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="Exit button" /></Link>
+      <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="lenardobyebye" /></Link>
       <div className='EachImage--container'>
         <div className='EachImage--arrow'>
-          <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="Previous image" />
+          <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
         </div>
         <div className='EachImage--computersize'>
         {windowWidth >= 450 &&
@@ -59,7 +59,7 @@ function EachImage() {
         }
         </div>
         <div className='EachImage--arrow1'>
-          <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="Next image" />
+          <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="leonardoright" />
         </div>
       </div>
     </div>
