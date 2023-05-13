@@ -7,11 +7,13 @@ function Main() {
   const videoRef = useRef(null);
 
   useEffect(() => {
+    const currentVideoRef = videoRef.current;
+
     function handleResize() {
       if (window.innerWidth < 700) {
-        videoRef.current.src = VideoData[videoIndex].height;
+        currentVideoRef.src = VideoData[videoIndex].height;
       } else {
-        videoRef.current.src = VideoData[videoIndex].width;
+        currentVideoRef.src = VideoData[videoIndex].width;
       }
     };
 
@@ -26,13 +28,13 @@ function Main() {
     }
 
     window.addEventListener('resize', handleResize);
-    videoRef.current.addEventListener('ended', handleVideoEnd);
+    currentVideoRef.addEventListener('ended', handleVideoEnd);
     handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (videoRef.current) {
-        videoRef.current.removeEventListener('ended', handleVideoEnd);
+      if (currentVideoRef) {
+        currentVideoRef.removeEventListener('ended', handleVideoEnd);
       }
     };
   }, [videoIndex]);
