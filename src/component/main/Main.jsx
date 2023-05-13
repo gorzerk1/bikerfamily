@@ -1,29 +1,45 @@
 import './main.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { VideoData } from '../../data/VideoData.jsx';
 
 function Main() {
-  const [videoSrc, setVideoSrc] = useState("https://bikerpicture.s3.eu-south-1.amazonaws.com/video/Deadseaend169C.mp4");
+  const [videoIndex, setVideoIndex] = useState(Math.floor(Math.random() * VideoData.length));
+  const videoRef = useRef(null);
 
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 700) {
-        setVideoSrc("https://bikerpicture.s3.eu-south-1.amazonaws.com/video/Deadseaend916C.mp4");
+        videoRef.current.src = VideoData[videoIndex].height;
       } else {
-        setVideoSrc("https://bikerpicture.s3.eu-south-1.amazonaws.com/video/Deadseaend169C.mp4");
+        videoRef.current.src = VideoData[videoIndex].width;
       }
     };
 
+    function handleVideoEnd() {
+      setVideoIndex(() => {
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * VideoData.length);
+        } while(newIndex === videoIndex)
+        return newIndex;
+      });
+    }
+
     window.addEventListener('resize', handleResize);
+    videoRef.current.addEventListener('ended', handleVideoEnd);
     handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      if (videoRef.current) {
+        videoRef.current.removeEventListener('ended', handleVideoEnd);
+      }
     };
-  }, []);
+  }, [videoIndex]);
 
   return (
     <div className="Main--body">
-      <video src={videoSrc} autoPlay loop muted playsInline />
+      <video ref={videoRef} autoPlay muted playsInline />
       <img src="../../down-arrow.png" alt="" className="Main--arrow" />
     </div>
   );
