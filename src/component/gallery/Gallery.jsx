@@ -8,20 +8,6 @@ function Gallery() {
   const [galleryImages] = useState([...GalleryHeight, ...GalleryWidth]);
   const [currentGroup, setCurrentGroup] = useState(1);
   const { setImageIndex } = useContext(MyContext);
-
-  const getWindowWidth = () => {
-    const { clientWidth } = document.documentElement;
-    if (clientWidth <= 650) {
-      return 6;
-    } else if (clientWidth <= 960) {
-      return 9;
-    } else if (clientWidth <= 1275) {
-      return 12;
-    } else {
-      return 15;
-    }
-  };
-
   const [imagesPerGroup, setImagesPerGroup] = useState(getWindowWidth());
   const totalGroups = Math.ceil(galleryImages.length / imagesPerGroup);
 
@@ -34,7 +20,22 @@ function Gallery() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const moveGroup = (direction) => {
+  
+  function getWindowWidth(){
+    const { clientWidth } = document.documentElement;
+    if (clientWidth <= 650) {
+      return 6;
+    } else if (clientWidth <= 960) {
+      return 9;
+    } else if (clientWidth <= 1275) {
+      return 12;
+    } else {
+      return 18;
+    }
+  };
+
+
+  function moveGroup(direction){
     if (direction === 'left' && currentGroup > 1) {
       setCurrentGroup(currentGroup - 1);
     } else if (direction === 'right' && currentGroup < totalGroups) {
