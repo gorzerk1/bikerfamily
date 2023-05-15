@@ -12,7 +12,7 @@ function Contact() {
   const whatsappMessage = `שלום שמי ${name}.\n${message}.\nפלאפון שלי הוא ${phone}.\nתודה רבה.`;
   const whatsappLink = `https://wa.me/972526600907?text=${encodeURIComponent(whatsappMessage)}`;
 
-  const validate = () => {
+  function validate(){
     const nameRegex = /^[a-zA-Z\s]{4,}$/;
     const phoneRegex = /^[0-9]{10}$/;
     const validPhonePrefixes = ['050', '052', '053', '054', '055', '056', '058'];
@@ -41,7 +41,7 @@ function Contact() {
     const nameRegex = /^[a-zA-Zא-ת\s]{4,}$/;
     const phoneRegex = /^[0-9]{10}$/;
     const validPhonePrefixes = ['050', '052', '053', '054', '055', '056', '058'];
-
+  
     if (!nameRegex.test(name) && userHasClicked.name) {
       setNameType("text1");
     } else {
@@ -54,7 +54,8 @@ function Contact() {
       setPhoneType("text");
     }
     
-  }, [name, phone]);
+  }, [name, phone, userHasClicked.name, userHasClicked.phone]);
+  
 
   return (
     <div className="contact--body">
