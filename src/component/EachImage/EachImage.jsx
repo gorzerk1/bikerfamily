@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import './eachImage.css';
+import axios from 'axios';
 import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom"
@@ -15,7 +16,6 @@ function EachImage() {
   useEffect(() => {
     setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
   }, [imageIndex, allImages.length]);
-  
 
   useLayoutEffect(() => {
     const handleWindowResize = () => setWindowWidth(window.innerWidth);
@@ -24,6 +24,7 @@ function EachImage() {
   }, []);
 
   const currentImage = allImages[currentImageIndex];
+  const imageSizeClass = `EachImage--buttons--${currentImage.imageSize}`;
 
   function handleNext(){
     setCurrentImageIndex((prevImageIndex) => {
@@ -39,7 +40,7 @@ function EachImage() {
 
   return (
     <div className="EachImage--body">
-      <img src={currentImage.src} style={windowWidth >= 450 ? {opacity : 0.4} : {opacity : 1}} alt="leonardoback" />
+      <img src={currentImage.src}  alt="leonardoback" />
       <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
       <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="lenardobyebye" /></Link>
       <div className='EachImage--container'>
@@ -47,16 +48,19 @@ function EachImage() {
           <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
         </div>
         <div className='EachImage--computersize'>
-        {windowWidth >= 450 &&
-          <img 
-            src={currentImage.src} 
-            alt="leonardo"
-            style={{ 
-              width: `${currentImage.width}px`, 
-              height: `${currentImage.height}px`
-            }} 
-          />
-        }
+        <img 
+          src={currentImage.src} 
+          alt="leonardo"
+          style={{ 
+            width: `${windowWidth <1050 ? currentImage.width / 1.5 : currentImage.width}px`, 
+            height: `${windowWidth < 1050 ? currentImage.height / 1.5 : currentImage.height}px`
+          }} 
+        />
+        <div className={imageSizeClass}>
+          <img src="../../download.png" alt="" />
+          {windowWidth <= 1050 && currentImage.imageSize === 'height' && <img src="../../resize.png" alt="" />}
+          {windowWidth <= 1050 && currentImage.imageSize === 'width' && <img src="../../rotate.png" alt="" />}
+        </div>
         </div>
         <div className='EachImage--arrow1'>
           <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="leonardoright" />

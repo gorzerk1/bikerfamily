@@ -23,11 +23,15 @@ function Gallery() {
   
   function getWindowWidth(){
     const { clientWidth } = document.documentElement;
-    if (clientWidth <= 650) {
-      return 6;
-    } else if (clientWidth <= 960) {
-      return 9;
-    } else if (clientWidth <= 1275) {
+    if (clientWidth <= 450){
+      return 10;
+    } else if (clientWidth <= 650) {
+      return 12;
+    } else if (clientWidth <= 812) {
+      return 16;
+    } else if (clientWidth <= 1050) {
+      return 15;
+    } else if (clientWidth <= 1500) {
       return 12;
     } else {
       return 18;

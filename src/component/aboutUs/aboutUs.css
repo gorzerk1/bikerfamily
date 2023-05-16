@@ -215,3 +215,8 @@ body {
 }
 
 
+@media (max-width: 815px) {
+    * {
+        font-size: 1rem;
+    }
+}

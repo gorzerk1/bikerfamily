@@ -13,7 +13,7 @@ function Contact() {
   const whatsappLink = `https://wa.me/972526600907?text=${encodeURIComponent(whatsappMessage)}`;
 
   function validate(){
-    const nameRegex = /^[a-zA-Z\s]{4,}$/;
+    const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
     const phoneRegex = /^[0-9]{10}$/;
     const validPhonePrefixes = ['050', '052', '053', '054', '055', '056', '058'];
 
@@ -38,7 +38,7 @@ function Contact() {
 
 
   useEffect(() => {
-    const nameRegex = /^[a-zA-Zא-ת\s]{4,}$/;
+    const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
     const phoneRegex = /^[0-9]{10}$/;
     const validPhonePrefixes = ['050', '052', '053', '054', '055', '056', '058'];
   
