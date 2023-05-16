@@ -11,6 +11,8 @@ function EachImage() {
     Math.max(0, Math.min(imageIndex, allImages.length - 1))
   );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isRotated, setIsRotated] = useState(false);
+
 
   useEffect(() => {
     setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
@@ -37,6 +39,11 @@ function EachImage() {
     });
   };
 
+  function handleRotate(){
+    setIsRotated(prevState => !prevState);
+  };
+  
+  console.log(imageSizeClass)
   return (
     <div className="EachImage--body">
       <img src={currentImage.src}  alt="leonardoback" />
@@ -46,17 +53,19 @@ function EachImage() {
         <div className='EachImage--arrow'>
           <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
         </div>
-        <div className='EachImage--computersize'>
+        <div className={`EachImage--computersize`}  >
         <img 
           src={currentImage.src} 
           alt="leonardo"
           style={{ 
             width: `${windowWidth < 1050 ? currentImage.width / 1.5 : currentImage.width}px`, 
-            height: `${windowWidth < 1050 ? currentImage.height / 1.5 : currentImage.height}px`
+            height: `${windowWidth < 1050 ? currentImage.height / 1.5 : currentImage.height}px`,
+            
           }} 
         />
-        <div className={imageSizeClass}>
-            <img src="../../download.png" alt="" />
+        <div className={`${imageSizeClass} `}  >
+          <img src="../../download.png" alt="" />
+          {imageSizeClass == "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
         </div>
         </div>
         <div className='EachImage--arrow1'>
