@@ -52,14 +52,12 @@ function EachImage() {
           src={currentImage.src} 
           alt="leonardo"
           style={{ 
-            width: `${windowWidth <1050 ? currentImage.width / 1.5 : currentImage.width}px`, 
+            width: `${windowWidth < 1050 ? currentImage.width / 1.5 : currentImage.width}px`, 
             height: `${windowWidth < 1050 ? currentImage.height / 1.5 : currentImage.height}px`
           }} 
         />
         <div className={imageSizeClass}>
-          <img src="../../download.png" alt="" />
-          {windowWidth <= 1050 && currentImage.imageSize === 'height' && <img src="../../resize.png" alt="" />}
-          {windowWidth <= 1050 && currentImage.imageSize === 'width' && <img src="../../rotate.png" alt="" />}
+            <img src="../../download.png" alt="" />
         </div>
         </div>
         <div className='EachImage--arrow1'>

@@ -117,8 +117,9 @@ body {
   height: 48px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0 0 5px 5px;
-  
+  cursor: pointer;
 }
+
 .EachImage--buttons--height > :nth-child(2) {
   position: absolute;
   bottom:-2px;
@@ -142,7 +143,9 @@ body {
   height: 50px;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 0 0 5px 5px;
+  cursor: pointer;
 }
+
 .EachImage--buttons--width > :nth-child(3) {
   position: absolute;
   bottom:0;
