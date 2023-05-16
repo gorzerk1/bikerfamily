@@ -11,7 +11,7 @@ function EachImage() {
     Math.max(0, Math.min(imageIndex, allImages.length - 1))
   );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isRotated, setIsRotated] = useState(false);
+  const [setIsRotated] = useState(false);
 
 
   useEffect(() => {
