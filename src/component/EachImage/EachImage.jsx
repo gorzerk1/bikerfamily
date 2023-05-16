@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import './eachImage.css';
-import axios from 'axios';
 import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom"
