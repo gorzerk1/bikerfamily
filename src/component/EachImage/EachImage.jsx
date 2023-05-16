@@ -65,7 +65,7 @@ function EachImage() {
         />
         <div className={`${imageSizeClass} `}  >
           <img src="../../download.png" alt="" />
-          {imageSizeClass == "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
+          {imageSizeClass === "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
         </div>
         </div>
         <div className='EachImage--arrow1'>
