@@ -57,6 +57,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
+  z-index: 2;
 }
 .EachImage--arrow1 > img {
   width: 45px;
@@ -125,6 +127,7 @@ body {
   position: absolute;
   width: 850px;
   height: 567px;
+  z-index: 100;
 }
 .EachImage--buttons--width > :nth-child(1) {
   position: absolute;
@@ -161,7 +164,19 @@ body {
   }
 }
 
-@media (max-width:1024px) {
+@media (max-width:1050px) {
+  .EachImage--computersize--rotate {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    transform: rotate(90deg) scale(1.3);
+  }
+  
+  .EachImage--computersize--rotate > :nth-child(1){
+    margin:0;
+  }
   .EachImage--buttons--height {
     width: 430px;
     height: 560px;
@@ -183,25 +198,11 @@ body {
   width: 566.67px;
   height: 378px;
 }
-.EachImage--rotate {
-  transform: rotate(90deg) scale(1.4);
-  width: 270px;
-  height: 405px;
-  position: absolute;
-  border:1px solid red;
- }
+
 
 }
 
-@media (max-width:768px) {
-  .EachImage--rotate {
-    position: absolute;
-    transform: rotate(90deg) scale(1.3);
-    border:1px solid red;
-    width: 290px;
-    height: 435px;
-   }
-}
+
 
 @media (max-width:570px) {
   .EachImage--amountImages {
@@ -211,30 +212,38 @@ body {
   .EachImage--isWide {
     top:22%
   }
-}
-
-@media (max-width:570px) {
   .EachImage--body > img {
     opacity: 0.2;
   }
   .EachImage--buttons--height {
     width: 100%;
+    position: absolute;
+    z-index: 3;
   }
   .EachImage--buttons--width {
     width: 100%;
+    height: 34vh;
   }
-  .EachImage--rotate--width {
-    width: 569px;
+
+  .EachImage--buttons--width__rotate {
+    width: 450px;
+    height: 300px;
+
   }
   .EachImage--arrow {
     position: absolute;
     left:0;
     justify-content: flex-start;
+
+    width: 20%;
+    height: 50vh;
   }
   .EachImage--arrow1 {
     position: absolute;
     right:0;
     justify-content: flex-end;
+    width: 20%;
+    height: 50vh;
 
   }
   .EachImage--amountImages {
@@ -242,10 +251,21 @@ body {
     right:4%;
   }
 
-   .EachImage--buttons--width > :nth-child(1),.EachImage--buttons--width > :nth-child(2) {
-    width: 40px;
-    height: 40px;
+   .EachImage--buttons--width > :nth-child(1) {
+    width: 35px;
+    height: 35px;
+   }
+   .EachImage--buttons--width > :nth-child(2) {
+    width: 35px;
+    height: 35px;
   }
 
   
+}
+
+@media (max-width:400px) {
+  .EachImage--buttons--width__rotate {
+    width: 447px;
+    height: 285px;
+  }
 }

@@ -92,3 +92,19 @@ body {
     }
 
 }
+
+@media (max-width: 450px) {
+    .navbar--container > img {
+        position: absolute;
+        bottom:-30%;
+        right:38%;
+    }
+}
+
+@media (max-width: 375px) {
+    .navbar--container > img {
+        position: absolute;
+        bottom:-30%;
+        right:36.5%;
+    }
+}

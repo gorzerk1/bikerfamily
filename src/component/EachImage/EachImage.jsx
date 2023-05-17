@@ -11,12 +11,21 @@ function EachImage() {
     Math.max(0, Math.min(imageIndex, allImages.length - 1))
   );
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [setIsRotated] = useState(false);
+  const [isRotated, setIsRotated] = useState(false);
+  const currentImage = allImages[currentImageIndex];
+  const imageSizeClass = `EachImage--buttons--${currentImage.imageSize}`;
+
 
 
   useEffect(() => {
     setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
   }, [imageIndex, allImages.length]);
+
+  useEffect(() => {
+    if(imageSizeClass === "EachImage--buttons--height") {
+      setIsRotated(false);
+    }
+  }, [imageSizeClass]);
 
   useLayoutEffect(() => {
     const handleWindowResize = () => setWindowWidth(window.innerWidth);
@@ -24,8 +33,7 @@ function EachImage() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
-  const currentImage = allImages[currentImageIndex];
-  const imageSizeClass = `EachImage--buttons--${currentImage.imageSize}`;
+
 
   function handleNext(){
     setCurrentImageIndex((prevImageIndex) => {
@@ -38,12 +46,22 @@ function EachImage() {
       return (prevImageIndex - 1 + allImages.length) % allImages.length;
     });
   };
+  
 
   function handleRotate(){
     setIsRotated(prevState => !prevState);
   };
+
+  function calculateDimensions(size) {
+    if (windowWidth < 570) {
+      return size / 1.9;
+    } else if (windowWidth < 1050) {
+      return size / 1.5;
+    } else {
+      return size;
+    }
+  }
   
-  console.log(imageSizeClass)
   return (
     <div className="EachImage--body">
       <img src={currentImage.src}  alt="leonardoback" />
@@ -53,19 +71,19 @@ function EachImage() {
         <div className='EachImage--arrow'>
           <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
         </div>
-        <div className={`EachImage--computersize`}  >
+        <div className={isRotated ? `EachImage--computersize--rotate` : `EachImage--computersize`} >
+
         <img 
           src={currentImage.src} 
           alt="leonardo"
           style={{ 
-            width: `${windowWidth < 1050 ? currentImage.width / 1.5 : currentImage.width}px`, 
-            height: `${windowWidth < 1050 ? currentImage.height / 1.5 : currentImage.height}px`,
-            
+            width: `${calculateDimensions(currentImage.width)}px`, 
+            height: `${calculateDimensions(currentImage.height)}px`,
           }} 
         />
-        <div className={`${imageSizeClass} `}  >
+        <div className={`${imageSizeClass} ${isRotated ? "EachImage--buttons--width__rotate" : ""}`} >
           <img src="../../download.png" alt="" />
-          {imageSizeClass === "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
+          {windowWidth < 1050 && imageSizeClass === "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
         </div>
         </div>
         <div className='EachImage--arrow1'>

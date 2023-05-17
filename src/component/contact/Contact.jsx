@@ -10,7 +10,7 @@ function Contact() {
   const [userHasClicked, setUserHasClicked] = useState({name: false, phone: false});  
 
   const whatsappMessage = `שלום שמי ${name}.\n${message}.\nפלאפון שלי הוא ${phone}.\nתודה רבה.`;
-  const whatsappLink = `https://wa.me/972526600907?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappLink = `https://wa.me/972549109603?text=${encodeURIComponent(whatsappMessage)}`;
 
   function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;

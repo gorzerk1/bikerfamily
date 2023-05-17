@@ -75,14 +75,14 @@ body {
     display: flex;
 }
 
-.aboutUs--half > button {
-    width: 200px;
-    height: 50px;
+.aboutUs--half > a {
+    width: 176px;
+    height: 40px;
     background-color: orange;
     border:0;
     margin-left: auto;
     color:white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
@@ -97,7 +97,7 @@ body {
 
 .custom-button:hover {
     border: 2px solid white;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .custom-button:active {
