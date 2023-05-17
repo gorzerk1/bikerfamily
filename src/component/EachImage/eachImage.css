@@ -43,7 +43,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  z-index: 2;
+  z-index: 10;
 }
 
 .EachImage--arrow > img {
@@ -58,7 +58,7 @@ body {
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  z-index: 2;
+  z-index: 10;
 }
 .EachImage--arrow1 > img {
   width: 45px;
@@ -91,7 +91,7 @@ body {
   position: absolute;
   top:7%;
   left:4.2%;
-  z-index: 3;
+  z-index: 111;
 }
   
 .EachImage--exitIcon > img {
@@ -127,7 +127,7 @@ body {
   position: absolute;
   width: 850px;
   height: 567px;
-  z-index: 100;
+  z-index: 1;
 }
 .EachImage--buttons--width > :nth-child(1) {
   position: absolute;
@@ -216,12 +216,13 @@ body {
     opacity: 0.2;
   }
   .EachImage--buttons--height {
-    width: 100%;
+    width: 340px;
+    height: 440px;
     position: absolute;
     z-index: 3;
   }
   .EachImage--buttons--width {
-    width: 100%;
+    width: 450px;
     height: 34vh;
   }
 
@@ -234,17 +235,17 @@ body {
     position: absolute;
     left:0;
     justify-content: flex-start;
-
+    z-index: 10;
     width: 20%;
-    height: 50vh;
+    height: 10vh;
   }
   .EachImage--arrow1 {
     position: absolute;
     right:0;
     justify-content: flex-end;
     width: 20%;
-    height: 50vh;
-
+    height: 10vh;
+    z-index: 10;
   }
   .EachImage--amountImages {
     top:2.5%;
@@ -261,6 +262,11 @@ body {
   }
 
   
+}
+@media (max-width:447px) {
+  .EachImage--buttons--width {
+    width: 100%;
+  }
 }
 
 @media (max-width:400px) {
