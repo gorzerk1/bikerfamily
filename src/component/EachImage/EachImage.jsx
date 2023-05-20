@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import './eachImage.css';
-import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
 import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom"
 
-function EachImage() {
-  const [allImages] = useState([...GalleryHeight, ...GalleryWidth]);
-  const { imageIndex } = useContext(MyContext);
+function EachImage({ imageIndex }) { // assuming imageIndex is passed as a prop
+  const { galleryHeight, galleryWidth } = useContext(MyContext);
+  const [allImages, setAllImages] = useState([...galleryHeight, ...galleryWidth]);
   const [currentImageIndex, setCurrentImageIndex] = useState(
     Math.max(0, Math.min(imageIndex, allImages.length - 1))
   );
@@ -14,8 +13,6 @@ function EachImage() {
   const [isRotated, setIsRotated] = useState(false);
   const currentImage = allImages[currentImageIndex];
   const imageSizeClass = `EachImage--buttons--${currentImage.imageSize}`;
-
-
 
   useEffect(() => {
     setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
@@ -32,8 +29,6 @@ function EachImage() {
     window.addEventListener("resize", handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
-
-
 
   function handleNext(){
     setCurrentImageIndex((prevImageIndex) => {

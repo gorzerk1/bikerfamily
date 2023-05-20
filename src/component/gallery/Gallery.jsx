@@ -1,51 +1,43 @@
 import React, { useState, useContext, useEffect } from 'react';
 import './gallery.css';
-import { GalleryHeight, GalleryWidth } from '../../data/GalleryData.jsx';
-import {Link} from "react-router-dom"
 import { MyContext } from '../../data/ThemeProvider';
 
 function Gallery() {
-  const [galleryImages] = useState([...GalleryHeight, ...GalleryWidth]);
-  const [currentGroup, setCurrentGroup] = useState(1);
-  const { setImageIndex } = useContext(MyContext);
-  const [imagesPerGroup, setImagesPerGroup] = useState(getWindowWidth());
-  const totalGroups = Math.ceil(galleryImages.length / imagesPerGroup);
-
+  const { galleryHeight, galleryWidth } = useContext(MyContext);
+  const [heightImages, setHeightImages] = useState([]);
+  const [widthImages, setWidthImages] = useState([]);
+  const [imageIndex, setImageIndex] = useState(10);
+  const [imagesPerGroup, setImagesPerGroup] = useState(window.innerWidth);
+  const totalGroups = Math.ceil((heightImages.length + widthImages.length) / imagesPerGroup);
+  
   useEffect(() => {
+    setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
+    setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
+
     const handleResize = () => {
-      setImagesPerGroup(getWindowWidth());
+      setImagesPerGroup(window.innerWidth);
     };
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [galleryHeight, galleryWidth]);
 
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
+  const handleRefresh = () => {
+    setImageIndex(10);
+    setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
+    setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
+  };
   
-  function getWindowWidth(){
-    const { clientWidth } = document.documentElement;
-    if (clientWidth <= 450){
-      return 10;
-    } else if (clientWidth <= 650) {
-      return 12;
-    } else if (clientWidth <= 812) {
-      return 16;
-    } else if (clientWidth <= 1050) {
-      return 15;
-    } else if (clientWidth <= 1500) {
-      return 12;
-    } else {
-      return 18;
-    }
-  };
-
-
-  function moveGroup(direction){
-    if (direction === 'left' && currentGroup > 1) {
-      setCurrentGroup(currentGroup - 1);
-    } else if (direction === 'right' && currentGroup < totalGroups) {
-      setCurrentGroup(currentGroup + 1);
-    }
-  };
   return (
     <div className="gallery--body">
       <img src="../../marblebackground.png" alt="" />
@@ -53,34 +45,20 @@ function Gallery() {
         <div>הטיולים שלנו</div>
       </div>
       <div className="gallery--container">
-          {galleryImages
-            .slice((currentGroup - 1) * imagesPerGroup, currentGroup * imagesPerGroup)
-            .map((image, index) => (
-                <Link to="/fullGallery" className="gallery--frame" key={index}>
-                        <img
-                          src={image.src}
-                          alt=""
-                          onClick={() => setImageIndex(index + (currentGroup - 1) * imagesPerGroup)}
-                        />
-                </Link>
-            ))}
-      </div>
-      <div className="gallery--showPictures">
-          <img
-            src="../../eventsup/left-arrow.png"
-            alt=""
-            onClick={() => moveGroup('left')}
-          />
-          <div>
-            {currentGroup} / {totalGroups}
+        {widthImages.slice(0, imageIndex).map((img, index) => (
+          <div className={`gallery--container--width${index + 1}`}>
+            <img src={img.src} alt="" />
           </div>
-          <img
-            src="../../eventsup/right-arrow.png"
-            alt=""
-            onClick={() => moveGroup('right')}
-          />
+        ))}
+        {heightImages.slice(0, imageIndex).map((img, index) => (
+          <div className={`gallery--container--height${index + 1}`}>
+            <img src={img.src} alt="" />
+          </div>
+        ))}
       </div>
-
+      <div className='gallery--refresh' onClick={handleRefresh}>
+        <img src="../../refresh.png" alt="" />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,116 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-size);
+  box-sizing: border-box;
+}
+
+.gallery--container {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  width: 1024px;
+  height: 590px;
+  overflow: hidden;
+}
+
+.gallery--container > div {
+  min-width: 0;
+  min-height: 0;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.gallery--container > div > img {
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  margin:0;
+}
+
+
+
+/* Assigning specific grid cells to images using grid-row and grid-column properties */
+
+.gallery--container--width1 {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.gallery--container--width2 {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+.gallery--container--width3 {
+  grid-row:3 ;
+  grid-column:1;
+}
+
+.gallery--container--width4 {
+  grid-row: 3;
+  grid-column:2;
+}
+
+.gallery--container--width5 {
+  grid-row:5;
+  grid-column:1;
+}
+
+.gallery--container--width6 {
+  grid-row:5;
+  grid-column:2;
+}
+
+.gallery--container--width7 {
+  grid-row:2;
+  grid-column:3;
+}
+
+.gallery--container--width8 {
+  grid-row:2;
+  grid-column:4;
+}
+
+.gallery--container--width9 {
+  grid-row: 4;
+  grid-column:3;
+}
+
+.gallery--container--width10 {
+  grid-row:4;
+  grid-column:4;
+}
+
+.gallery--container--height1 {
+  grid-row: 1;
+  grid-column:3 / span 2;
+}
+
+.gallery--container--height2 {
+  grid-row:2;
+  grid-column:1/ span 2;
+}
+
+.gallery--container--height3 {
+  grid-row:3;
+  grid-column:3 / span 2;
+}
+
+.gallery--container--height4 {
+  grid-row:4;
+  grid-column:1/ span 2;
+}
+
+.gallery--container--height5 {
+  grid-row:5;
+  grid-column:3/ span 2;
+}
+
+

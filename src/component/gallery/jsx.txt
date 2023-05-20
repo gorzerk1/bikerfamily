@@ -1,0 +1,62 @@
+
+import './gallery.css';
+
+
+function Gallery() {
+
+  return (
+    <div className="gallery--body">
+      <img src="../../marblebackground.png" alt="" />
+      <div className="gallery--container">
+        <div className="gallery--container--width1">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width2">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width3">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width4">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width5">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width6">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width7">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width8">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width9">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--width10">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/width/20230331-IMG_7484-min.jpg" alt="" />
+        </div>
+        <div className="gallery--container--height1">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/height/20221231-IMG_3109_.jpg" alt="" />
+        </div>
+        <div className="gallery--container--height2">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/height/20221231-IMG_3109_.jpg" alt="" />
+        </div>
+        <div className="gallery--container--height3">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/height/20221231-IMG_3109_.jpg" alt="" />
+        </div>
+        <div className="gallery--container--height4">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/height/20221231-IMG_3109_.jpg" alt="" />
+        </div>
+        <div className="gallery--container--height5">
+          <img src="https://bikerpicture.s3.eu-south-1.amazonaws.com/height/20221231-IMG_3109_.jpg" alt="" />
+        </div>
+        
+      </div>
+    </div>
+  );
+}
+
+export default Gallery;

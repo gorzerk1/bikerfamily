@@ -50,6 +50,7 @@ body {
   width: 45px;
   height: 45px;
   cursor: pointer;
+  margin:0;
 }
 .EachImage--arrow1 {
   width: 45%;
@@ -59,11 +60,13 @@ body {
   justify-content: flex-start;
   position: relative;
   z-index: 10;
+  
 }
 .EachImage--arrow1 > img {
   width: 45px;
   height: 45px;
   cursor: pointer;
+  margin:0;
 }
 
 .EachImage--computersize {
@@ -267,11 +270,14 @@ body {
   .EachImage--buttons--width {
     width: 100%;
   }
+  .EachImage--buttons--width__rotate {
+    width: 447px;
+  }
 }
 
 @media (max-width:400px) {
   .EachImage--buttons--width__rotate {
     width: 447px;
-    height: 285px;
+    height: 298px;
   }
 }
