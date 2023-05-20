@@ -8,8 +8,7 @@ function Gallery() {
   const [widthImages, setWidthImages] = useState([]);
   const [imageIndex, setImageIndex] = useState(10);
   const [imagesPerGroup, setImagesPerGroup] = useState(window.innerWidth);
-  const totalGroups = Math.ceil((heightImages.length + widthImages.length) / imagesPerGroup);
-  
+
   useEffect(() => {
     setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
     setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
@@ -37,7 +36,7 @@ function Gallery() {
     setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
     setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
   };
-  
+
   return (
     <div className="gallery--body">
       <img src="../../marblebackground.png" alt="" />
