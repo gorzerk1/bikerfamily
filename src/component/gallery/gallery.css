@@ -224,20 +224,24 @@ body {
 }
 
 @media (max-width: 1200px) {
-  .gallery--body {
-    max-height: 270vh;
-  }
-  
   .gallery--container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-gap: 0.5em;
     grid-template-areas:
     "photo1 photoH1"
     "photo2 photoH1"
-    "photo3 photoH2"
-    "photo4 photoH2"
+    "photoH2 photo3"
+    "photoH2 photo4"
     "photo5 photoH3"
-    "photo6 photoH3";
+    "photo6 photoH3"
+    "photoH4 photo7"
+    "photoH4 photo8";
     grid-template-columns: repeat(2 , 1fr);
-    width: 90%;
+    width: 99%;
+    border-radius: 50px;
+    overflow: hidden;
   }
 
 }

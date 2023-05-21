@@ -14,6 +14,9 @@ function ThemeProvider({ children }) {
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
 
+
+  console.log(galleryHeight)
+  console.log(galleryWidth)
   const fetchImages = (path, setImages) => {
     var s3 = new AWS.S3();
     var params = { Bucket: 'bikerpicture', Prefix: path };
@@ -64,7 +67,6 @@ function ThemeProvider({ children }) {
                       setImages([...tempImageList]);
                     };
                     img.onerror = function() {
-                      // If image load failed again, it's removed from the list
                       failCount++;
                       console.log("Failed images count: " + failCount);
                     };
