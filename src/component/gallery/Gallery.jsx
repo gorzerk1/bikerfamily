@@ -6,17 +6,19 @@ function Gallery() {
   const { galleryHeight, galleryWidth } = useContext(MyContext);
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
-  const [imageIndex, setImageIndex] = useState(10);
-  const [imagesPerGroup, setImagesPerGroup] = useState(window.innerWidth);
+
+  const handleResize = () => {
+    if (window.innerWidth <= 1200) {
+      setHeightImages(shuffle([...galleryHeight]).slice(0, 3));
+      setWidthImages(shuffle([...galleryWidth]).slice(0, 6));
+    } else {
+      setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
+      setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
+    }
+  };
 
   useEffect(() => {
-    setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
-    setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
-
-    const handleResize = () => {
-      setImagesPerGroup(window.innerWidth);
-    };
-
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [galleryHeight, galleryWidth]);
@@ -32,9 +34,7 @@ function Gallery() {
   }
 
   const handleRefresh = () => {
-    setImageIndex(10);
-    setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
-    setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
+    handleResize();
   };
 
   return (
@@ -44,12 +44,12 @@ function Gallery() {
         <div>הטיולים שלנו</div>
       </div>
       <div className="gallery--container">
-        {widthImages.slice(0, imageIndex).map((img, index) => (
+        {widthImages.map((img, index) => (
           <div className={`gallery--container--width${index + 1}`}>
             <img src={img.src} alt="" />
           </div>
         ))}
-        {heightImages.slice(0, imageIndex).map((img, index) => (
+        {heightImages.map((img, index) => (
           <div className={`gallery--container--height${index + 1}`}>
             <img src={img.src} alt="" />
           </div>

@@ -1,22 +1,21 @@
 import React, { useState, useContext, useEffect, useLayoutEffect } from 'react';
 import './eachImage.css';
 import { MyContext } from '../../data/ThemeProvider';
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
-function EachImage({ imageIndex }) { // assuming imageIndex is passed as a prop
+function EachImage() {
   const { galleryHeight, galleryWidth } = useContext(MyContext);
-  const [allImages, setAllImages] = useState([...galleryHeight, ...galleryWidth]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(
-    Math.max(0, Math.min(imageIndex, allImages.length - 1))
-  );
+  const [allImages, setAllImages] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isRotated, setIsRotated] = useState(false);
-  const currentImage = allImages[currentImageIndex];
-  const imageSizeClass = `EachImage--buttons--${currentImage.imageSize}`;
-
+  
   useEffect(() => {
-    setCurrentImageIndex(Math.max(0, Math.min(imageIndex, allImages.length - 1)));
-  }, [imageIndex, allImages.length]);
+    setAllImages([...galleryHeight, ...galleryWidth]);
+  }, [galleryHeight, galleryWidth]);
+
+  const currentImage = allImages[currentImageIndex];
+  const imageSizeClass = currentImage ? `EachImage--buttons--${currentImage.imageSize}` : '';
 
   useEffect(() => {
     if(imageSizeClass === "EachImage--buttons--height") {
@@ -41,7 +40,6 @@ function EachImage({ imageIndex }) { // assuming imageIndex is passed as a prop
       return (prevImageIndex - 1 + allImages.length) % allImages.length;
     });
   };
-  
 
   function handleRotate(){
     setIsRotated(prevState => !prevState);
@@ -59,32 +57,35 @@ function EachImage({ imageIndex }) { // assuming imageIndex is passed as a prop
   
   return (
     <div className="EachImage--body">
-      <img src={currentImage.src}  alt="leonardoback" />
-      <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
-      <Link to="/" className='EachImage--exitIcon' ><img src="../../eventsup/exit.png" alt="lenardobyebye" /></Link>
-      <div className='EachImage--container'>
-        <div className='EachImage--arrow'>
-          <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
-        </div>
-        <div className={isRotated ? `EachImage--computersize--rotate` : `EachImage--computersize`} >
-
-        <img 
-          src={currentImage.src} 
-          alt="leonardo"
-          style={{ 
-            width: `${calculateDimensions(currentImage.width)}px`, 
-            height: `${calculateDimensions(currentImage.height)}px`,
-          }} 
-        />
-        <div className={`${imageSizeClass} ${isRotated ? "EachImage--buttons--width__rotate" : ""}`} >
-          <img src="../../download.png" alt="" />
-          {windowWidth < 1050 && imageSizeClass === "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
-        </div>
-        </div>
-        <div className='EachImage--arrow1'>
-          <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="leonardoright" />
-        </div>
-      </div>
+      {currentImage && (
+        <>
+          <img src={currentImage.src}  alt="leonardoback" />
+          <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
+          <Link to="/" className='EachImage--exitIcon'><img src="../../eventsup/exit.png" alt="lenardobyebye" /></Link>
+          <div className='EachImage--container'>
+            <div className='EachImage--arrow'>
+              <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
+            </div>
+            <div className={isRotated ? `EachImage--computersize--rotate` : `EachImage--computersize`}>
+              <img 
+                src={currentImage.src} 
+                alt="leonardo"
+                style={{ 
+                  width: `${calculateDimensions(currentImage.width)}px`, 
+                  height: `${calculateDimensions(currentImage.height)}px`,
+                }} 
+              />
+              <div className={`${imageSizeClass} ${isRotated ? "EachImage--buttons--width__rotate" : ""}`}>
+                <img src="../../download.png" alt="" />
+                {windowWidth < 1050 && imageSizeClass === "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
+              </div>
+            </div>
+            <div className='EachImage--arrow1'>
+              <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="leonardoright" />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 var AWS = require('aws-sdk');
 
 AWS.config.update({
@@ -10,15 +10,15 @@ AWS.config.update({
 const MyContext = React.createContext()
 
 function ThemeProvider({ children }) {
-  const [imageIndex, setImageIndex] = useState(null)
-  const [galleryHeight, setGalleryHeight] = useState([])
-  const [galleryWidth, setGalleryWidth] = useState([])
+  const [imageIndex, setImageIndex] = useState(null);
+  const [galleryHeight, setGalleryHeight] = useState([]);
+  const [galleryWidth, setGalleryWidth] = useState([]);
 
-  console.log(galleryHeight)
-
-  const fetchImages = (path, setImages, width, height) => {
+  const fetchImages = (path, setImages) => {
     var s3 = new AWS.S3();
     var params = { Bucket: 'bikerpicture', Prefix: path };
+    let tempImageList = [];
+    let failCount = 0;
 
     s3.listObjectsV2(params, function(err, data) {
       if (err) console.log(err, err.stack);
@@ -29,11 +29,50 @@ function ThemeProvider({ children }) {
           s3.getSignedUrl('getObject', urlParams, function(err, url){
             if (err) console.log(err, err.stack);
             else {
-              let imageSize = '';
-              if (width === 645 && height === 839) imageSize = 'height';
-              if (width === 850 && height === 567) imageSize = 'width';
-
-              setImages(images => [...images, {src: url, width: width, height: height, imageSize: imageSize}]);
+              let img = new Image();
+              img.onload = function() {
+                let width, height, imageSize;
+                if (path === 'width/') {
+                  width = 850;
+                  height = 567;
+                  imageSize = "width";
+                } else if (path === 'height/') {
+                  width = 645;
+                  height = 839;
+                  imageSize = "height";
+                }
+                tempImageList.push({src: url, width: width, height: height, imageSize: imageSize});
+                setImages([...tempImageList]);
+              };
+              img.onerror = function() {
+                s3.getSignedUrl('getObject', urlParams, function(err, url){
+                  if (err) console.log(err, err.stack);
+                  else {
+                    let img = new Image();
+                    img.onload = function() {
+                      let width, height, imageSize;
+                      if (path === 'width/') {
+                        width = 850;
+                        height = 567;
+                        imageSize = "width";
+                      } else if (path === 'height/') {
+                        width = 645;
+                        height = 839;
+                        imageSize = "height";
+                      }
+                      tempImageList.push({src: url, width: width, height: height, imageSize: imageSize});
+                      setImages([...tempImageList]);
+                    };
+                    img.onerror = function() {
+                      // If image load failed again, it's removed from the list
+                      failCount++;
+                      console.log("Failed images count: " + failCount);
+                    };
+                    img.src = url;
+                  }
+                });
+              };
+              img.src = url;
             }
           });
         }
@@ -42,8 +81,8 @@ function ThemeProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchImages('width/', setGalleryWidth, 850, 567);
-    fetchImages('height/', setGalleryHeight, 645, 839);
+    fetchImages('width/', setGalleryWidth);
+    fetchImages('height/', setGalleryHeight);
   }, []);
 
   return (
