@@ -14,9 +14,9 @@ function ThemeProvider({ children }) {
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
 
-
   console.log(galleryHeight)
   console.log(galleryWidth)
+  
   const fetchImages = (path, setImages) => {
     var s3 = new AWS.S3();
     var params = { Bucket: 'bikerpicture', Prefix: path };
@@ -27,9 +27,11 @@ function ThemeProvider({ children }) {
       if (err) console.log(err, err.stack);
       else {
         var bucketContents = data.Contents;
-        for (var i = 0; i < bucketContents.length; i++) {
-          var urlParams = {Bucket: 'bikerpicture', Key: bucketContents[i].Key};
-          s3.getSignedUrl('getObject', urlParams, function(err, url){
+        
+        bucketContents.forEach((bucketContent) => {
+          const urlParams = {Bucket: 'bikerpicture', Key: bucketContent.Key};
+
+          const handleImageLoad = (err, url) => {
             if (err) console.log(err, err.stack);
             else {
               let img = new Image();
@@ -48,36 +50,15 @@ function ThemeProvider({ children }) {
                 setImages([...tempImageList]);
               };
               img.onerror = function() {
-                s3.getSignedUrl('getObject', urlParams, function(err, url){
-                  if (err) console.log(err, err.stack);
-                  else {
-                    let img = new Image();
-                    img.onload = function() {
-                      let width, height, imageSize;
-                      if (path === 'width/') {
-                        width = 850;
-                        height = 567;
-                        imageSize = "width";
-                      } else if (path === 'height/') {
-                        width = 645;
-                        height = 839;
-                        imageSize = "height";
-                      }
-                      tempImageList.push({src: url, width: width, height: height, imageSize: imageSize});
-                      setImages([...tempImageList]);
-                    };
-                    img.onerror = function() {
-                      failCount++;
-                      console.log("Failed images count: " + failCount);
-                    };
-                    img.src = url;
-                  }
-                });
+                failCount++;
+                console.log("Failed images count: " + failCount);
               };
               img.src = url;
             }
-          });
-        }
+          };
+
+          s3.getSignedUrl('getObject', urlParams, handleImageLoad);
+        });
       }
     });
   };

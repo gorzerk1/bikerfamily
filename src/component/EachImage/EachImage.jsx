@@ -59,17 +59,17 @@ function EachImage() {
     <div className="EachImage--body">
       {currentImage && (
         <>
-          <img src={currentImage.src}  alt="leonardoback" />
-          <div className={`EachImage--amountImages`}>{`${currentImageIndex + 1} / ${allImages.length}`}</div>
-          <Link to="/" className='EachImage--exitIcon'><img src="../../eventsup/exit.png" alt="lenardobyebye" /></Link>
+          <img src={currentImage.src}  alt="" />
+          <div className="EachImage--amountImages">{`${currentImageIndex + 1} / ${allImages.length}`}</div>
+          <Link to="/" className='EachImage--exitIcon'><img src="../../eventsup/exit.png" alt="" /></Link>
           <div className='EachImage--container'>
             <div className='EachImage--arrow'>
-              <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="leonardoleft" />
+              <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="" />
             </div>
             <div className={isRotated ? `EachImage--computersize--rotate` : `EachImage--computersize`}>
               <img 
                 src={currentImage.src} 
-                alt="leonardo"
+                alt=""
                 style={{ 
                   width: `${calculateDimensions(currentImage.width)}px`, 
                   height: `${calculateDimensions(currentImage.height)}px`,
@@ -81,7 +81,7 @@ function EachImage() {
               </div>
             </div>
             <div className='EachImage--arrow1'>
-              <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="leonardoright" />
+              <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="l" />
             </div>
           </div>
         </>

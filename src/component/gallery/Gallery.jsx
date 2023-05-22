@@ -8,7 +8,10 @@ function Gallery() {
   const [widthImages, setWidthImages] = useState([]);
 
   const handleResize = () => {
-    if (window.innerWidth <= 1200) {
+    if (window.innerWidth <= 700) {
+      setHeightImages(shuffle([...galleryHeight]).slice(0, 2));
+      setWidthImages(shuffle([...galleryWidth]).slice(0, 4));
+    } else if (window.innerWidth <= 1200) {
       setHeightImages(shuffle([...galleryHeight]).slice(0, 3));
       setWidthImages(shuffle([...galleryWidth]).slice(0, 6));
     } else {
@@ -16,6 +19,7 @@ function Gallery() {
       setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
     }
   };
+
 
   useEffect(() => {
     handleResize();
