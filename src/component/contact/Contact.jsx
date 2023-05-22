@@ -5,7 +5,7 @@ function Contact() {
   const [name, setName] = useState("");
   const [bike, setBike] = useState("");
   const [location, setLocation] = useState("");
-  const [message, setMessage] = useState("");
+  const [message] = useState("");
   const [nameError, setNameError] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false});  
 
