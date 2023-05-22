@@ -6,7 +6,7 @@ function Contact() {
   const [bike, setBike] = useState("");
   const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
-  const [nameType, setNameType] = useState("");
+  const [nameError, setNameError] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false});  
 
   const whatsappMessage = `שלום שמי ${name}.\nאני גר ב${location}.\nהאופנוע שיש לי הוא ${bike}.\n${message}.`;
@@ -18,10 +18,10 @@ function Contact() {
     let isValid = true;
 
     if (!nameRegex.test(name)) {
-      setNameType("text1");
+      setNameError(true);
       isValid = false;
     } else {
-      setNameType("text");
+      setNameError(false);
     }
 
     return isValid;
@@ -31,9 +31,9 @@ function Contact() {
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
   
     if (!nameRegex.test(name) && userHasClicked.name) {
-      setNameType("text1");
+      setNameError(true);
     } else {
-      setNameType("text");
+      setNameError(false);
     }
     
   }, [name, userHasClicked.name]);
@@ -46,8 +46,8 @@ function Contact() {
         <div className='contact--subtitle'>אם יש לכם שאלות, אל תהססו ליצור איתנו קשר</div>
         <div className='contact-textarea'>
           <div>
-            {nameType === 'text1' && <div className="contact--errors" dir="rtl">* צריך לרשום לפנות 4 ספרות בעברית או אנגלית</div>}
-            <input type={nameType} placeholder="מה שמך ?" dir="rtl" value={name} onChange={(e) => {setName(e.target.value); setUserHasClicked(prev => ({...prev, name: true}))}} />
+            {nameError && <div className="contact--errors" dir="rtl">* צריך לרשום לפנות 4 ספרות בעברית או אנגלית</div>}
+            <input type="text" placeholder="מה שמך ?" dir="rtl" value={name} className={nameError ? 'error' : ''} onChange={(e) => {setName(e.target.value); setUserHasClicked(prev => ({...prev, name: true}))}} />
           </div>
           <div>
             <input type="text" placeholder="על מה את/ה רוכב/ת?" dir="rtl" value={bike} onChange={(e) => setBike(e.target.value)} />
@@ -55,7 +55,6 @@ function Contact() {
           <div>
             <input type="text" placeholder="מאיפה בארץ ? (עיר \ ישוב)" dir="rtl" value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
-          <textarea name="" id="" cols="30" rows="10" placeholder="ההודעה שלך" dir="rtl" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="contact-whatsapp" onClick={(e) => { if (!validate()) e.preventDefault(); }}>צרו קשר דרך ווטסאפ</a>
         </div>
       </div>

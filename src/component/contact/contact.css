@@ -86,14 +86,6 @@ input[type="text1"] {
     border:2px solid red;
 }
 
-textarea {
-    width:54%;
-    font-size: 1.3rem;
-    height: 15vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border:1px solid black;
-}
-
 .contract-button2 {
     transition: font-size 250ms;
     width: 55%;
@@ -161,11 +153,6 @@ textarea {
 
     }
     
-    textarea {
-        width:60%;
-        font-size: 1.3rem;
-        height: 15vh;
-    }
     .contact-whatsapp {
         width: 60%;
     }
@@ -208,7 +195,7 @@ textarea {
     .contact--subtitle {
         font-size: 0.8rem;
     }
-    input[type="text1"], input[type="text"], textarea {
+    input[type="text1"], input[type="text"] {
         font-size: 1rem;
     }
     .contact--errors {
@@ -229,7 +216,7 @@ textarea {
     }
 }
 @media (max-width: 450px) {
-    input[type="text1"], input[type="text"], textarea {
+    input[type="text1"], input[type="text"] {
         width: 90%;
     }
     .contact--errors {
