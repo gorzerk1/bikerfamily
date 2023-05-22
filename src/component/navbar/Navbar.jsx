@@ -28,7 +28,9 @@ function Navbar({ galleryRef, aboutUsRef, contactRef }) {
       <div className="navbar--container" dir="rtl">
         <div onClick={() => scrollTo(galleryRef)}>גלריה</div>
         <div onClick={() => scrollTo(aboutUsRef)}>אודותינו</div>
+        <div className='navbar--logo'>
         <img src="../../bikerlogo.png" alt="" />
+        </div>
         <div>אירועים</div>
         <div onClick={() => scrollTo(contactRef)}>צור קשר</div>
       </div>

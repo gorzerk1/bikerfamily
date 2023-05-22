@@ -32,7 +32,7 @@ body {
     cursor: pointer;
     padding: 10px;
 }
-.navbar--container > img {
+.navbar--logo > img {
     width: 9vh;
     height: 9vh;
     cursor: pointer;
@@ -56,7 +56,7 @@ body {
         width: 70%;
         font-size: 1.4rem;
     }
-    .navbar--container > img {
+    .navbar--logo > img {
     width: 9%;
     height: 9%;
     cursor: pointer;
@@ -68,7 +68,7 @@ body {
         width: 90%;
         font-size: 1.2rem;
     }
-    .navbar--container > img {
+    .navbar--logo > img {
     width: 90px;
     height: 90px;
     }
@@ -79,7 +79,7 @@ body {
         width: 100%;
         font-size: 1rem;
     }
-    .navbar--container > img {
+    .navbar--logo > img {
     width: 85px;
     height: 85px;
     }
@@ -94,17 +94,11 @@ body {
 }
 
 @media (max-width: 450px) {
-    .navbar--container > img {
+    .navbar--logo {
         position: absolute;
-        bottom:-30%;
-        right:38%;
-    }
-}
-
-@media (max-width: 375px) {
-    .navbar--container > img {
-        position: absolute;
-        bottom:-30%;
-        right:36.5%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        top:45%;
     }
 }

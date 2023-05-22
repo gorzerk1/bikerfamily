@@ -3,19 +3,17 @@ import "./contact.css";
 
 function Contact() {
   const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [bike, setBike] = useState("");
+  const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
   const [nameType, setNameType] = useState("");
-  const [phoneType, setPhoneType] = useState("");
-  const [userHasClicked, setUserHasClicked] = useState({name: false, phone: false});  
+  const [userHasClicked, setUserHasClicked] = useState({name: false});  
 
-  const whatsappMessage = `שלום שמי ${name}.\n${message}.\nפלאפון שלי הוא ${phone}.\nתודה רבה.`;
+  const whatsappMessage = `שלום שמי ${name}.\nאני גר ב${location}.\nהאופנוע שיש לי הוא ${bike}.\n${message}.`;
   const whatsappLink = `https://wa.me/972549109603?text=${encodeURIComponent(whatsappMessage)}`;
 
   function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
-    const phoneRegex = /^[0-9]{10}$/;
-    const validPhonePrefixes = ['050', '052', '053', '054', '055', '056', '058'];
 
     let isValid = true;
 
@@ -26,21 +24,11 @@ function Contact() {
       setNameType("text");
     }
 
-    if (!phoneRegex.test(phone) || !validPhonePrefixes.includes(phone.substring(0, 3))) {
-      setPhoneType("text1");
-      isValid = false;
-    } else {
-      setPhoneType("text");
-    }
-
     return isValid;
   }
 
-
   useEffect(() => {
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
-    const phoneRegex = /^[0-9]{10}$/;
-    const validPhonePrefixes = ['050', '052', '053', '054', '055', '056', '058'];
   
     if (!nameRegex.test(name) && userHasClicked.name) {
       setNameType("text1");
@@ -48,14 +36,7 @@ function Contact() {
       setNameType("text");
     }
     
-    if ((!phoneRegex.test(phone) || !validPhonePrefixes.includes(phone.substring(0, 3))) && userHasClicked.phone) {
-      setPhoneType("text1");
-    } else {
-      setPhoneType("text");
-    }
-    
-  }, [name, phone, userHasClicked.name, userHasClicked.phone]);
-  
+  }, [name, userHasClicked.name]);
 
   return (
     <div className="contact--body">
@@ -66,11 +47,13 @@ function Contact() {
         <div className='contact-textarea'>
           <div>
             {nameType === 'text1' && <div className="contact--errors" dir="rtl">* צריך לרשום לפנות 4 ספרות בעברית או אנגלית</div>}
-            <input type={nameType} placeholder="שם" dir="rtl" value={name} onChange={(e) => {setName(e.target.value); setUserHasClicked(prev => ({...prev, name: true}))}} />
+            <input type={nameType} placeholder="מה שמך ?" dir="rtl" value={name} onChange={(e) => {setName(e.target.value); setUserHasClicked(prev => ({...prev, name: true}))}} />
           </div>
           <div>
-            {phoneType === 'text1' && <div className="contact--errors" dir="rtl">* תרשום קידומת נכונה ורק מספרים</div>}
-            <input type={phoneType} placeholder="פלאפון" dir="rtl" value={phone} onChange={(e) => {setPhone(e.target.value); setUserHasClicked(prev => ({...prev, phone: true}))}} />
+            <input type="text" placeholder="על מה את/ה רוכב/ת?" dir="rtl" value={bike} onChange={(e) => setBike(e.target.value)} />
+          </div>
+          <div>
+            <input type="text" placeholder="מאיפה בארץ ? (עיר \ ישוב)" dir="rtl" value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
           <textarea name="" id="" cols="30" rows="10" placeholder="ההודעה שלך" dir="rtl" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
           <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="contact-whatsapp" onClick={(e) => { if (!validate()) e.preventDefault(); }}>צרו קשר דרך ווטסאפ</a>
