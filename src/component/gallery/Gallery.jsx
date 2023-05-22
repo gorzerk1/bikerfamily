@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import './gallery.css';
 import { MyContext } from '../../data/ThemeProvider';
 
@@ -7,7 +7,7 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
 
-  const handleResize = () => {
+  const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
       setHeightImages(shuffle([...galleryHeight]).slice(0, 2));
       setWidthImages(shuffle([...galleryWidth]).slice(0, 4));
@@ -18,14 +18,13 @@ function Gallery() {
       setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
       setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
     }
-  };
-
+  }, [galleryHeight, galleryWidth]);
 
   useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [galleryHeight, galleryWidth]);
+  }, [handleResize]);
 
   function shuffle(array) {
     let currentIndex = array.length, randomIndex;
