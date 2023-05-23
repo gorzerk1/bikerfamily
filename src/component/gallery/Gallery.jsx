@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import './gallery.css';
 import { MyContext } from '../../data/ThemeProvider';
+import { Link } from "react-router-dom";
 
 function Gallery() {
-  const { galleryHeight, galleryWidth } = useContext(MyContext);
+  const { galleryHeight, galleryWidth, setImageKey } = useContext(MyContext);
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
 
@@ -47,15 +48,15 @@ function Gallery() {
         <div>הטיולים שלנו</div>
       </div>
       <div className="gallery--container">
-        {widthImages.map((img, index) => (
-          <div className={`gallery--container--width${index + 1}`}>
-            <img src={img.src} alt="" />
-          </div>
+      {widthImages.map((img, index) => (
+          <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
+              <img src={img.src} alt="" />
+          </Link>
         ))}
         {heightImages.map((img, index) => (
-          <div className={`gallery--container--height${index + 1}`}>
-            <img src={img.src} alt="" />
-          </div>
+          <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
+              <img src={img.src} alt="" />
+          </Link>
         ))}
       </div>
       <div className='gallery--refresh' onClick={handleRefresh}>

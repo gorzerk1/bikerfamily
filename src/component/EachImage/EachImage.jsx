@@ -4,17 +4,31 @@ import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom";
 
 function EachImage() {
-  const { galleryHeight, galleryWidth } = useContext(MyContext);
+  const { imageKey, setImageKey, galleryHeight, galleryWidth } = useContext(MyContext);
   const [allImages, setAllImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isRotated, setIsRotated] = useState(false);
-  
+  const [currentImage, setCurrentImage] = useState(null);
+
   useEffect(() => {
     setAllImages([...galleryHeight, ...galleryWidth]);
   }, [galleryHeight, galleryWidth]);
 
-  const currentImage = allImages[currentImageIndex];
+
+  useEffect(() => {
+    if (imageKey !== null) {
+      const matchingImage = allImages.find((img) => img.key === imageKey);
+      if (matchingImage) {
+        setCurrentImage(matchingImage);
+        setCurrentImageIndex(allImages.indexOf(matchingImage));
+      }
+    } else {
+      setCurrentImage(allImages[currentImageIndex]);
+    }
+  }, [allImages, currentImageIndex, imageKey]);
+  
+
   const imageSizeClass = currentImage ? `EachImage--buttons--${currentImage.imageSize}` : '';
 
   useEffect(() => {
@@ -29,16 +43,19 @@ function EachImage() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
+  
   function handleNext(){
     setCurrentImageIndex((prevImageIndex) => {
       return (prevImageIndex + 1) % allImages.length;
     });
+    setImageKey(null);
   };
 
   function handlePrev(){
     setCurrentImageIndex((prevImageIndex) => {
       return (prevImageIndex - 1 + allImages.length) % allImages.length;
     });
+    setImageKey(null);
   };
 
   function handleRotate(){

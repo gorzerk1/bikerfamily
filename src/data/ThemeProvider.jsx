@@ -7,16 +7,13 @@ AWS.config.update({
   region: "eu-south-1" 
 });
 
-const MyContext = React.createContext()
+const MyContext = React.createContext();
 
 function ThemeProvider({ children }) {
-  const [imageIndex, setImageIndex] = useState(null);
+  const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
 
-  console.log(galleryHeight)
-  console.log(galleryWidth)
-  
   const fetchImages = (path) => {
     return new Promise((resolve, reject) => {
       var s3 = new AWS.S3();
@@ -49,23 +46,24 @@ function ThemeProvider({ children }) {
                     height = 839;
                     imageSize = "height";
                   }
-                  tempImageList.push({src: url, width: width, height: height, imageSize: imageSize});
+                  tempImageList.push({src: url, width: width, height: height, imageSize: imageSize, key: bucketContent.Key});
                   loadCount++;
-                  if (loadCount === bucketContents.length) {
+                  if (loadCount === bucketContents.length - failCount) {
                     resolve(tempImageList);
                   }
                 };
                 img.onerror = function() {
                   failCount++;
                   console.log("Failed images count: " + failCount);
+                  if (loadCount === bucketContents.length - failCount) {
+                    resolve(tempImageList);
+                  }
                 };
-                img.src = url;  // Moved inside the callback
+                img.src = url; 
               }
             };
             
-            s3.getSignedUrl('getObject', urlParams, handleImageLoad);
             
-
             s3.getSignedUrl('getObject', urlParams, handleImageLoad);
           });
         }
@@ -87,8 +85,8 @@ function ThemeProvider({ children }) {
   return (
     <MyContext.Provider
       value={{
-        setImageIndex,
-        imageIndex,
+        setImageKey,
+        imageKey,
         galleryHeight,
         galleryWidth
       }}
