@@ -71,6 +71,17 @@ function EachImage() {
       return size;
     }
   }
+  function downloadImage() {
+    const link = document.createElement('a');
+    link.href = currentImage.src;
+    link.download = '';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link); 
+}
+
+
   
   return (
     <div className="EachImage--body">
@@ -85,6 +96,7 @@ function EachImage() {
             </div>
             <div className={isRotated ? `EachImage--computersize--rotate` : `EachImage--computersize`}>
               <img 
+                id="currentImage"
                 src={currentImage.src} 
                 alt=""
                 style={{ 
@@ -93,7 +105,7 @@ function EachImage() {
                 }} 
               />
               <div className={`${imageSizeClass} ${isRotated ? "EachImage--buttons--width__rotate" : ""}`}>
-                <img src="../../download.png" alt="" />
+              <img src="../../download.png" alt="" onClick={downloadImage} />
                 {windowWidth < 1050 && imageSizeClass === "EachImage--buttons--width" && <img src="../../rotate.png" alt="" onClick={handleRotate}/>}
               </div>
             </div>
