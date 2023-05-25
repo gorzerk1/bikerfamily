@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const AWS = require('aws-sdk');
 const sharp = require('sharp');
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
@@ -41,35 +42,57 @@ const fetchImagesFromAWS = async (path) => {
                 bucketContents.forEach((bucketContent) => {
                     const urlParams = {Bucket: 'bikerpicture', Key: bucketContent.Key};
 
-                    const handleImageLoad = (err, url) => {
-                        if (err) console.log(err, err.stack);
-                        else {
-                            sharp(url)
-                            .metadata()
-                            .then(metadata => {
-                                let width, height, imageSize;
-                                if (path === 'width/') {
-                                    width = 850;
-                                    height = 567;
-                                    imageSize = "width";
-                                } else if (path === 'height/') {
-                                    width = 645;
-                                    height = 839;
-                                    imageSize = "height";
+                    const handleImageLoad = async (err, url) => {
+                        if (err) {
+                            console.log(err, err.stack);
+                            reject(err);
+                        } else {
+                            try {
+                                // Fetch the actual image data from the signed URL
+                                const response = await axios.get(url, { responseType: 'arraybuffer' });
+                                const imageBuffer = Buffer.from(response.data, 'binary');
+
+                                // Check if the imageBuffer is empty
+                                if (imageBuffer.length === 0) {
+                                    console.error(`Failed to load image data from URL: ${url}`);
+                                    failCount++;
+                                    console.log("Failed images count: " + failCount);
+                                    if (loadCount === bucketContents.length - failCount) {
+                                        resolve(tempImageList);
+                                    }
+                                } else {
+                                    // Use sharp
+                                    sharp(imageBuffer)
+                                        .metadata()
+                                        .then(metadata => {
+                                            let width, height, imageSize;
+                                            if (path === 'width/') {
+                                                width = 850;
+                                                height = 567;
+                                                imageSize = "width";
+                                            } else if (path === 'height/') {
+                                                width = 645;
+                                                height = 839;
+                                                imageSize = "height";
+                                            }
+                                            tempImageList.push({src: url, width: width, height: height, imageSize: imageSize, key: bucketContent.Key});
+                                            loadCount++;
+                                            if (loadCount === bucketContents.length - failCount) {
+                                                resolve(tempImageList);
+                                            }
+                                        })
+                                        .catch(err => {
+                                            failCount++;
+                                            console.log("Failed images count: " + failCount);
+                                            if (loadCount === bucketContents.length - failCount) {
+                                                resolve(tempImageList);
+                                            }
+                                        });
                                 }
-                                tempImageList.push({src: url, width: width, height: height, imageSize: imageSize, key: bucketContent.Key});
-                                loadCount++;
-                                if (loadCount === bucketContents.length - failCount) {
-                                    resolve(tempImageList);
-                                }
-                            })
-                            .catch(err => {
-                                failCount++;
-                                console.log("Failed images count: " + failCount);
-                                if (loadCount === bucketContents.length - failCount) {
-                                    resolve(tempImageList);
-                                }
-                            });
+                            } catch (error) {
+                                console.error('Error fetching image from signed URL:', error);
+                                reject(error);
+                            }
                         }
                     };
 

@@ -1,9 +1,20 @@
 import './aboutUs.css';
+import React , { useState, useEffect } from 'react'
 
 function AboutUs() {
+  const [smallScreen, setSmallScreen] = useState(window.innerWidth < 770 ? "2" : '');
+  useEffect(() => {
+    const handleResize = () => {
+      setSmallScreen(window.innerWidth < 770 ? 1 : '');
+    };
+
+    window.addEventListener('resize', handleResize);
+    // Clean up function
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <div className="aboutUs--body">
-      <img src='../../backgroundbike.png' alt="Background Bike" />
+      <img src={`../../backgroundbike${smallScreen}.jpg`} alt="Background Bike" />
       <div className='aboutUs--container'>
         <div className='aboutUs--half aboutUs--half--first'>
           <div className='aboutUs--half__title'>עלינו</div>

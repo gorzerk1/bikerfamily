@@ -43,7 +43,7 @@ function Gallery() {
 
   return (
     <div className="gallery--body">
-      <img src="../../marblebackground.png" alt="" />
+      <img src="../../marblebackground2.jpg" alt="" />
       <div className="gallery--title">
         <div>הטיולים שלנו</div>
       </div>
