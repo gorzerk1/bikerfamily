@@ -6,7 +6,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "aws-sdk": "^2.1381.0",
+    "aws-sdk": "^2.1384.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -23,7 +23,7 @@
   "scripts": {
     "start:backend": "nodemon index.js",
     "start:frontend": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run start:backend && npm run start:frontend",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

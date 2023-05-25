@@ -6,7 +6,6 @@ function Contact() {
   const [bike, setBike] = useState("");
   const [location, setLocation] = useState("");
   const [instagram, setInstagram] = useState(""); 
-  const [message] = useState("");
   const [nameError, setNameError] = useState(false);
   const [instagramError, setInstagramError] = useState(false); 
   const [bikeError, setBikeError] = useState(false);
@@ -83,8 +82,8 @@ function Contact() {
     <div className="contact--body">
       <img src="../../marblebackground2.jpg" alt="" />
       <div className='contact--container'>
-        <div className='contact--title'>צרו קשר</div>
-        <div className='contact--subtitle'>אם יש לכם שאלות, אל תהססו ליצור איתנו קשר</div>
+      <div className='contact--title'>הצטרפו אלינו</div>
+        <div className='contact--subtitle'>אנא מלאו את השדות שלפניכם</div>
         <div className='contact-textarea'>
           <div>
             {nameError && <div className="contact--errors" dir="rtl">* צריך לרשום לפנות 4 ספרות בעברית או אנגלית</div>}

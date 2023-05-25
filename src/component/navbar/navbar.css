@@ -49,11 +49,7 @@
         width: 70%;
         font-size: 1.4rem;
     }
-    .navbar--logo > img {
-    width: 9%;
-    height: 9%;
-    cursor: pointer;
-}
+
 }
 
 @media (max-width: 989px) {
