@@ -9,7 +9,7 @@ function ThemeProvider({ children }) {
   const [galleryWidth, setGalleryWidth] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/awsdata')
+    axios.get('http://54.90.64.230:8000/awsdata')
       .then(response => {
         const {galleryWidth, galleryHeight} = response.data;
         setGalleryWidth(galleryWidth);
@@ -18,7 +18,7 @@ function ThemeProvider({ children }) {
       .catch(err => {
         console.error(err);
       });
-  }, []);
+}, []);
 
   return (
     <MyContext.Provider
