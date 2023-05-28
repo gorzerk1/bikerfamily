@@ -10,7 +10,7 @@ function ThemeProvider({ children }) {
   useEffect(() => {
     const fetchData = async (path) => {
       // Send HTTP GET request to server endpoint
-      const response = await fetch(`http://backend-server-ip:port/api/images/${path}`);
+      const response = await fetch(`http://15.160.205.150:3000/api/images/${path}`);
       if (!response.ok) {
         throw new Error('HTTP error ' + response.status);
       }
