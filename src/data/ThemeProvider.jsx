@@ -10,7 +10,7 @@ function ThemeProvider({ children }) {
 
   useEffect(() => {
     AWS.config.update({
-      region: process.env.REACT_APP_AWS_REGION
+      region: "eu-south-1"
     });
 
     const fetchImagesFromAWS = async (path) => {
