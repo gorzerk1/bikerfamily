@@ -6,32 +6,23 @@ function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
-  console.log(galleryHeight);
-  console.log(galleryWidth);
+
   useEffect(() => {
-    const fetchData = async (path) => {
+    const fetchData = async () => {
       // Send HTTP GET request to server endpoint
-      const response = await fetch(`http://15.160.205.150:3000/api/images/${path}`);
+      const response = await fetch(`http://15.160.205.150:3000/api/images`);
       if (!response.ok) {
         throw new Error('HTTP error ' + response.status);
       }
       // Parse JSON response
       const images = await response.json();
-      return images;
+      const widthImages = images.filter(image => image.imageSize === 'width');
+      const heightImages = images.filter(image => image.imageSize === 'height');
+      setGalleryWidth(widthImages);
+      setGalleryHeight(heightImages);
     };
 
-    const fetchGalleryData = async () => {
-      try {
-        const galleryWidthData = await fetchData('width');
-        const galleryHeightData = await fetchData('height');
-        setGalleryWidth(galleryWidthData);
-        setGalleryHeight(galleryHeightData);
-      } catch (err) {
-        console.error('Failed to fetch gallery data:', err);
-      }
-    };
-
-    fetchGalleryData();
+    fetchData();
   }, []);
 
   return (
