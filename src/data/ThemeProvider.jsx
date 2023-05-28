@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import AWS from 'aws-sdk';
-import sharp from 'sharp';
 
 const MyContext = React.createContext();
 
@@ -34,21 +33,8 @@ function ThemeProvider({ children }) {
                   console.log('Error generating signed S3 URL:', err, err.stack);
                   reject(err);
                 } else {
-                  try {
-                    const response = await fetch(url);
-                    const blob = await response.blob();
-
-                    sharp(blob.buffer)
-                      .metadata()
-                      .then(metadata => {
-                        tempImageList.push({ Key: bucketContent.Key, metadata: metadata });
-                        resolve(tempImageList);
-                      })
-                      .catch(err => console.log("Error reading image metadata with Sharp:", err));
-                  } catch (error) {
-                    console.error('Error fetching image from signed URL:', error);
-                    reject(error);
-                  }
+                  tempImageList.push({ Key: bucketContent.Key, url: url });
+                  resolve(tempImageList);
                 }
               });
             });
