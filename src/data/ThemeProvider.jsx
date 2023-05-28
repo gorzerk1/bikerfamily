@@ -6,7 +6,8 @@ function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
-
+  console.log(galleryHeight);
+  console.log(galleryWidth);
   useEffect(() => {
     const fetchData = async (path) => {
       // Send HTTP GET request to server endpoint
