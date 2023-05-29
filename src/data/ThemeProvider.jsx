@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid'; // you'll need to install uuid
 
 const MyContext = React.createContext();
 
@@ -6,19 +7,23 @@ function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
-  console.log(galleryHeight);
-  console.log(galleryWidth);
+
   useEffect(() => {
     const fetchData = async () => {
-      // Send HTTP GET request to server endpoint
       const response = await fetch(`http://35.152.45.97:3000/api/images`);
       if (!response.ok) {
         throw new Error('HTTP error ' + response.status);
       }
-      // Parse JSON response
+      
       const images = await response.json();
-      const widthImages = images.filter(image => image.imageSize === 'width');
-      const heightImages = images.filter(image => image.imageSize === 'height');
+
+      const widthImages = images
+        .filter(image => image.imageSize === 'width')
+        .map(image => ({ ...image, key: uuidv4() })); 
+      const heightImages = images
+        .filter(image => image.imageSize === 'height')
+        .map(image => ({ ...image, key: uuidv4() })); 
+
       setGalleryWidth(widthImages);
       setGalleryHeight(heightImages);
     };
@@ -41,3 +46,4 @@ function ThemeProvider({ children }) {
 }
 
 export { MyContext, ThemeProvider };
+
