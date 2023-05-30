@@ -10,7 +10,7 @@ function ThemeProvider({ children }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://35.152.45.97:3000/api/images`);
+      const response = await fetch(`http://18.102.116.122:3000/api/images`);
       if (!response.ok) {
         throw new Error('HTTP error ' + response.status);
       }
@@ -46,4 +46,3 @@ function ThemeProvider({ children }) {
 }
 
 export { MyContext, ThemeProvider };
-
