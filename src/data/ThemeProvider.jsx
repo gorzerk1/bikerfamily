@@ -18,10 +18,11 @@ function ThemeProvider({ children }) {
       const images = await response.json();
 
       const widthImages = images
-        .filter(image => image.imageSize === 'width')
+        .filter(image => image.imageSize === 'width' && image.galleryWidth !== undefined && image.src !== undefined)
         .map(image => ({ ...image, key: uuidv4() }));
+
       const heightImages = images
-        .filter(image => image.imageSize === 'height')
+        .filter(image => image.imageSize === 'height' && image.galleryHeight !== undefined && image.src !== undefined)
         .map(image => ({ ...image, key: uuidv4() }));
 
       setGalleryWidth(widthImages);
