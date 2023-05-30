@@ -7,7 +7,8 @@ function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
-
+  console.log(galleryHeight)
+  console.log(galleryWidth)
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(`http://18.102.116.122:3000/api/images`);
