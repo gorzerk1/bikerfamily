@@ -10,19 +10,19 @@ function ThemeProvider({ children }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://18.102.116.122:3000/awsdata`);
+      const response = await fetch(`http://35.152.45.97:3000/api/images`);
       if (!response.ok) {
         throw new Error('HTTP error ' + response.status);
       }
-      
+
       const images = await response.json();
 
       const widthImages = images
         .filter(image => image.imageSize === 'width')
-        .map(image => ({ ...image, key: uuidv4() })); 
+        .map(image => ({ ...image, key: uuidv4() }));
       const heightImages = images
         .filter(image => image.imageSize === 'height')
-        .map(image => ({ ...image, key: uuidv4() })); 
+        .map(image => ({ ...image, key: uuidv4() }));
 
       setGalleryWidth(widthImages);
       setGalleryHeight(heightImages);
