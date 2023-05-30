@@ -10,7 +10,9 @@ function EachImage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isRotated, setIsRotated] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
+  console.log("!!")
   console.log(currentImage)
+  console.log("!!")
   useEffect(() => {
     setAllImages([...galleryHeight, ...galleryWidth]);
   }, [galleryHeight, galleryWidth]);

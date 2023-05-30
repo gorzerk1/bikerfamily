@@ -14,7 +14,6 @@ function Contact() {
 
   const whatsappMessage = `שלום שמי ${name}.\nאני גר/ה ב${location}.\nהאופנוע שיש לי הוא ${bike}.\nהאינסגרם שלי הוא :\n${instagram}.`;
   const whatsappLink = `https://chat.whatsapp.com/Bqfustz1sNaFuSa6ZRduJu?text=${encodeURIComponent(whatsappMessage)}`;
-  console.log(whatsappMessage)
   function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
     let isValid = true;
