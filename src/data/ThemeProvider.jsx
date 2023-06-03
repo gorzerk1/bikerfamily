@@ -39,7 +39,7 @@ function ThemeProvider({ children }) {
     fetchData();
   }, []);
   
-  console.log("updated")
+  console.log("updated2")
 
   return (
     <MyContext.Provider
