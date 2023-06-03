@@ -31,7 +31,7 @@ function ThemeProvider({ children }) {
 
     fetchData();
   }, []);
-
+  console.log(galleryHeight)
   return (
     <MyContext.Provider
       value={{
