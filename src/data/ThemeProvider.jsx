@@ -39,7 +39,7 @@ function ThemeProvider({ children }) {
     fetchData();
   }, []);
   
-  console.log("updated2")
+  console.log("updated04/06/2023")
 
   return (
     <MyContext.Provider
