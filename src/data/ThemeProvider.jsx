@@ -12,7 +12,7 @@ function ThemeProvider({ children }) {
     const fetchData = async () => {
       try {
         // Changed the IP address to your new subdomain
-        const response = await fetch(`https://api.bikersil.com:3000/api/images`);
+        const response = await fetch(`https://api.bikersil.com/api/images`);
         if (!response.ok) {
           throw new Error('HTTP error ' + response.status);
         }
