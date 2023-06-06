@@ -10,7 +10,7 @@ function EachImage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isRotated, setIsRotated] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
-
+  console.log(currentImage);
   // Additional state for button disable status
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
