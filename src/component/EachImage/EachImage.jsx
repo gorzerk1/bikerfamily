@@ -10,13 +10,13 @@ function EachImage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isRotated, setIsRotated] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
-  console.log("!!")
-  console.log(currentImage)
-  console.log("!!")
+
+  // Additional state for button disable status
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   useEffect(() => {
     setAllImages([...galleryHeight, ...galleryWidth]);
   }, [galleryHeight, galleryWidth]);
-
 
   useEffect(() => {
     if (imageKey !== null) {
@@ -45,19 +45,30 @@ function EachImage() {
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
 
-  
+  // Function to handle delay
+  const handleDelay = async (callback) => {
+    setIsButtonDisabled(true); // disable button
+    callback(); // call handleNext or handlePrev
+    await new Promise(resolve => setTimeout(resolve, 1000)); // sleep for 1 second
+    setIsButtonDisabled(false); // enable button
+  }
+
   function handleNext(){
-    setCurrentImageIndex((prevImageIndex) => {
-      return (prevImageIndex + 1) % allImages.length;
+    handleDelay(() => {
+      setCurrentImageIndex((prevImageIndex) => {
+        return (prevImageIndex + 1) % allImages.length;
+      });
+      setImageKey(null);
     });
-    setImageKey(null);
   };
 
   function handlePrev(){
-    setCurrentImageIndex((prevImageIndex) => {
-      return (prevImageIndex - 1 + allImages.length) % allImages.length;
+    handleDelay(() => {
+      setCurrentImageIndex((prevImageIndex) => {
+        return (prevImageIndex - 1 + allImages.length) % allImages.length;
+      });
+      setImageKey(null);
     });
-    setImageKey(null);
   };
 
   function handleRotate(){
@@ -73,6 +84,7 @@ function EachImage() {
       return size;
     }
   }
+
   function downloadImage() {
     const link = document.createElement('a');
     link.href = currentImage.src;
@@ -82,7 +94,6 @@ function EachImage() {
     link.click();
     document.body.removeChild(link); 
 }
-
 
   
   return (
@@ -94,7 +105,7 @@ function EachImage() {
           <Link to="/" className='EachImage--exitIcon'><img src="../../eventsup/exit.png" alt="" /></Link>
           <div className='EachImage--container'>
             <div className='EachImage--arrow'>
-              <img src="../../eventsup/left-arrow-blue.png" onClick={handlePrev} alt="" />
+              <img src="../../eventsup/left-arrow-blue.png" onClick={!isButtonDisabled ? handlePrev : undefined} alt="" />
             </div>
             <div className={isRotated ? `EachImage--computersize--rotate` : `EachImage--computersize`}>
               <img 
@@ -112,7 +123,7 @@ function EachImage() {
               </div>
             </div>
             <div className='EachImage--arrow1'>
-              <img src="../../eventsup/right-arrow-blue.png" onClick={handleNext} alt="l" />
+              <img src="../../eventsup/right-arrow-blue.png" onClick={!isButtonDisabled ? handleNext : undefined} alt="l" />
             </div>
           </div>
         </>
