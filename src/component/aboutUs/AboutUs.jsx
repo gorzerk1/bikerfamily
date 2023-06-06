@@ -1,20 +1,25 @@
 import './aboutUs.css';
-import React , { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
 function AboutUs() {
-  const [smallScreen, setSmallScreen] = useState(window.innerWidth < 770 ? "2" : '');
+  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
+
   useEffect(() => {
     const handleResize = () => {
-      setSmallScreen(window.innerWidth < 770 ? 1 : '');
+      setBackgroundImgSrc(window.innerWidth < 770 ? "../../backgroundbike.jpg" : "../../backgroundbike2.jpg");
     };
+
+    // Initialize the image source
+    handleResize();
 
     window.addEventListener('resize', handleResize);
     // Clean up function
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
   return (
     <div className="aboutUs--body">
-      <img src={`../../backgroundbike${smallScreen}.jpg`} alt="Background Bike" />
+      <img src={backgroundImgSrc} alt="Background Bike" />
       <div className='aboutUs--container'>
         <div className='aboutUs--half aboutUs--half--first'>
           <div className='aboutUs--half__title'>עלינו</div>
