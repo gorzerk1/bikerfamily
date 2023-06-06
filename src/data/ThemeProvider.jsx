@@ -8,7 +8,7 @@ function ThemeProvider({ children }) {
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
-
+  console.log(backGroundVideos)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -42,6 +42,24 @@ function ThemeProvider({ children }) {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch(`https://api.bikersil.com/api/videos`);
+        if (!response.ok) {
+          throw new Error('HTTP error ' + response.status);
+        }
+
+        const videos = await response.json();
+        setBackGroundVideo(videos);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    fetchVideos();
+}, []);
 
   return (
     <MyContext.Provider
