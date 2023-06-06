@@ -8,6 +8,7 @@ function ThemeProvider({ children }) {
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
   console.log(galleryHeight)
+  consolelog("NOW galleryWIDTH")
   console.log(galleryWidth)
   useEffect(() => {
     const fetchData = async () => {
