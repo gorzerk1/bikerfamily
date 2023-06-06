@@ -18,11 +18,14 @@ function ThemeProvider({ children }) {
 
         const images = await response.json();
 
-        const widthImages = images.galleryWidth
-          .map(image => ({ ...image, key: uuidv4() }));
+        // Ensure there are more than 1 image in the array, then slice from the 2nd index
+        const widthImages = images.galleryWidth.length > 1 
+          ? images.galleryWidth.slice(1).map(image => ({ ...image, key: uuidv4() })) 
+          : [];
 
-        const heightImages = images.galleryHeight
-          .map(image => ({ ...image, key: uuidv4() }));
+        const heightImages = images.galleryHeight.length > 1 
+          ? images.galleryHeight.slice(1).map(image => ({ ...image, key: uuidv4() })) 
+          : [];
 
         setGalleryWidth(widthImages);
         setGalleryHeight(heightImages);
