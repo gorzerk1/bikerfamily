@@ -8,7 +8,6 @@ function ThemeProvider({ children }) {
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
-  console.log(backGroundVideos)
   useEffect(() => {
     const fetchData = async () => {
       try {
