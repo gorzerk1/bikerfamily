@@ -7,13 +7,10 @@ function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
-  console.log(galleryHeight)
-  console.log("NOW galleryWIDTH")
-  console.log(galleryWidth)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Changed the IP address to your new subdomain
         const response = await fetch(`https://api.bikersil.com/api/images`);
         if (!response.ok) {
           throw new Error('HTTP error ' + response.status);
@@ -21,16 +18,14 @@ function ThemeProvider({ children }) {
 
         const images = await response.json();
 
-        const widthImages = images
-          .filter(image => image.imageSize === 'width')
+        const widthImages = images.galleryWidth
           .map(image => ({ ...image, key: uuidv4() }));
 
-        const heightImages = images
-          .filter(image => image.imageSize === 'height')
+        const heightImages = images.galleryHeight
           .map(image => ({ ...image, key: uuidv4() }));
 
-        setGalleryWidth(widthImages.slice(1));
-        setGalleryHeight(heightImages.slice(1));
+        setGalleryWidth(widthImages);
+        setGalleryHeight(heightImages);
       } catch (error) {
         console.error('Error:', error);
         console.log('Error name:', error.name);
@@ -40,8 +35,6 @@ function ThemeProvider({ children }) {
 
     fetchData();
   }, []);
-  
-
 
   return (
     <MyContext.Provider
