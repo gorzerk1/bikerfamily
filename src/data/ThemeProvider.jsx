@@ -7,6 +7,7 @@ function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
+  const [backGroundVideos, setBackGroundVideo] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,14 +22,14 @@ function ThemeProvider({ children }) {
         // Check if the arrays have at least one item before slicing
         if (images.galleryWidth.length > 0) {
           const widthImages = images.galleryWidth
-            .slice(1) // Remove the first item
+            .slice(1)
             .map(image => ({ ...image, key: uuidv4() }));
           setGalleryWidth(widthImages);
         }
 
         if (images.galleryHeight.length > 0) {
           const heightImages = images.galleryHeight
-            .slice(1) // Remove the first item
+            .slice(1) 
             .map(image => ({ ...image, key: uuidv4() }));
           setGalleryHeight(heightImages);
         }
