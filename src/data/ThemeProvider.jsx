@@ -18,17 +18,20 @@ function ThemeProvider({ children }) {
 
         const images = await response.json();
 
-        // Ensure there are more than 1 image in the array, then slice from the 2nd index
-        const widthImages = images.galleryWidth.length > 1 
-          ? images.galleryWidth.slice(1).map(image => ({ ...image, key: uuidv4() })) 
-          : [];
+        // Check if the arrays have at least one item before slicing
+        if (images.galleryWidth.length > 0) {
+          const widthImages = images.galleryWidth
+            .slice(1) // Remove the first item
+            .map(image => ({ ...image, key: uuidv4() }));
+          setGalleryWidth(widthImages);
+        }
 
-        const heightImages = images.galleryHeight.length > 1 
-          ? images.galleryHeight.slice(1).map(image => ({ ...image, key: uuidv4() })) 
-          : [];
-
-        setGalleryWidth(widthImages);
-        setGalleryHeight(heightImages);
+        if (images.galleryHeight.length > 0) {
+          const heightImages = images.galleryHeight
+            .slice(1) // Remove the first item
+            .map(image => ({ ...image, key: uuidv4() }));
+          setGalleryHeight(heightImages);
+        }
       } catch (error) {
         console.error('Error:', error);
         console.log('Error name:', error.name);
