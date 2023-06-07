@@ -8,7 +8,7 @@ function Main() {
   const videoRef = useRef(null);
 
   const videoSource = window.innerWidth < 700 ? backGroundVideos[videoIndex]?.height : backGroundVideos[videoIndex]?.width;
-
+  console.log(videoSource)
   useEffect(() => {
     const currentVideoRef = videoRef.current;
 
