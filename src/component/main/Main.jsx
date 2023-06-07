@@ -19,13 +19,7 @@ function Main() {
     if (currentVideoRef) {
       currentVideoRef.addEventListener('ended', handleVideoEnd);
     }
-    useEffect(() => {
-      console.log(backGroundVideos);
-    }, [backGroundVideos]);
-    useEffect(() => {
-      console.log(videoIndex);
-    }, [videoIndex]);
-        
+
     return () => {
       if (currentVideoRef) {
         currentVideoRef.removeEventListener('ended', handleVideoEnd);
@@ -33,6 +27,14 @@ function Main() {
     };
   }, [videoIndex, backGroundVideos]);
 
+
+  useEffect(() => {
+    console.log(backGroundVideos);
+  }, [backGroundVideos]);
+  useEffect(() => {
+    console.log(videoIndex);
+  }, [videoIndex]);
+    
   return (
     <div className="Main--body">
       <video ref={videoRef} src={videoSource} autoPlay muted playsInline />
