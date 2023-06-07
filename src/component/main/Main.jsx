@@ -1,5 +1,5 @@
 import './main.css';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { MyContext } from '../../data/ThemeProvider';
 
 function Main() {
