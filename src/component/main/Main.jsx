@@ -1,35 +1,45 @@
 import './main.css';
-import { useState, useEffect, useRef } from 'react';
-import { VideoData } from '../../data/VideoData.jsx';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { MyContext } from '../../data/ThemeProvider';
 
 function Main() {
-  const [videoIndex, setVideoIndex] = useState(Math.floor(Math.random() * VideoData.length));
+  const { backGroundVideos } = useContext(MyContext);
+  
+  const [video, setVideo] = useState(() => {
+    if(backGroundVideos.length > 0) {
+      return backGroundVideos[Math.floor(Math.random() * backGroundVideos.length)];
+    }
+    return null;
+  });
+
   const videoRef = useRef(null);
 
   useEffect(() => {
     const currentVideoRef = videoRef.current;
 
     function handleResize() {
-      if (window.innerWidth < 700) {
-        currentVideoRef.src = VideoData[videoIndex].height;
-      } else {
-        currentVideoRef.src = VideoData[videoIndex].width;
+      if (video && window.innerWidth < 700) {
+        currentVideoRef.src = video.height;
+      } else if(video) {
+        currentVideoRef.src = video.width;
       }
     };
 
     function handleVideoEnd() {
-      setVideoIndex(() => {
-        let newIndex;
+      setVideo(() => {
+        let newVideo;
         do {
-          newIndex = Math.floor(Math.random() * VideoData.length);
-        } while(newIndex === videoIndex)
-        return newIndex;
+          newVideo = backGroundVideos[Math.floor(Math.random() * backGroundVideos.length)];
+        } while(newVideo === video)
+        return newVideo;
       });
     }
 
     window.addEventListener('resize', handleResize);
-    currentVideoRef.addEventListener('ended', handleVideoEnd);
-    handleResize();
+    if (currentVideoRef) {
+      currentVideoRef.addEventListener('ended', handleVideoEnd);
+      handleResize();
+    }
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -37,7 +47,7 @@ function Main() {
         currentVideoRef.removeEventListener('ended', handleVideoEnd);
       }
     };
-  }, [videoIndex]);
+  }, [video, backGroundVideos]);
 
   return (
     <div className="Main--body">

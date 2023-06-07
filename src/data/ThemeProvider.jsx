@@ -61,16 +61,18 @@ function ThemeProvider({ children }) {
 }, []);
 
   return (
-    <MyContext.Provider
+      <MyContext.Provider
       value={{
         setImageKey,
         imageKey,
         galleryHeight,
-        galleryWidth
+        galleryWidth,
+        backGroundVideos
       }}
     >
       {children}
     </MyContext.Provider>
+
   );
 }
 
