@@ -8,7 +8,6 @@ function Main() {
   const videoRef = useRef(null);
 
   const videoSource = window.innerWidth < 700 ? backGroundVideos[videoIndex]?.height : backGroundVideos[videoIndex]?.width;
-  console.log(videoSource)
   useEffect(() => {
     const currentVideoRef = videoRef.current;
 
@@ -26,14 +25,22 @@ function Main() {
       }
     };
   }, [videoIndex, backGroundVideos]);
+  console.log("+++++++++ backGroundVideos +++++++++")
+  console.log(backGroundVideos)
+  console.log("+++++++++ ---------------- +++++++++")
 
 
-  useEffect(() => {
-    console.log(backGroundVideos);
-  }, [backGroundVideos]);
-  useEffect(() => {
-    console.log(videoIndex);
-  }, [videoIndex]);
+  console.log("+++++++++ videoIndex +++++++++")
+  console.log(videoIndex)
+  console.log("+++++++++ ---------------- +++++++++")
+
+
+  console.log("+++++++++ videoSource +++++++++")
+  console.log(videoSource)
+  console.log("+++++++++ ---------------- +++++++++")
+
+
+  console.log("+++++++++ end of logs +++++++++")
     
   return (
     <div className="Main--body">
