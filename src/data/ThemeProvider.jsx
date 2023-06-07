@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { shuffle } from 'lodash'; // add this import at the beginning of your file
 
 const MyContext = React.createContext();
 
@@ -8,7 +9,11 @@ function ThemeProvider({ children }) {
   const [galleryHeight, setGalleryHeight] = useState([]);
   const [galleryWidth, setGalleryWidth] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
-  
+
+  const shuffleImages = (images) => {
+    return shuffle(images).map(image => ({ ...image, key: uuidv4() }));
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -19,18 +24,13 @@ function ThemeProvider({ children }) {
 
         const images = await response.json();
 
-        // Check if the arrays have at least one item before slicing
         if (images.galleryWidth.length > 0) {
-          const widthImages = images.galleryWidth
-            .slice(1)
-            .map(image => ({ ...image, key: uuidv4() }));
+          const widthImages = shuffleImages(images.galleryWidth.slice(1));
           setGalleryWidth(widthImages);
         }
 
         if (images.galleryHeight.length > 0) {
-          const heightImages = images.galleryHeight
-            .slice(1) 
-            .map(image => ({ ...image, key: uuidv4() }));
+          const heightImages = shuffleImages(images.galleryHeight.slice(1));
           setGalleryHeight(heightImages);
         }
       } catch (error) {
@@ -79,7 +79,6 @@ function ThemeProvider({ children }) {
     >
       {children}
     </MyContext.Provider>
-
   );
 }
 
