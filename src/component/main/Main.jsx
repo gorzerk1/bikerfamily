@@ -7,7 +7,7 @@ function Main() {
   const [videoIndex, setVideoIndex] = useState(0);
   const videoSource = window.innerWidth < 700 ? backGroundVideos[videoIndex]?.height : backGroundVideos[videoIndex]?.width;
   console.log(backGroundVideos)
-  console.log("1")
+  console.log("update (0001)")
   useEffect(() => {
     const handleResize = () => {
       setVideoIndex((videoIndex + 1) % backGroundVideos.length);
