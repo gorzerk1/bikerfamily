@@ -10,16 +10,17 @@ function Gallery() {
 
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
-      setHeightImages(shuffle([...galleryHeight]).slice(0, 2));
-      setWidthImages(shuffle([...galleryWidth]).slice(0, 4));
+      setHeightImages([...galleryHeight].slice(0, 2));
+      setWidthImages([...galleryWidth].slice(0, 4));
     } else if (window.innerWidth <= 1200) {
-      setHeightImages(shuffle([...galleryHeight]).slice(0, 3));
-      setWidthImages(shuffle([...galleryWidth]).slice(0, 6));
+      setHeightImages([...galleryHeight].slice(0, 3));
+      setWidthImages([...galleryWidth].slice(0, 6));
     } else {
-      setHeightImages(shuffle([...galleryHeight]).slice(0, 5));
-      setWidthImages(shuffle([...galleryWidth]).slice(0, 10));
+      setHeightImages([...galleryHeight].slice(0, 5));
+      setWidthImages([...galleryWidth].slice(0, 10));
     }
   }, [galleryHeight, galleryWidth]);
+  
 
   useEffect(() => {
     handleResize();
