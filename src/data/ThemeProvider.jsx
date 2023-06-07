@@ -50,17 +50,23 @@ function ThemeProvider({ children }) {
         if (!response.ok) {
           throw new Error('HTTP error ' + response.status);
         }
-
-        const videos = await response.json();
+  
+        let videos = await response.json();
+        
+        // If the videos array is not empty, remove the first element
+        if (videos.length > 0) {
+          videos.shift();
+        }
+  
         setBackGroundVideo(videos);
       } catch (error) {
         console.error('Error:', error);
       }
     };
-
+  
     fetchVideos();
-}, []);
-
+  }, []);
+  
   return (
       <MyContext.Provider
       value={{
