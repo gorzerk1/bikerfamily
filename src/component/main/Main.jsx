@@ -25,22 +25,10 @@ function Main() {
       }
     };
   }, [videoIndex, backGroundVideos]);
-  console.log("+++++++++ backGroundVideos +++++++++")
-  console.log(backGroundVideos)
-  console.log("+++++++++ ---------------- +++++++++")
+  console.log("First video object:", backGroundVideos[0]);
+  console.log("Second video object:", backGroundVideos[1]);
+  console.log("Third video object:", backGroundVideos[2]);
 
-
-  console.log("+++++++++ videoIndex +++++++++")
-  console.log(videoIndex)
-  console.log("+++++++++ ---------------- +++++++++")
-
-
-  console.log("+++++++++ videoSource +++++++++")
-  console.log(videoSource)
-  console.log("+++++++++ ---------------- +++++++++")
-
-
-  console.log("+++++++++ end of logs +++++++++")
     
   return (
     <div className="Main--body">
