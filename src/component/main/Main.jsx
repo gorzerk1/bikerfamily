@@ -19,7 +19,13 @@ function Main() {
     if (currentVideoRef) {
       currentVideoRef.addEventListener('ended', handleVideoEnd);
     }
-
+    useEffect(() => {
+      console.log(backGroundVideos);
+    }, [backGroundVideos]);
+    useEffect(() => {
+      console.log(videoIndex);
+    }, [videoIndex]);
+        
     return () => {
       if (currentVideoRef) {
         currentVideoRef.removeEventListener('ended', handleVideoEnd);
