@@ -15,10 +15,6 @@ function Footer() {
             <img src="../../mailIcon.png" alt="Email" />
             <a href="https://www.instagram.com/family.bikers.il"> bikerfamily@gmail.com</a>
           </div>
-          <div>
-            <img src="../../phoneIcon.png" alt="Phone" />
-            <a href="https://www.instagram.com/family.bikers.il"> 0524342623</a>
-          </div>
         </div>
         <div className="footer--follow-us" dir="rtl">
         <h3>עקבו אחרינו</h3>
