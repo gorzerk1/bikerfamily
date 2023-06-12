@@ -11,16 +11,16 @@ function Gallery() {
 
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
-      setHeightImages([...galleryHeight].slice(0, 2));
-      setWidthImages([...galleryWidth].slice(0, 4));
+      setHeightImages([...galleryHeightLow].slice(0, 2));
+      setWidthImages([...galleryWidthLow].slice(0, 4));
     } else if (window.innerWidth <= 1200) {
-      setHeightImages([...galleryHeight].slice(0, 3));
-      setWidthImages([...galleryWidth].slice(0, 6));
+      setHeightImages([...galleryHeightLow].slice(0, 3));
+      setWidthImages([...galleryWidthLow].slice(0, 6));
     } else {
-      setHeightImages([...galleryHeight].slice(0, 5));
-      setWidthImages([...galleryWidth].slice(0, 10));
+      setHeightImages([...galleryHeightLow].slice(0, 5));
+      setWidthImages([...galleryWidthLow].slice(0, 10));
     }
-  }, [galleryHeight, galleryWidth]);
+  }, [galleryHeightLow, galleryWidthLow]);
 
   useEffect(() => {
     handleResize();
@@ -35,6 +35,20 @@ function Gallery() {
     }));
   };
 
+  useEffect(() => {
+    heightImages.forEach((img, index) => {
+      const imgObject = new Image();
+      imgObject.src = galleryHeight[index].src;
+      imgObject.onload = () => handleImageLoad(img.key, galleryHeight[index].src);
+    });
+
+    widthImages.forEach((img, index) => {
+      const imgObject = new Image();
+      imgObject.src = galleryWidth[index].src;
+      imgObject.onload = () => handleImageLoad(img.key, galleryWidth[index].src);
+    });
+  }, [heightImages, widthImages, galleryHeight, galleryWidth, handleImageLoad]);
+
   return (
     <div className="gallery--body">
       <img src="../../marblebackground2.jpg" alt="" />
@@ -45,9 +59,8 @@ function Gallery() {
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
               <img 
-                src={loadedImages[img.key] ? loadedImages[img.key] : galleryWidthLow[index].src} 
+                src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
                 alt="" 
-                onLoad={() => handleImageLoad(img.key, img.src)}
                 loading="lazy" 
               />
           </Link>
@@ -55,9 +68,8 @@ function Gallery() {
         {heightImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
               <img 
-                src={loadedImages[img.key] ? loadedImages[img.key] : galleryHeightLow[index].src} 
+                src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
                 alt="" 
-                onLoad={() => handleImageLoad(img.key, img.src)}
                 loading="lazy" 
               />
           </Link>
