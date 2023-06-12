@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { shuffle } from 'lodash';
 
 const MyContext = React.createContext();
@@ -12,14 +13,13 @@ function ThemeProvider({ children }) {
   const [backGroundVideos, setBackGroundVideo] = useState([]);
 
   const shuffleImages = (images) => {
-    return shuffle(images).map((image, index) => ({ ...image, key: index + 1 }));
+    return shuffle(images).map(image => ({ ...image, key: uuidv4() }));
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const responseLow = await fetch(`https://api.bikersil.com/api/images/low`);
-        console.log('Response Low:', responseLow);
         const response = await fetch(`https://api.bikersil.com/api/images`);
         if (!response.ok || !responseLow.ok) {
           throw new Error('HTTP error ' + response.status);
