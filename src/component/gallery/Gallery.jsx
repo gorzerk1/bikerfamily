@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react';
+import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import './gallery.css';
 import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom";
@@ -8,7 +8,23 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
-  console.log(loadedImages)
+  const [visible, setVisible] = useState(false);
+  const observerRef = useRef();
+
+  const checkVisible = entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setVisible(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(checkVisible, {threshold: 0.8});
+
+    return () => observerRef.current.disconnect();
+  }, []);
+
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
       setHeightImages([...galleryHeightLow].slice(0, 2));
@@ -50,18 +66,19 @@ function Gallery() {
   }, [heightImages, widthImages, galleryHeight, galleryWidth, handleImageLoad]);
 
   return (
-    <div className="gallery--body">
+    <div className="gallery--body" ref={observerRef.current}>
       <img src="../../marblebackground2.jpg" alt="" />
       <div className="gallery--title">
         <div>הטיולים שלנו</div>
       </div>
-      <div className="gallery--container">
+      <div className={`gallery--container ${visible ? 'visible' : ''}`}>
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
               <img 
                 src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
                 alt="" 
                 loading="lazy" 
+                className="widthImages"
               />
           </Link>
         ))}
@@ -71,12 +88,10 @@ function Gallery() {
                 src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
                 alt="" 
                 loading="lazy" 
+                className="heightImages"
               />
           </Link>
         ))}
-      </div>
-      <div className='gallery--refresh' onClick={handleResize}>
-        <img src="../../refresh.png" alt="" />
       </div>
     </div>
   );
