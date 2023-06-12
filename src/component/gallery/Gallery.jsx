@@ -8,9 +8,6 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
-  console.log("++++++++gallery+++++++++++++++")
-  console.log(galleryWidthLow)
-  console.log(galleryHeightLow)
 
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
@@ -24,7 +21,6 @@ function Gallery() {
       setWidthImages([...galleryWidth].slice(0, 10));
     }
   }, [galleryHeight, galleryWidth]);
-  
 
   useEffect(() => {
     handleResize();
@@ -32,10 +28,10 @@ function Gallery() {
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
 
-  const handleImageLoad = (key) => {
+  const handleImageLoad = (key, src) => {
     setLoadedImages(prevState => ({
       ...prevState,
-      [key]: true
+      [key]: src
     }));
   };
 
@@ -49,9 +45,9 @@ function Gallery() {
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
               <img 
-                src={loadedImages[img.key] ? img.src : galleryWidthLow[index].src} 
+                src={loadedImages[img.key] ? loadedImages[img.key] : galleryWidthLow[index].src} 
                 alt="" 
-                onLoad={() => handleImageLoad(img.key)}
+                onLoad={() => handleImageLoad(img.key, img.src)}
                 loading="lazy" 
               />
           </Link>
@@ -59,9 +55,9 @@ function Gallery() {
         {heightImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
               <img 
-                src={loadedImages[img.key] ? img.src : galleryHeightLow[index].src} 
+                src={loadedImages[img.key] ? loadedImages[img.key] : galleryHeightLow[index].src} 
                 alt="" 
-                onLoad={() => handleImageLoad(img.key)}
+                onLoad={() => handleImageLoad(img.key, img.src)}
                 loading="lazy" 
               />
           </Link>
