@@ -11,7 +11,8 @@ function ThemeProvider({ children }) {
   const [galleryHeightLow, setGalleryHeightLow] = useState([]);
   const [galleryWidthLow, setGalleryWidthLow] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
-
+  console.log(galleryHeightLow)
+  console.log(galleryHeight)
 
   
   const shuffleImages = (images) => {
@@ -43,7 +44,6 @@ function ThemeProvider({ children }) {
         if (imagesLow.galleryWidthLow.length > 0) {
           const widthImagesLow = shuffleImages(imagesLow.galleryWidthLow.slice(1));
           setGalleryWidthLow(widthImagesLow);
-          console.log(widthImagesLow); //Added console.log here
         }
 
         if (imagesLow.galleryHeightLow.length > 0) {
