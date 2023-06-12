@@ -15,9 +15,7 @@ function ThemeProvider({ children }) {
   const shuffleImages = (images) => {
     return shuffle(images).map(image => ({ ...image, key: uuidv4() }));
   }
-  console.log(galleryHeightLow)
-  console.log("----------------------------------------------------------------")
-  console.log(galleryWidthLow)
+
   useEffect(() => {
     const fetchData = async () => {
       try {

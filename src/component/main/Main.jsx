@@ -25,9 +25,6 @@ function Main() {
       }
     };
   }, [videoIndex, backGroundVideos]);
-  console.log("First video object:", backGroundVideos[0]);
-  console.log("Second video object:", backGroundVideos[1]);
-  console.log("Third video object:", backGroundVideos[2]);
 
     
   return (
