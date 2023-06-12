@@ -19,6 +19,7 @@ function ThemeProvider({ children }) {
     const fetchData = async () => {
       try {
         const responseLow = await fetch(`https://api.bikersil.com/api/images/low`);
+        console.log('Response Low:', responseLow);
         const response = await fetch(`https://api.bikersil.com/api/images`);
         if (!response.ok || !responseLow.ok) {
           throw new Error('HTTP error ' + response.status);
