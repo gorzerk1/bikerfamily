@@ -8,35 +8,23 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
-  const [currentPage, setCurrentPage] = useState(1);
-  
-  const imagesPerPage = window.innerWidth <= 700 ? 2 * 4 :
-                        window.innerWidth <= 1200 ? 3 * 6 :
-                        5 * 10;
-
-  const totalPages = Math.ceil((galleryHeightLow.length + galleryWidthLow.length) / imagesPerPage);
-  console.log("now")
-  useEffect(() => {
-    const imagesStart = (currentPage - 1) * imagesPerPage;
-    const imagesEnd = imagesStart + imagesPerPage;
-
-    setHeightImages([...galleryHeightLow].slice(imagesStart, imagesEnd));
-    setWidthImages([...galleryWidthLow].slice(imagesStart, imagesEnd));
-  }, [currentPage, galleryHeightLow, galleryWidthLow]);
+  const [imagesPage, setImagesPage] = useState(1); // Declare a new state variable for current page
 
   const handleResize = useCallback(() => {
-    setCurrentPage(1);  // reset to first page on resize
-  }, []);
-  
-  const handlePageChange = (direction) => {
-    if(direction === 'next' && currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    } else if(direction === 'previous' && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+    if (window.innerWidth <= 700) {
+      setHeightImages([...galleryHeightLow].slice(0, 2));
+      setWidthImages([...galleryWidthLow].slice(0, 4));
+    } else if (window.innerWidth <= 1200) {
+      setHeightImages([...galleryHeightLow].slice(0, 3));
+      setWidthImages([...galleryWidthLow].slice(0, 6));
+    } else {
+      setHeightImages([...galleryHeightLow].slice(0, 5));
+      setWidthImages([...galleryWidthLow].slice(0, 10));
     }
-  };
+  }, [galleryHeightLow, galleryWidthLow]);
 
   useEffect(() => {
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
@@ -47,7 +35,7 @@ function Gallery() {
       [key]: src
     }));
   };
-
+  console.log(":((((")
   useEffect(() => {
     heightImages.forEach((img, index) => {
       const imgObject = new Image();
@@ -61,6 +49,22 @@ function Gallery() {
       imgObject.onload = () => handleImageLoad(img.key, galleryWidth[index].src);
     });
   }, [heightImages, widthImages, galleryHeight, galleryWidth, handleImageLoad]);
+
+  const imagesPerPage = Math.max(heightImages.length, widthImages.length); // Define how many images per page based on the arrays' length
+  const totalImages = heightImages.length + widthImages.length;
+  const totalPages = Math.ceil(totalImages / imagesPerPage); // Calculate total pages
+
+  const handlePageChange = (direction) => {
+    setImagesPage(prevPage => {
+      if (direction === 'right' && prevPage < totalPages) {
+        return prevPage + 1;
+      } else if (direction === 'left' && prevPage > 1) {
+        return prevPage - 1;
+      } else {
+        return prevPage;
+      }
+    });
+  };
 
   return (
     <div className="gallery--body">
@@ -89,9 +93,9 @@ function Gallery() {
         ))}
       </div>
       <div className='gallery--refresh'>
-        <img src="../../eventsup/left-arrow.png" alt="" onClick={() => handlePageChange('previous')} />
-        <div>{currentPage}/{totalPages}</div>
-        <img src="../../eventsup/right-arrow.png" alt="" onClick={() => handlePageChange('next')} />
+        <img src="../../eventsup/left-arrow.png" alt="" onClick={() => handlePageChange('left')} />
+        <div>{imagesPage}/{totalPages}</div>
+        <img src="../../eventsup/right-arrow.png" alt="" onClick={() => handlePageChange('right')} />
       </div>
     </div>
   );
