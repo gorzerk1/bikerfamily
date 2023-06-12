@@ -11,7 +11,8 @@ function ThemeProvider({ children }) {
   const [galleryHeightLow, setGalleryHeightLow] = useState([]);
   const [galleryWidthLow, setGalleryWidthLow] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
-
+  console.log(galleryHeightLow)
+  console.log(galleryWidthLow)
   const shuffleImages = (images) => {
     return shuffle(images).map(image => ({ ...image, key: uuidv4() }));
   }
