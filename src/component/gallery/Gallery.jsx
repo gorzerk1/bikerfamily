@@ -20,7 +20,6 @@ function Gallery() {
       setHeightImages([...galleryHeightLow].slice(0, 5));
       setWidthImages([...galleryWidthLow].slice(0, 10));
     }
-    // Added this to force a refresh of images on resize
     setLoadedImages({});
   }, [galleryHeightLow, galleryWidthLow]);
 
@@ -30,26 +29,25 @@ function Gallery() {
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
 
-  const handleImageLoad = (key, src) => {
-    setLoadedImages(prevState => ({
-      ...prevState,
-      [key]: src
-    }));
-  };
-
   useEffect(() => {
     heightImages.forEach((img, index) => {
       const imgObject = new Image();
       imgObject.src = galleryHeight[index].src;
-      imgObject.onload = () => handleImageLoad(img.key, galleryHeight[index].src);
+      imgObject.onload = () => setLoadedImages(prevState => ({
+        ...prevState,
+        [img.key]: galleryHeight[index].src
+      }));
     });
 
     widthImages.forEach((img, index) => {
       const imgObject = new Image();
       imgObject.src = galleryWidth[index].src;
-      imgObject.onload = () => handleImageLoad(img.key, galleryWidth[index].src);
+      imgObject.onload = () => setLoadedImages(prevState => ({
+        ...prevState,
+        [img.key]: galleryWidth[index].src
+      }));
     });
-  }, [heightImages, widthImages, galleryHeight, galleryWidth, handleImageLoad]);
+  }, [heightImages, widthImages, galleryHeight, galleryWidth]);
 
   return (
     <div className="gallery--body">
