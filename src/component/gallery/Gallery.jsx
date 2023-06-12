@@ -75,9 +75,7 @@ function Gallery() {
           </Link>
         ))}
       </div>
-      <div className='gallery--refresh' onClick={handleResize}>
-        <img src="../../refresh.png" alt="" />
-      </div>
+
     </div>
   );
 }
