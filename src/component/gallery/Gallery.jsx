@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import './gallery.css';
 import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom";
@@ -8,38 +8,35 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
-  const [visible, setVisible] = useState(false);
-  const observerRef = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const imagesPerPage = window.innerWidth <= 700 ? 2 * 4 :
+                        window.innerWidth <= 1200 ? 3 * 6 :
+                        5 * 10;
 
-  const checkVisible = entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        setVisible(true);
-      }
-    });
+  const totalPages = Math.ceil((galleryHeightLow.length + galleryWidthLow.length) / imagesPerPage);
+  console.log("now")
+  useEffect(() => {
+    const imagesStart = (currentPage - 1) * imagesPerPage;
+    const imagesEnd = imagesStart + imagesPerPage;
+
+    setHeightImages([...galleryHeightLow].slice(imagesStart, imagesEnd));
+    setWidthImages([...galleryWidthLow].slice(imagesStart, imagesEnd));
+  }, [currentPage, galleryHeightLow, galleryWidthLow]);
+
+  const handleResize = useCallback(() => {
+    setCurrentPage(1);  // reset to first page on resize
+  }, []);
+  
+  const handlePageChange = (direction) => {
+    if(direction === 'next' && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    } else if(direction === 'previous' && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
   };
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(checkVisible, {threshold: 0.8});
-
-    return () => observerRef.current.disconnect();
-  }, []);
-
-  const handleResize = useCallback(() => {
-    if (window.innerWidth <= 700) {
-      setHeightImages([...galleryHeightLow].slice(0, 2));
-      setWidthImages([...galleryWidthLow].slice(0, 4));
-    } else if (window.innerWidth <= 1200) {
-      setHeightImages([...galleryHeightLow].slice(0, 3));
-      setWidthImages([...galleryWidthLow].slice(0, 6));
-    } else {
-      setHeightImages([...galleryHeightLow].slice(0, 5));
-      setWidthImages([...galleryWidthLow].slice(0, 10));
-    }
-  }, [galleryHeightLow, galleryWidthLow]);
-
-  useEffect(() => {
-    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
@@ -66,19 +63,18 @@ function Gallery() {
   }, [heightImages, widthImages, galleryHeight, galleryWidth, handleImageLoad]);
 
   return (
-    <div className="gallery--body" ref={observerRef.current}>
+    <div className="gallery--body">
       <img src="../../marblebackground2.jpg" alt="" />
       <div className="gallery--title">
         <div>הטיולים שלנו</div>
       </div>
-      <div className={`gallery--container ${visible ? 'visible' : ''}`}>
+      <div className="gallery--container">
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
               <img 
                 src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
                 alt="" 
                 loading="lazy" 
-                className="widthImages"
               />
           </Link>
         ))}
@@ -88,10 +84,14 @@ function Gallery() {
                 src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
                 alt="" 
                 loading="lazy" 
-                className="heightImages"
               />
           </Link>
         ))}
+      </div>
+      <div className='gallery--refresh'>
+        <img src="../../eventsup/left-arrow.png" alt="" onClick={() => handlePageChange('previous')} />
+        <div>{currentPage}/{totalPages}</div>
+        <img src="../../eventsup/right-arrow.png" alt="" onClick={() => handlePageChange('next')} />
       </div>
     </div>
   );
