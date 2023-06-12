@@ -8,7 +8,7 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
-
+  console.log(loadedImages)
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
       setHeightImages([...galleryHeightLow].slice(0, 2));
