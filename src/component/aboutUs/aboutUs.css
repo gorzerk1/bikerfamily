@@ -1,3 +1,4 @@
+
 body {
     font-size: medium;
     margin: 0;
@@ -7,8 +8,7 @@ body {
 .aboutUs--body {
     position: relative;
     width: 100%;
-    min-height: 100vh;
-    max-height: 100vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,194 +29,171 @@ body {
 .aboutUs--container {
     position: relative;
     width: 80%;
-    min-height: 100%;
-    max-height: 100%;
+    height: 60vh;
     overflow: auto;
     z-index: 2;
     display: flex;
+    overflow: hidden;
 }
 .aboutUs--body > img {
     position: absolute;
     right:0;
     bottom:0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 0;
 }
-.aboutUs--half {
-    position: relative;
-    width: 50%;
-    height: 80vh;
-    z-index: 3;
+.aboutUs--rightPart {
+    color:white;
+    width: 80%;
+    
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+}
+.aboutUs--leftPart {
+    display: flex;
     color:white;
-    gap: 30px;
-    font-size: 2rem;
-    font-weight: bolder;
-    text-align: justify;
+    width: 40%;
+
+    flex-direction: column;
 }
 
-.aboutUs--half > img {
-    width: 200px;
-    height: 200px;
-}
 .aboutUs--amount {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 1.7rem;
 }
+
 .aboutUs--paragraph {
-    font-size: 1.4rem;
-
+    font-size: 1.3rem;
     direction: rtl;
+    text-align: center;
     display: flex;
-}
-
-.aboutUs--half > a {
-    width: 176px;
-    height: 40px;
-    background-color: orange;
-    border:0;
-    margin-left: auto;
-    color:white;
-    font-size: 1rem;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-
-.custom-button {
-    transition: font-size 450ms;
-}
-
-.custom-button:hover {
-    border: 2px solid white;
-    font-size: 1.2rem;
-}
-
-.custom-button:active {
-    transform: scale(0.95);
-}
-
-.aboutUs--amounts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    width: 100%;
+    height:25%;
 }
 
 .aboutUs--half__title {
+    height:10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+    font-size: 2rem;
+}
+.aboutUs--half__title > div {
     border-bottom:4px solid red;
+    border-radius: 10px;
 }
-@media (max-width: 1390px) {
-    .aboutUs--half {
-        font-size: 1.5rem;
-    }
-    .aboutUs--paragraph {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        direction: rtl;
-        display: flex;
-    }
-    .aboutUs--half > img {
-        width: 180px;
-        height: 180px;
-    }
+.aboutUs--buttonWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.custom-button {
+    width: 150px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cc8400;
+    font-weight: border;
+    border-radius: 10px;
+    margin-top:70px
 }
 
+.aboutUs--amount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height:20%;
+}
 
-@media (max-width: 1125px) {
+.aboutUs--logo {
+    width: 100%;
+    height:60%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.aboutUs--logo > img{
+    width: 200px;
+    height: 200px;
+}
+
+@media (max-width: 1150px) {
     .aboutUs--container {
         width: 90%;
     }
-    .aboutUs--half {
-        font-size: 1.4rem;
-    }
     .aboutUs--paragraph {
-        font-size: 1.0rem;
-        line-height: 1.6;
-        direction: rtl;
-        display: flex;
-    }
-    .aboutUs--half > img {
-        width: 170px;
-        height: 170px;
-    }
-}
-
-
-@media (max-width: 955px) {
-    .aboutUs--container {
-        width: 98%;
-    }
-    .aboutUs--half {
-        font-size: 1.3rem;
-    }
-    .aboutUs--paragraph {
-        font-size: 1.11rem;
-        line-height: 1.6;
-        direction: rtl;
-        display: flex;
-    }
-    .aboutUs--half > img {
-        width: 160px;
-        height: 160px;
-    }
-}
-
-@media (max-width: 815px) {
-    .aboutUs--container {
-        width: 98%;
-        height: 100vh;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-    .aboutUs--half {
-        font-size: 1.2rem;
-        height: 60%;
-        width:85%;
-        display: flex;
-        flex-direction: row;
-    }
-    .aboutUs--paragraph {
-        font-size: 1.03rem;
-        line-height: 1.6;
-        direction: rtl;
-        display: flex;
-    }
-    .aboutUs--half > img {
-        width: 150px;
-        height: 150px;
-        order: 1;
-        }
-    .aboutUs--amount {
-        flex-direction: column;
-        
-        gap: 10px;
-    }
-    .aboutUs--half > button {
-        width: 160px;
-        height: 40px;
         font-size: 1.1rem;
     }
+}
 
-    .aboutUs--half--first {
-        display:flex;
+@media (max-width: 810px) {
+     .aboutUs--half__title {
+        height:20%
+     }
+}
+
+@media (max-width: 740px) {
+    
+    .aboutUs--body {
+        height: 120vh;
+
+    }
+    .aboutUs--container {
+        height: 120vh;
+        display: flex;
         flex-direction: column;
-        margin-top:50px;
+        justify-content: center;
+    }
+    .aboutUs--leftPart {
+        height:50%;
+        justify-content: center;
+        width: 100%;
+    }
+    .aboutUs--rightPart {
+        height: 50%;
+        width: 100%;
+        direction: rtl;
+    }
+
+}
+
+@media (max-width: 740px) {
+    .aboutUs--paragraph {
+        font-size: 1rem;
+    }
+    .aboutUs--container {
+        width: 95%;
+    }
+    .aboutUs--paragraph {
+        height:35%
+    }
+    .aboutUs--amount {
+        height:30%;
+        justify-content: center;
     }
 }
 
 
-@media (max-width: 815px) {
-    * {
-        font-size: 1rem;
+
+
+@media (max-height: 580px) {
+    .aboutUs--container , .aboutUs--body {
+        height:160vh
+    }
+}
+
+@media (max-height: 430px) {
+    .aboutUs--container , .aboutUs--body {
+        height:200vh
     }
 }
