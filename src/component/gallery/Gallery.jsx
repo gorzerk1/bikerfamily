@@ -8,7 +8,6 @@ function Gallery() {
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
-  const [imagesPage, setImagesPage] = useState(1); // Declare a new state variable for current page
 
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
@@ -21,6 +20,8 @@ function Gallery() {
       setHeightImages([...galleryHeightLow].slice(0, 5));
       setWidthImages([...galleryWidthLow].slice(0, 10));
     }
+    // Added this to force a refresh of images on resize
+    setLoadedImages({});
   }, [galleryHeightLow, galleryWidthLow]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function Gallery() {
       [key]: src
     }));
   };
-  console.log(":((((")
+
   useEffect(() => {
     heightImages.forEach((img, index) => {
       const imgObject = new Image();
@@ -49,22 +50,6 @@ function Gallery() {
       imgObject.onload = () => handleImageLoad(img.key, galleryWidth[index].src);
     });
   }, [heightImages, widthImages, galleryHeight, galleryWidth, handleImageLoad]);
-
-  const imagesPerPage = Math.max(heightImages.length, widthImages.length); // Define how many images per page based on the arrays' length
-  const totalImages = heightImages.length + widthImages.length;
-  const totalPages = Math.ceil(totalImages / imagesPerPage); // Calculate total pages
-
-  const handlePageChange = (direction) => {
-    setImagesPage(prevPage => {
-      if (direction === 'right' && prevPage < totalPages) {
-        return prevPage + 1;
-      } else if (direction === 'left' && prevPage > 1) {
-        return prevPage - 1;
-      } else {
-        return prevPage;
-      }
-    });
-  };
 
   return (
     <div className="gallery--body">
@@ -92,10 +77,8 @@ function Gallery() {
           </Link>
         ))}
       </div>
-      <div className='gallery--refresh'>
-        <img src="../../eventsup/left-arrow.png" alt="" onClick={() => handlePageChange('left')} />
-        <div>{imagesPage}/{totalPages}</div>
-        <img src="../../eventsup/right-arrow.png" alt="" onClick={() => handlePageChange('right')} />
+      <div className='gallery--refresh' onClick={handleResize}>
+        <img src="../../refresh.png" alt="" />
       </div>
     </div>
   );
