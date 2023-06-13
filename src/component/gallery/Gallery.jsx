@@ -60,9 +60,6 @@ function Gallery() {
           </Link>
         ))}
       </div>
-      <div className='gallery--refresh' onClick={handleRefresh}>
-        <img src="../../refresh.png" alt="" />
-      </div>
     </div>
   );
 }
