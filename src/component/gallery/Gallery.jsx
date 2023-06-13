@@ -9,30 +9,28 @@ function Gallery() {
   const [widthImages, setWidthImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [perPage, setPerPage] = useState({height: 5, width: 10});
 
-  const handleResize = useCallback(() => {
-    let newHeightImages, newWidthImages;
+  useEffect(() => {
     if (window.innerWidth <= 700) {
-      newHeightImages = [...galleryHeight].slice(0, 2);
-      newWidthImages = [...galleryWidth].slice(0, 4);
+      setPerPage({height: 2, width: 4});
     } else if (window.innerWidth <= 1200) {
-      newHeightImages = [...galleryHeight].slice(0, 3);
-      newWidthImages = [...galleryWidth].slice(0, 6);
+      setPerPage({height: 3, width: 6});
     } else {
-      newHeightImages = [...galleryHeight].slice(0, 5);
-      newWidthImages = [...galleryWidth].slice(0, 10);
+      setPerPage({height: 5, width: 10});
     }
 
-    setHeightImages(newHeightImages);
-    setWidthImages(newWidthImages);
-    
-    const sumGallery = newHeightImages.reduce((a, b) => a + b, 0) + newWidthImages.reduce((a, b) => a + b, 0);
-    const sumImages = galleryHeight.reduce((a, b) => a + b, 0) + galleryWidth.reduce((a, b) => a + b, 0);
+    const totalImages = galleryHeight.length + galleryWidth.length;
+    setTotalPages(Math.ceil(totalImages / (perPage.height + perPage.width)));
+  }, [galleryHeight.length, galleryWidth.length]);
 
-    setTotalPages(Math.ceil(sumGallery / sumImages));
+  const handleResize = useCallback(() => {
+    const startIndexHeight = perPage.height * (currentPage - 1);
+    const startIndexWidth = perPage.width * (currentPage - 1);
 
-  }, [galleryHeight, galleryWidth]);
-  
+    setHeightImages([...galleryHeight].slice(startIndexHeight, startIndexHeight + perPage.height));
+    setWidthImages([...galleryWidth].slice(startIndexWidth, startIndexWidth + perPage.width));
+  }, [currentPage, galleryHeight, galleryWidth, perPage.height, perPage.width]);
 
   useEffect(() => {
     handleResize();
