@@ -53,6 +53,7 @@ body {
   "photoH3 photo7 photoH4 photo8 photoH5"
   "photoH3 photo9 photoH4 photo10 photoH5";
   grid-template-columns: repeat(5 , 1fr);
+  grid-template-columns: repeat(4 , 1fr);
   width: 99%;
   border-radius: 50px;
   overflow: hidden;
@@ -163,7 +164,7 @@ body {
 }
 
 
-.gallery--showPictures {
+.gallery--page {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -173,14 +174,15 @@ body {
   justify-content: center;
   gap:40px;
   cursor: pointer;
+  border:1px solid red;
 }
 
-.gallery--showPictures > img {
+.gallery--page > img {
   width: 30px;
   height: 30px;
 }
 
-.gallery--showPictures > div {
+.gallery--page > div {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,11 +193,11 @@ body {
   text-transform: uppercase;
 }
 
-.gallery--showPictures > img:first-child {
+.gallery--page > img:first-child {
   animation: moveRight 1s ease-in-out infinite alternate;
 }
 
-.gallery--showPictures > img:last-child {
+.gallery--page > img:last-child {
   animation: moveLeft 1s ease-in-out infinite alternate;
 }
 
