@@ -4,24 +4,23 @@ import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom";
 
 function Gallery() {
-  const { galleryHeight, galleryWidth, galleryHeightLow, galleryWidthLow, setImageKey } = useContext(MyContext);
+  const { galleryHeight, galleryWidth, setImageKey } = useContext(MyContext);
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
-  const [loadedImages, setLoadedImages] = useState({});
 
   const handleResize = useCallback(() => {
     if (window.innerWidth <= 700) {
-      setHeightImages([...galleryHeightLow].slice(0, 2));
-      setWidthImages([...galleryWidthLow].slice(0, 4));
+      setHeightImages([...galleryHeight].slice(0, 2));
+      setWidthImages([...galleryWidth].slice(0, 4));
     } else if (window.innerWidth <= 1200) {
-      setHeightImages([...galleryHeightLow].slice(0, 3));
-      setWidthImages([...galleryWidthLow].slice(0, 6));
+      setHeightImages([...galleryHeight].slice(0, 3));
+      setWidthImages([...galleryWidth].slice(0, 6));
     } else {
-      setHeightImages([...galleryHeightLow].slice(0, 5));
-      setWidthImages([...galleryWidthLow].slice(0, 10));
+      setHeightImages([...galleryHeight].slice(0, 5));
+      setWidthImages([...galleryWidth].slice(0, 10));
     }
-    setLoadedImages({});
-  }, [galleryHeightLow, galleryWidthLow]);
+  }, [galleryHeight, galleryWidth]);
+  
 
   useEffect(() => {
     handleResize();
@@ -29,25 +28,19 @@ function Gallery() {
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
 
-  useEffect(() => {
-    heightImages.forEach((img, index) => {
-      const imgObject = new Image();
-      imgObject.src = galleryHeight[index].src;
-      imgObject.onload = () => setLoadedImages(prevState => ({
-        ...prevState,
-        [img.key]: galleryHeight[index].src
-      }));
-    });
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
 
-    widthImages.forEach((img, index) => {
-      const imgObject = new Image();
-      imgObject.src = galleryWidth[index].src;
-      imgObject.onload = () => setLoadedImages(prevState => ({
-        ...prevState,
-        [img.key]: galleryWidth[index].src
-      }));
-    });
-  }, [heightImages, widthImages, galleryHeight, galleryWidth]);
+  const handleRefresh = () => {
+    handleResize();
+  };
 
   return (
     <div className="gallery--body">
@@ -58,24 +51,18 @@ function Gallery() {
       <div className="gallery--container">
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img 
-                src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
-                alt="" 
-                loading="lazy" 
-              />
+              <img src={img.src} alt="" />
           </Link>
         ))}
         {heightImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img 
-                src={loadedImages[img.key] ? loadedImages[img.key] : img.src} 
-                alt="" 
-                loading="lazy" 
-              />
+              <img src={img.src} alt="" />
           </Link>
         ))}
       </div>
-
+      <div className='gallery--refresh' onClick={handleRefresh}>
+        <img src="../../refresh.png" alt="" />
+      </div>
     </div>
   );
 }
