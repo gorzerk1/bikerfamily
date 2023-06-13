@@ -28,35 +28,21 @@ function Gallery() {
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
 
-  function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-    }
-    return array;
-  }
-
-  const handleRefresh = () => {
-    handleResize();
-  };
-
   return (
     <div className="gallery--body">
-      <img src="../../marblebackground2.jpg" alt="" />
+      <img src="../../marblebackground2.jpg" alt="background" />
       <div className="gallery--title">
         <div>הטיולים שלנו</div>
       </div>
       <div className="gallery--container">
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img src={img.src} alt="" />
+              <img src={img.src} alt="gallery" />
           </Link>
         ))}
         {heightImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img src={img.src} alt="" />
+              <img src={img.src} alt="gallery" />
           </Link>
         ))}
       </div>
