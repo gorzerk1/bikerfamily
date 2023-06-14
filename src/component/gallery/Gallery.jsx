@@ -4,7 +4,7 @@ import { MyContext } from '../../data/ThemeProvider';
 import { Link } from "react-router-dom";
 
 function Gallery() {
-  const { galleryHeight, galleryWidth, setImageKey } = useContext(MyContext);
+  const { galleryHeight, galleryWidth, setImageKey, imagesLoaded } = useContext(MyContext);
   const [heightImages, setHeightImages] = useState([]);
   const [widthImages, setWidthImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,18 +47,24 @@ function Gallery() {
       <div className="gallery--title">
         <div>הטיולים שלנו</div>
       </div>
-      <div className="gallery--container">
+
+      <div className={`gallery--container ${imagesLoaded ? '' : 'hide'}`}>
       {widthImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img src={img.src} alt="gallery" />
+              <img src={img.src} alt="" />
           </Link>
         ))}
         {heightImages.map((img, index) => (
           <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img src={img.src} alt="gallery" />
+              <img src={img.src} alt="" />
           </Link>
         ))}
       </div>
+
+      <div className={`gallery--loading ${imagesLoaded ? 'hide' : ''}`}>
+        <img src='../../loading.gif' alt='' />
+      </div>
+      
       <div className='gallery--page'>
         <img src="../../eventsup/left-arrow.png" alt="" onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))} />
         <div>{currentPage} / {totalPages}</div>

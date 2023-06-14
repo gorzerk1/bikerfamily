@@ -11,8 +11,8 @@ function ThemeProvider({ children }) {
   const [galleryHeightLow, setGalleryHeightLow] = useState([]);
   const [galleryWidthLow, setGalleryWidthLow] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
-
-  
+  const [imagesLoaded, setImagesLoaded] = useState(false); // Added this state
+  console.log(imagesLoaded)
   const shuffleImages = (images) => {
     return shuffle(images).map(image => ({ ...image, key: uuidv4() }));
   }
@@ -48,6 +48,10 @@ function ThemeProvider({ children }) {
           const heightImagesLow = shuffleImages(imagesLow.galleryHeightLow.slice(1));
           setGalleryHeightLow(heightImagesLow);
         }
+
+        // Once everything is loaded successfully, we set the state to true
+        setImagesLoaded(true);
+        
       } catch (error) {
         console.error('Error:', error);
         console.log('Error name:', error.name);
@@ -90,7 +94,8 @@ function ThemeProvider({ children }) {
         galleryWidth,
         galleryHeightLow,
         galleryWidthLow,
-        backGroundVideos
+        backGroundVideos,
+        imagesLoaded // Adding imagesLoaded to the context
       }}
     >
       {children}
