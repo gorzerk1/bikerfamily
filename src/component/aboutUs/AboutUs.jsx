@@ -2,29 +2,16 @@ import './aboutUs.css';
 import React, { useState, useEffect } from 'react';
 
 function AboutUs() {
-  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
 
-  useEffect(() => {
-    const handleResize = () => {
-      setBackgroundImgSrc(window.innerWidth < 770 ? "../../backgroundbike.jpg" : "../../backgroundbike2.jpg");
-    };
-
-    // Initialize the image source
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    // Clean up function
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <div className="aboutUs--body">
-      <img src={backgroundImgSrc} alt="Background Bike" />
+      <img src="../../backgroundbike.jpg" alt="Background Bike" />
       <div className='aboutUs--container'>
         <div className='aboutUs--rightPart'>
           <div className='aboutUs--half__title'><div>עלינו</div></div>
-          <div className='aboutUs--paragraph'>בקהילת האופנועים, קיימת אחדות מיוחדת בין חובבי הדרך הפתוחה והרוח החופשית שמספקות שתי הגלגלים. חברים מכל הגילאים, המגדרים והמוצאים מתאחדים כאחד בשביל להנות זה מזה ולחלוק את התרבות המשולבת של האופנועים. הרגשה של שייכות ותמיכה הדדית מלווה את חברי הקהילה, שמבוססת על כיף והרפתקאות משותפות.</div>
-          <div className='aboutUs--paragraph'>דרך טיולים משולבים, אירועים חברתיים ופעילויות תרבותיות, קהילת האופנועים מחזיקה ביחד, כפועל רב-פרטי שקולע ללבבות של כל רוכב.</div>
+          <div className='aboutUs--paragraph'>"בייקרס-ישראל" היא קהילה ייחודית של אופנוענים המונה כיותר מי 300 חברים, והיא במגמת הרחבה וקולטת לשורותיה חברים נוספים, המתאימים לרוח הקהילה. ב"בייקרס-ישראל", חברים ישראלים בני כל הגילאים, ללא הבדל מגדר, דת או מוצא. לחבריי הקהילה אופנועים מסוגים ומודלים שונים, כשאת כולם מאחדת האהבה לאופנוע, החברות, והרוח החופשית שהדרך הפתוחה מעניקה ברכיבה הדו-גלגלית. הרגשה של שייכות ותמיכה הדדית מלווה את חבריי הקהילה, הרגשה המבוססת על חוויות והרפתקאות משותפות. את הקהילה הקימו ומנהלים יהונתן ודין. </div>
+          <div className='aboutUs--paragraph'>קהילת "בייקרס-ישראל", מארגנת לחבריה טיולים משולבים, אירועים חברתיים, ופעילויות חברתיות. הנהלת  "בייקרס-ישראל" קשובה לחבריי הקהילה באופן הקולע ללבו והעדפותיו של כל רוכב ורוכב.</div>
           <div className='aboutUs--buttonWrapper'>
           </div>          
           

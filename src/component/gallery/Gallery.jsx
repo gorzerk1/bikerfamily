@@ -12,8 +12,10 @@ function Gallery() {
   const [perPage, setPerPage] = useState({height: 5, width: 10});
 
   const calculateTotalPages = useCallback(() => {
-    const totalImages = galleryHeight.length + galleryWidth.length;
-    setTotalPages(Math.ceil(totalImages / (perPage.height + perPage.width)));
+    const totalHeightImages = Math.floor(galleryHeight.length / perPage.height);
+    const totalWidthImages = Math.floor(galleryWidth.length / perPage.width);
+    const totalPages = totalHeightImages < totalWidthImages ? totalHeightImages : totalWidthImages;
+    setTotalPages(totalPages > 0 ? totalPages : 1);  // Ensure at least 1 page
   }, [galleryHeight.length, galleryWidth.length, perPage.height, perPage.width]);
 
   useEffect(() => {
@@ -41,6 +43,15 @@ function Gallery() {
     return () => window.removeEventListener('resize', handleResize);
   }, [handleResize]);
 
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    } else if (currentPage < 1 && totalPages >= 1) {
+      setCurrentPage(1);  // Ensure currentPage never goes below 1
+    }
+  }, [currentPage, totalPages]);
+
+
   return (
     <div className="gallery--body">
       <img src="../../marblebackground2.jpg" alt="background" />
@@ -48,22 +59,24 @@ function Gallery() {
         <div>הטיולים שלנו</div>
       </div>
 
-      <div className={`gallery--container ${imagesLoaded ? '' : 'hide'}`}>
-      {widthImages.map((img, index) => (
-          <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img src={img.src} alt="" />
-          </Link>
-        ))}
-        {heightImages.map((img, index) => (
-          <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
-              <img src={img.src} alt="" />
-          </Link>
-        ))}
-      </div>
-
-      <div className={`gallery--loading ${imagesLoaded ? 'hide' : ''}`}>
-        <img src='../../loading.gif' alt='' />
-      </div>
+      {imagesLoaded ? (
+        <div className="gallery--container">
+          {widthImages.map((img, index) => (
+            <Link to="/fullGallery" className={`gallery--container--width${index + 1}`} onClick={() => setImageKey(img.key)}>
+                <img src={img.srcLow} alt="" onLoad={(e) => { e.target.src = img.src; }} />
+            </Link>
+          ))}
+          {heightImages.map((img, index) => (
+            <Link to="/fullGallery" className={`gallery--container--height${index + 1}`} onClick={() => setImageKey(img.key)}>
+                <img src={img.srcLow} alt="" onLoad={(e) => { e.target.src = img.src; }} />
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <div className="gallery--loading">
+          <img src='../../loading.gif' alt='' />
+        </div>
+      )}
       
       <div className='gallery--page'>
         <img src="../../eventsup/left-arrow.png" alt="" onClick={() => setCurrentPage(Math.max(currentPage - 1, 1))} />
