@@ -1,8 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { useSpring, animated } from 'react-spring';
 import "./contact.css";
+import { useInView } from 'react-intersection-observer';
 
 function Contact() {
+  // Add new state to track when component is in view
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.4,
+  });
+
   const [name, setName] = useState("");
   const [bike, setBike] = useState("");
   const [location, setLocation] = useState("");
@@ -15,51 +22,57 @@ function Contact() {
 
   const titleProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 500,
     config: {duration: 1000},
+    reset: !inView,
   });
 
   const subtitleProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 1000,
     config: {duration: 1000},
+    reset: !inView,
   });
-
   const input1Props = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 1500,
     config: {duration: 1000},
+    reset: !inView,
   });
 
   const input2Props = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 2000,
     config: {duration: 1000},
+    reset: !inView,
   });
 
   const input3Props = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 2500,
     config: {duration: 1000},
+    reset: !inView,
   });
 
   const input4Props = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 3000,
     config: {duration: 1000},
+    reset: !inView,
   });
 
   const aProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
-    to: {opacity: 1, transform: 'translate3d(0,0px,0)'},
+    to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
     delay: 3500,
     config: {duration: 1000},
+    reset: !inView,
   });
 
   const whatsappMessage = `שלום שמי ${name}.\nאני גר/ה ב${location}.\nהאופנוע שיש לי הוא ${bike}.\nהאינסגרם שלי הוא :\n${instagram}.`;
@@ -129,7 +142,7 @@ function Contact() {
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location]);
 
   return (
-    <div className="contact--body">
+    <div className="contact--body" ref={ref}>
       <img src="../../marblebackground2.jpg" alt="" />
       <div className='contact--container'>
         <animated.div style={titleProps} className='contact--title'>הצטרפו אלינו</animated.div>
