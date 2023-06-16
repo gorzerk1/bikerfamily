@@ -7,7 +7,7 @@ function Contact() {
   // Add new state to track when component is in view
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.4,
+    threshold: 0.3,
   });
 
   const [name, setName] = useState("");

@@ -30,7 +30,7 @@ function Footer() {
     </div>
     <div className="footer--container2">
       <div dir="rtl">זכויות יוצרים © 2023 יונתן. כל הזכויות שמורות.</div>
-      <a href="https://www.instagram.com/family.bikers.il" className="dima" >Built by Dima</a>
+      <a href="https://github.com/gorzerk1" className="dima" >Built by Dima</a>
     </div>
     </div>
   );
