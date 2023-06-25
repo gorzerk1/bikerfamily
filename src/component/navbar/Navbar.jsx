@@ -31,7 +31,6 @@ function Navbar({ galleryRef, aboutUsRef, contactRef }) {
         <div className='navbar--logo'>
         <img src="../../bikerlogo.png" alt="" />
         </div>
-        <div>אירועים</div>
         <div onClick={() => scrollTo(contactRef)}>צור קשר</div>
       </div>
     </div>
