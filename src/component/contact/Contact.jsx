@@ -213,13 +213,22 @@ function Contact() {
             {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
           </animated.div>
-          <animated.a style={aProps} target="_blank" rel="noopener noreferrer" className="contact-whatsapp" onClick={(e) => { 
-              if (validate()) {
-                context.addContact({name, bike, location, instagram, telegram});
-              } else {
+          <animated.a 
+            style={aProps} 
+            href="https://t.me/+4Vmt2NT244YyMzJk" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="contact-whatsapp" 
+            onClick={(e) => { 
+              if (!validate()) {
                 e.preventDefault();
+              } else {
+                context.addContact({name, bike, location, instagram, telegram});
               }
-            }}>צרו קשר דרך טלגרם</animated.a>
+            }}
+          >
+            צרו קשר דרך טלגרם
+          </animated.a>
         </div>
       </div>
     </div>
