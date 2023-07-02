@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { shuffle } from 'lodash';
 
-const MyContext = React.createContext();
+const MyContext = React.createContext()
 
 function ThemeProvider({ children }) {
   const [imageKey, setImageKey] = useState(null);
@@ -10,10 +10,31 @@ function ThemeProvider({ children }) {
   const [galleryWidth, setGalleryWidth] = useState([]);
   const [backGroundVideos, setBackGroundVideo] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [contactObject, setContactObject] = useState(null);
+  console.log(contactObject);
   
   const shuffleImages = (images) => {
     return shuffle(images).map(image => ({ ...image, key: uuidv4() }));
   }
+
+  useEffect(() => {
+    if (contactObject) {
+        fetch('https://api.bikersil.com/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(contactObject)
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+}, [contactObject]);
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,17 +90,27 @@ function ThemeProvider({ children }) {
   
     fetchVideos();
   }, []);
-  
+
+  const addContact = (newContact) => {
+    setContactObject(newContact);
+};
+
+
+
+
   return (
-      <MyContext.Provider
+    <MyContext.Provider
       value={{
         setImageKey,
         imageKey,
         galleryHeight,
         galleryWidth,
         backGroundVideos,
-        imagesLoaded
+        imagesLoaded,
+        contactObject,
+        addContact
       }}
+    
     >
       {children}
     </MyContext.Provider>

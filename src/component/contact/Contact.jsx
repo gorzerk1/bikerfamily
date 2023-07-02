@@ -1,9 +1,12 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import { useSpring, animated } from 'react-spring';
 import "./contact.css";
 import { useInView } from 'react-intersection-observer';
+import { MyContext } from "../../data/ThemeProvider.jsx"
 
 function Contact() {
+  const context = useContext(MyContext);
+
   // Add new state to track when component is in view
   const [ref, inView] = useInView({
     triggerOnce: false,
@@ -75,8 +78,6 @@ function Contact() {
     reset: !inView,
   });
 
-  const whatsappMessage = `שלום שמי ${name}.\nאני גר/ה ב${location}.\nהאופנוע שיש לי הוא ${bike}.\nהאינסגרם שלי הוא :\n${instagram}.`;
-  const whatsappLink = `https://chat.whatsapp.com/Bqfustz1sNaFuSa6ZRduJu?text=${encodeURIComponent(whatsappMessage)}`;
 
   function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
@@ -164,7 +165,13 @@ function Contact() {
             {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
           </animated.div>
-          <animated.a style={aProps} href={whatsappLink} target="_blank" rel="noopener noreferrer" className="contact-whatsapp" onClick={(e) => { if (!validate()) e.preventDefault(); }}>צרו קשר דרך ווטסאפ</animated.a>
+          <animated.a style={aProps} target="_blank" rel="noopener noreferrer" className="contact-whatsapp" onClick={(e) => { 
+              if (validate()) {
+                context.addContact({name, bike, location, instagram});
+              } else {
+                e.preventDefault();
+              }
+            }}>צרו קשר דרך ווטסאפ</animated.a>
         </div>
       </div>
     </div>
