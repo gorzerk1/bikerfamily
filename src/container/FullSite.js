@@ -10,10 +10,13 @@ function FullSite() {
   const galleryRef = useRef();
   const aboutUsRef = useRef();
   const contactRef = useRef();
+  const mainRef = useRef();
   return (
     <>
-      <Navbar galleryRef={galleryRef} aboutUsRef={aboutUsRef} contactRef={contactRef} />
-      <Main />
+      <Navbar galleryRef={galleryRef} aboutUsRef={aboutUsRef} contactRef={contactRef} mainRef={mainRef} />
+      <div ref={mainRef}>
+        <Main />
+      </div>
       <div ref={galleryRef}>
         <Gallery />
       </div>
