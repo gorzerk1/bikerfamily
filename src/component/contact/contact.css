@@ -60,6 +60,11 @@ body {
     justify-content: center;
     position: relative;
 }
+
+.half-width-input {
+    width: 48%; /* reduce the width to account for potential padding/margin */
+    box-sizing: border-box;
+  }
 .contact--errors {
     position: absolute;
     left:52%;
@@ -117,12 +122,13 @@ input[type="text1"] {
     font-weight: bolder;
     transition: font-size 250ms;
     cursor: pointer;
-    background-color: green;
+    background-color: #229ED9;
     border: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    color:black
+    color:black;
+    border: 1px solid #229ED9;
 }
 
 
