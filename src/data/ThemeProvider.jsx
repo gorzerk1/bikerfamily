@@ -11,7 +11,7 @@ function ThemeProvider({ children }) {
   const [backGroundVideos, setBackGroundVideo] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [contactObject, setContactObject] = useState(null);
-  console.log(contactObject);
+  console.log(contactObject)
   
   const shuffleImages = (images) => {
     return shuffle(images).map(image => ({ ...image, key: uuidv4() }));

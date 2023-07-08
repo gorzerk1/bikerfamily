@@ -24,6 +24,7 @@ function Contact() {
   const [locationError, setLocationError] = useState(false);
   const [telegramError, setTelegramError] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
+  
 
   const titleProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
@@ -214,20 +215,22 @@ function Contact() {
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
           </animated.div>
           <animated.a 
-            style={aProps} 
-            href="https://t.me/+4Vmt2NT244YyMzJk" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="contact-whatsapp" 
-            onClick={(e) => { 
-              if (!validate()) {
-                e.preventDefault();
-              } else {
-                context.addContact({name, bike, location, instagram, telegram});
-              }
-            }}
+              style={aProps} 
+              href="https://t.me/+4Vmt2NT244YyMzJk" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-whatsapp" 
+              onClick={(e) => { 
+                  if (!validate()) {
+                      e.preventDefault();
+                  } else {
+                      const contactData = {name, bike, location, instagram, telegram};
+                      console.log(contactData);
+                      context.addContact(contactData);
+                  }
+              }}
           >
-            צרו קשר דרך טלגרם
+              צרו קשר דרך טלגרם
           </animated.a>
         </div>
       </div>
