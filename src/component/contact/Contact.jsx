@@ -9,7 +9,7 @@ function Contact() {
 
   // Add new state to track when component is in view
   const [ref, inView] = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
     threshold: 0.3,
   });
 
@@ -188,24 +188,32 @@ function Contact() {
 
   
   
-async function handleTelegramChange(e) {
-  const value = e.target.value;
-  setTelegram(value);
-  setUserHasClicked(prev => ({ ...prev, telegram: true }));
-  try {
-      const userExists = await checkIfUserExists(value);  // Check if the user exists after updating the input value.
-      setTelegramValid(!userExists);
-      if(userExists){
-          setTelegramError(true);
-      }else{
-          setTelegramError(false);
-      }
-  } catch (error) {
-      console.log(error);
-      // handle the error accordingly
+  async function handleTelegramChange(e) {
+    const value = e.target.value;
+    setTelegram(value);
+    setUserHasClicked(prev => ({ ...prev, telegram: true }));
+    try {
+        const userExists = await checkIfUserExists(value);  // Check if the user exists after updating the input value.
+        setTelegramValid(!userExists);
+        if(userExists){
+            setTelegramError(true);
+        }else{
+            setTelegramError(false);
+        }
+    } catch (error) {
+        console.log(error);
+        // handle the error accordingly
+    }
   }
-}
-
+  const submitContactData = async () => {
+    const contactData = {name, bike, location, instagram, telegram};
+    console.log(contactData);
+    context.addContact(contactData);
+    
+    const userExists = await checkIfUserExists(telegram);
+    setTelegramValid(!userExists);
+    setTelegramError(userExists);
+  }
   
   return (
     <div className="contact--body" ref={ref}>
@@ -227,7 +235,7 @@ async function handleTelegramChange(e) {
             <input type={locationError ? 'text1' : 'text'} placeholder="מאיפה בארץ ? (עיר \ ישוב)" dir="rtl" value={location} onChange={(e) => {setLocation(e.target.value); setUserHasClicked(prev => ({...prev, location: true}))}} />
           </animated.div>
           <animated.div style={input4Props}>
-            {telegramError && <div className="contact--errors" dir="rtl">המשתמש כבר קיים בקבוצה *</div>}
+            {telegramError && <div className="contact--errors" dir="rtl">הנה שימו משתמש אחר *</div>}
             <input 
               type={telegramError ? 'text1' : 'text'} 
               placeholder="שם משתמש בטלגרם"  
@@ -241,22 +249,20 @@ async function handleTelegramChange(e) {
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
           </animated.div>
           <animated.a 
-              style={aProps} 
-              href="https://t.me/+4Vmt2NT244YyMzJk" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="contact-whatsapp" 
-              onClick={(e) => { 
-                  if (!validate()) {
-                      e.preventDefault();
-                  } else {
-                      const contactData = {name, bike, location, instagram, telegram};
-                      console.log(contactData);
-                      context.addContact(contactData);
-                  }
-              }}
+            style={aProps} 
+            href="https://t.me/+4Vmt2NT244YyMzJk" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="contact-whatsapp" 
+            onClick={async (e) => { 
+                if (!validate()) {
+                    e.preventDefault();
+                } else {
+                    submitContactData();
+                }
+            }}
           >
-              צרו קשר דרך טלגרם
+            צרו קשר דרך טלגרם
           </animated.a>
         </div>
       </div>
