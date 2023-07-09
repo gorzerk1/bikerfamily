@@ -11,6 +11,7 @@ function ThemeProvider({ children }) {
   const [backGroundVideos, setBackGroundVideo] = useState([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [contactObject, setContactObject] = useState(null);
+  const [telegram, setTelegram] = useState(null);
   console.log(contactObject)
   
   const shuffleImages = (images) => {

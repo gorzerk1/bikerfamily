@@ -26,7 +26,6 @@ function Contact() {
   const [telegramError, setTelegramError] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
 
-
   const titleProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
     to: {opacity: inView ? 1 : 0, transform: inView ? 'translate3d(0,0px,0)' : 'translate3d(0,50px,0)'},
@@ -169,24 +168,42 @@ function Contact() {
     }
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
-  async function checkIfUserExists(telegramUsername) {
-    const response = await fetch(`/api/contact/exist?telegram=${encodeURIComponent(telegramUsername)}`);
+  async function checkIfUserExists(telegram) {
+    const response = await fetch(`/api/contact/exist?telegram=${encodeURIComponent(telegram)}`);
     if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
-    console.log(data);  // here you will see the response from the server
-    return data.userExists;
-}
+    const text = await response.text();
+    try {
+      const data = JSON.parse(text);
+      console.log(data);  // here you will see the response from the server
+      return data.userExists;
+    } catch (error) {
+      console.error('Failed to parse JSON:', text);
+      throw error;
+    }
+  }
+  
 
 
   
   
-function handleTelegramChange(e) {
-    const value = e.target.value;
-    setTelegram(value);
-    setUserHasClicked(prev => ({ ...prev, telegram: true }));
-    checkIfUserExists(value);  // Check if the user exists after updating the input value.
+async function handleTelegramChange(e) {
+  const value = e.target.value;
+  setTelegram(value);
+  setUserHasClicked(prev => ({ ...prev, telegram: true }));
+  try {
+      const userExists = await checkIfUserExists(value);  // Check if the user exists after updating the input value.
+      setTelegramValid(!userExists);
+      if(userExists){
+          setTelegramError(true);
+      }else{
+          setTelegramError(false);
+      }
+  } catch (error) {
+      console.log(error);
+      // handle the error accordingly
+  }
 }
 
   
