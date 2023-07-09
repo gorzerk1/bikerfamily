@@ -206,17 +206,19 @@ function Contact() {
     }
   }
   const handleClick = async (e) => {
+    e.preventDefault();
     if (!validate()) {
-        e.preventDefault();
+        return;
     } else {
         const userExists = await checkIfUserExists(telegram);
         if (userExists) {
-          e.preventDefault();
           setTelegramValid(false);
           setTelegramError(true);
+        } else {
+          window.open("https://t.me/+4Vmt2NT244YyMzJk", "_blank");
         }
     }
-  }
+}
   
   return (
     <div className="contact--body" ref={ref}>
@@ -253,10 +255,9 @@ function Contact() {
           </animated.div>
           <animated.a 
             style={aProps} 
-            href="https://t.me/+4Vmt2NT244YyMzJk" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="contact-whatsapp" 
+            className={`contact-whatsapp ${telegramError || !telegramValid ? 'disabled' : ''}`} 
             onClick={handleClick}
           >
             צרו קשר דרך טלגרם

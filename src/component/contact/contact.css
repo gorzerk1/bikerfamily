@@ -141,7 +141,9 @@ input[type="text1"] {
     transform: scale(0.95);
 }
 
-
+.contact-whatsapp.disabled {
+    pointer-events: none;
+  }
 
 @media (max-width: 1455px) {
     .contact--container {
