@@ -1,10 +1,13 @@
 import React, { useState, useEffect} from "react";
+import { useSpring, animated } from 'react-spring';
 import "./contact.css";
 import { useInView } from 'react-intersection-observer';
-import { useSpring, animated } from 'react-spring';
 
 
 function Contact() {
+
+
+  // Add new state to track when component is in view
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.3,
@@ -86,7 +89,7 @@ function Contact() {
   });
 
 
-  function validate() {
+  function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
     const telegramRegex = /^[a-zA-Zא-ת]{3,}$/;
     let isValid = true;
@@ -173,6 +176,7 @@ function Contact() {
     const text = await response.text();
     try {
       const data = JSON.parse(text);
+      console.log(data);  // here you will see the response from the server
       return data.userExists;
     } catch (error) {
       console.error('Failed to parse JSON:', text);
@@ -180,12 +184,16 @@ function Contact() {
     }
   }
   
+
+
+  
+  
   async function handleTelegramChange(e) {
     const value = e.target.value;
     setTelegram(value);
     setUserHasClicked(prev => ({ ...prev, telegram: true }));
     try {
-        const userExists = await checkIfUserExists(value); 
+        const userExists = await checkIfUserExists(value);  // Check if the user exists after updating the input value.
         setTelegramValid(!userExists);
         if(userExists){
             setTelegramError(true);
@@ -194,9 +202,9 @@ function Contact() {
         }
     } catch (error) {
         console.log(error);
+        // handle the error accordingly
     }
   }
-
   const handleClick = async (e) => {
     if (!validate()) {
         e.preventDefault();
