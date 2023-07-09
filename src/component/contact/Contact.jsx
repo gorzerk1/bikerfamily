@@ -18,13 +18,14 @@ function Contact() {
   const [location, setLocation] = useState("");
   const [instagram, setInstagram] = useState("");
   const [telegram, setTelegram] = useState("");
+  const [telegramValid, setTelegramValid] = useState(false)
   const [nameError, setNameError] = useState(false);
   const [instagramError, setInstagramError] = useState(false);
   const [bikeError, setBikeError] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [telegramError, setTelegramError] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
-  
+
 
   const titleProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
@@ -91,7 +92,7 @@ function Contact() {
 
   function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
-    const telegramRegex = /^@[a-zA-Zא-ת]{3,}$/;
+    const telegramRegex = /^[a-zA-Zא-ת]{3,}$/;
     let isValid = true;
   
     if (!nameRegex.test(name)) {
@@ -135,7 +136,7 @@ function Contact() {
 
   useEffect(() => {
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
-    const telegramRegex = /^@[a-zA-Zא-ת]{3,}$/;
+    const telegramRegex = /^[a-zA-Zא-ת]{3,}$/;
     if (!nameRegex.test(name) && userHasClicked.name) {
       setNameError(true);
     } else {
@@ -168,17 +169,26 @@ function Contact() {
     }
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
-  function handleTelegramChange(e) {
+  async function checkIfUserExists(telegramUsername) {
+    const response = await fetch(`/api/contact/exist?telegram=${encodeURIComponent(telegramUsername)}`);
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log(data);  // here you will see the response from the server
+    return data.userExists;
+}
+
+
+  
+  
+function handleTelegramChange(e) {
     const value = e.target.value;
     setTelegram(value);
-    setUserHasClicked(prev => ({...prev, telegram: true}));
-  }
-  
-  function handleTelegramFocus(e) {
-    if (e.target.value === '') {
-      setTelegram('@');
-    }
-  }
+    setUserHasClicked(prev => ({ ...prev, telegram: true }));
+    checkIfUserExists(value);  // Check if the user exists after updating the input value.
+}
+
   
   return (
     <div className="contact--body" ref={ref}>
@@ -200,16 +210,15 @@ function Contact() {
             <input type={locationError ? 'text1' : 'text'} placeholder="מאיפה בארץ ? (עיר \ ישוב)" dir="rtl" value={location} onChange={(e) => {setLocation(e.target.value); setUserHasClicked(prev => ({...prev, location: true}))}} />
           </animated.div>
           <animated.div style={input4Props}>
-              {telegramError && <div className="contact--errors" dir="rtl">צריך לרשום @ בהתחלה *</div>}
-              <input 
-                type={telegramError ? 'text1' : 'text'} 
-                placeholder="שם משתמש בטלגרם"  
-                dir="rtl" 
-                value={telegram} 
-                onFocus={handleTelegramFocus}
-                onChange={handleTelegramChange}
-              />
-            </animated.div>
+            {telegramError && <div className="contact--errors" dir="rtl">המשתמש כבר קיים בקבוצה *</div>}
+            <input 
+              type={telegramError ? 'text1' : 'text'} 
+              placeholder="שם משתמש בטלגרם"  
+              dir="rtl" 
+              value={telegram} 
+              onChange={handleTelegramChange}
+            />
+          </animated.div>
           <animated.div style={input5Props}>
             {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
