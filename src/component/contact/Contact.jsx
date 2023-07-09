@@ -169,7 +169,7 @@ function Contact() {
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
   async function checkIfUserExists(telegram) {
-    const response = await fetch(`/api/contact/exist?telegram=${encodeURIComponent(telegram)}`);
+    const response = await fetch(`https://api.bikersil.com/api/contact/exist?telegram=${encodeURIComponent(telegram)}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
