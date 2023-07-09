@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect} from "react";
 import { useSpring, animated } from 'react-spring';
 import "./contact.css";
 import { useInView } from 'react-intersection-observer';
-import { MyContext } from "../../data/ThemeProvider.jsx"
+
 
 function Contact() {
-  const context = useContext(MyContext);
+
 
   // Add new state to track when component is in view
   const [ref, inView] = useInView({
@@ -205,14 +205,17 @@ function Contact() {
         // handle the error accordingly
     }
   }
-  const submitContactData = async () => {
-    const contactData = {name, bike, location, instagram, telegram};
-    console.log(contactData);
-    context.addContact(contactData);
-    
-    const userExists = await checkIfUserExists(telegram);
-    setTelegramValid(!userExists);
-    setTelegramError(userExists);
+  const handleClick = async (e) => {
+    if (!validate()) {
+        e.preventDefault();
+    } else {
+        const userExists = await checkIfUserExists(telegram);
+        if (userExists) {
+          e.preventDefault();
+          setTelegramValid(false);
+          setTelegramError(true);
+        }
+    }
   }
   
   return (
@@ -254,13 +257,7 @@ function Contact() {
             target="_blank" 
             rel="noopener noreferrer" 
             className="contact-whatsapp" 
-            onClick={async (e) => { 
-                if (!validate()) {
-                    e.preventDefault();
-                } else {
-                    submitContactData();
-                }
-            }}
+            onClick={handleClick}
           >
             צרו קשר דרך טלגרם
           </animated.a>
