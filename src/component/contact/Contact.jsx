@@ -1,15 +1,15 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import { useSpring, animated } from 'react-spring';
 import "./contact.css";
 import { useInView } from 'react-intersection-observer';
-
+import { MyContext } from "../../data/ThemeProvider.jsx"
 
 function Contact() {
-
+  const context = useContext(MyContext);
 
   // Add new state to track when component is in view
   const [ref, inView] = useInView({
-    triggerOnce: true,
+    triggerOnce: false,
     threshold: 0.3,
   });
 
@@ -18,13 +18,14 @@ function Contact() {
   const [location, setLocation] = useState("");
   const [instagram, setInstagram] = useState("");
   const [telegram, setTelegram] = useState("");
-  const [telegramValid, setTelegramValid] = useState(false)
   const [nameError, setNameError] = useState(false);
   const [instagramError, setInstagramError] = useState(false);
   const [bikeError, setBikeError] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [telegramError, setTelegramError] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
+   
+
 
   const titleProps = useSpring({
     from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
@@ -91,7 +92,6 @@ function Contact() {
 
   function validate(){
     const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
-    const telegramRegex = /^[a-zA-Zא-ת]{3,}$/;
     let isValid = true;
   
     if (!nameRegex.test(name)) {
@@ -120,13 +120,11 @@ function Contact() {
       isValid = false;
     } else {
       setLocationError(false);
-    }
-  
-    if (!telegramRegex.test(telegram)) {
-      setTelegramError(true);
+    }    if (!location) {
+      setLocationError(true);
       isValid = false;
     } else {
-      setTelegramError(false);
+      setLocationError(false);
     }
   
     return isValid;
@@ -160,65 +158,18 @@ function Contact() {
       setLocationError(false);
     }
   
-
-    if (!telegramRegex.test(telegram) && userHasClicked.telegram) {
-      setTelegramError(true);
-    } else {
-      setTelegramError(false);
-    }
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
-  async function checkIfUserExists(telegram) {
-    const response = await fetch(`https://api.bikersil.com/api/contact/exist?telegram=${encodeURIComponent(telegram)}`);
+  async function checkIfUserExists(telegramUsername) {
+    const response = await fetch(`/api/contact/exist?telegram=${encodeURIComponent(telegramUsername)}`);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const text = await response.text();
-    try {
-      const data = JSON.parse(text);
-      console.log(data);  // here you will see the response from the server
-      return data.userExists;
-    } catch (error) {
-      console.error('Failed to parse JSON:', text);
-      throw error;
-    }
-  }
-  
-
-
-  
-  
-  async function handleTelegramChange(e) {
-    const value = e.target.value;
-    setTelegram(value);
-    setUserHasClicked(prev => ({ ...prev, telegram: true }));
-    try {
-        const userExists = await checkIfUserExists(value);  // Check if the user exists after updating the input value.
-        setTelegramValid(!userExists);
-        if(userExists){
-            setTelegramError(true);
-        }else{
-            setTelegramError(false);
-        }
-    } catch (error) {
-        console.log(error);
-        // handle the error accordingly
-    }
-  }
-  const handleClick = async (e) => {
-    e.preventDefault();
-    if (!validate()) {
-        return;
-    } else {
-        const userExists = await checkIfUserExists(telegram);
-        if (userExists) {
-          setTelegramValid(false);
-          setTelegramError(true);
-        } else {
-          window.open("https://t.me/+4Vmt2NT244YyMzJk", "_blank");
-        }
-    }
+    const data = await response.json();
+    setTelegramError(data)
+    return data.userExists;
 }
+
   
   return (
     <div className="contact--body" ref={ref}>
@@ -240,13 +191,13 @@ function Contact() {
             <input type={locationError ? 'text1' : 'text'} placeholder="מאיפה בארץ ? (עיר \ ישוב)" dir="rtl" value={location} onChange={(e) => {setLocation(e.target.value); setUserHasClicked(prev => ({...prev, location: true}))}} />
           </animated.div>
           <animated.div style={input4Props}>
-            {telegramError && <div className="contact--errors" dir="rtl">הנה שימו משתמש אחר *</div>}
+            {telegramError && <div className="contact--errors" dir="rtl">המשתמש כבר קיים בקבוצה *</div>}
             <input 
               type={telegramError ? 'text1' : 'text'} 
               placeholder="שם משתמש בטלגרם"  
               dir="rtl" 
-              value={telegram} 
-              onChange={handleTelegramChange}
+              value={telegram}
+              onChange={(e) => {setTelegram(e.target.value); setUserHasClicked(prev => ({...prev, telegram: true}))}}
             />
           </animated.div>
           <animated.div style={input5Props}>
@@ -254,13 +205,22 @@ function Contact() {
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
           </animated.div>
           <animated.a 
-            style={aProps} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className={`contact-whatsapp ${telegramError || !telegramValid ? 'disabled' : ''}`} 
-            onClick={handleClick}
+              style={aProps} 
+              href="https://t.me/+4Vmt2NT244YyMzJk" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="contact-whatsapp" 
+              onClick={(e) => { 
+                  if (!validate()) {
+                      e.preventDefault();
+                  } else {
+                      const contactData = {name, bike, location, instagram, telegram};
+                      console.log(contactData);
+                      context.addContact(contactData);
+                  }
+              }}
           >
-            צרו קשר דרך טלגרם
+              צרו קשר דרך טלגרם
           </animated.a>
         </div>
       </div>
