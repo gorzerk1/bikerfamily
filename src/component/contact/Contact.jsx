@@ -157,7 +157,7 @@
         setLocationError(false);
       }
     
-    }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
+    }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location]);
 
     async function checkIfUserExists(telegram) {
       const response = await fetch(`https://api.bikersil.com/api/contact/exist?telegram=${telegram}`);
@@ -225,19 +225,16 @@
                 rel="noopener noreferrer" 
                 className="contact-whatsapp" 
                 onClick={async (e) => { 
-                    if (!validate()) {
+                    if (!validate() || isTelegramEmpty || telegramError) {
                         e.preventDefault();
                     } else {
-                        if (telegramError || isTelegramEmpty) {
-                            e.preventDefault();
-                        } else {
-                            const contactData = {name, bike, location, instagram, telegram};
-                            console.log(contactData);
-                            context.addContact(contactData);
-                        }
+                        const contactData = {name, bike, location, instagram, telegram};
+                        console.log(contactData);
+                        context.addContact(contactData);
                     }
                 }}
             >
+
                 צרו קשר דרך טלגרם
             </animated.a>
           </div>
