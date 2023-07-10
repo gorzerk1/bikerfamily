@@ -181,7 +181,7 @@
     }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
     async function checkIfUserExists(telegram) {
-      const response = await fetch(`https://api.bikersil.com/api/contact/exist?telegram=${telegram}`);
+      const response = await fetch(`https://bikersil.com/api/contact/exist?telegram=${telegram}`);
       if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
       }
