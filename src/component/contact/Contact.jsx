@@ -128,16 +128,16 @@
         setLocationError(false);
       }
 
-      if (!telegram && userHasClicked.telegram) {
-        setTelegramError(false);
-        setTelegramEmpty(true);
-      } else if (telegram) {
-        // If telegram is not empty, then check if user exists
+      if (!telegram) {
+        setTelegramError(false); // No user exists error since input is empty
+        setTelegramEmpty(true); // Input is empty
+        isValid = false;
+    } else {
         checkIfUserExists(telegram).then((userExists) => {
-          setTelegramError(userExists);
-          setTelegramEmpty(false);
+            setTelegramError(userExists);
+            setTelegramEmpty(false);
         });
-      }
+    }
     
       return isValid;
     }
