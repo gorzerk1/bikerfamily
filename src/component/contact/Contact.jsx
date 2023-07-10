@@ -25,7 +25,8 @@
     const [telegramError, setTelegramError] = useState(false);
     const [isTelegramEmpty, setTelegramEmpty] = useState(false);
     const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
-    console.log(telegramError)
+    const [isUserExists, setIsUserExists] = useState({})
+    console.log(isUserExists)
 
 
     const titleProps = useSpring({
@@ -185,7 +186,7 @@
           throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setTelegramError(data)
+      setIsUserExists(data)
       return data.userExists;
   }
 
