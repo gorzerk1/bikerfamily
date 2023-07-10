@@ -225,7 +225,12 @@
                 rel="noopener noreferrer" 
                 className="contact-whatsapp" 
                 onClick={async (e) => { 
-                    if (!validate() || isTelegramEmpty || telegramError) {
+                    if (!validate() || isTelegramEmpty) {
+                        e.preventDefault();
+                        if (!telegram.trim()) {
+                            setTelegramEmpty(true);
+                        }
+                    } else if (telegramError) {
                         e.preventDefault();
                     } else {
                         const contactData = {name, bike, location, instagram, telegram};
@@ -234,6 +239,7 @@
                     }
                 }}
             >
+
 
                 צרו קשר דרך טלגרם
             </animated.a>
