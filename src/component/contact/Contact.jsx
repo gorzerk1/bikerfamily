@@ -220,7 +220,7 @@
             </animated.div>
             <animated.a 
                 style={aProps} 
-                href="https://t.me/+4Vmt2NT244YyMzJk" 
+                href="https://t.me/+xTaF9hdinv82YTA0" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="contact-whatsapp" 
