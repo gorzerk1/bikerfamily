@@ -99,14 +99,14 @@
       } else {
         setNameError(false);
       }
-    
+      /*
       if (!instagram.includes('instagram.com/')) {
         setInstagramError(true);
         isValid = false;
       } else {
         setInstagramError(false);
       }
-    
+      */
       if (!bike) {
         setBikeError(true);
         isValid = false;
@@ -138,13 +138,13 @@
       } else {
         setNameError(false);
       }
-    
+    /*
       if (!instagram.includes('instagram.com/') && userHasClicked.instagram) {
         setInstagramError(true);
       } else {
         setInstagramError(false);
       }
-    
+    */
       if (!bike && userHasClicked.bike) {
         setBikeError(true);
       } else {
