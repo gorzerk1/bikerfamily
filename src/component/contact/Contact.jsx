@@ -126,6 +126,13 @@ function Contact() {
     } else {
       setLocationError(false);
     }
+
+    if (!telegram) {
+      setTelegramError(true);
+      isValid = false;
+    } else {
+      setTelegramError(false);
+    }
   
     return isValid;
   }
@@ -158,6 +165,11 @@ function Contact() {
       setLocationError(false);
     }
   
+    if (!telegram && userHasClicked.telegram) {
+      setTelegramError(true);
+    } else {
+      setTelegramError(false);
+    }
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
   async function checkIfUserExists(telegramUsername) {
