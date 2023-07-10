@@ -25,7 +25,7 @@
     const [telegramError, setTelegramError] = useState(false);
     const [isTelegramEmpty, setTelegramEmpty] = useState(false);
     const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
-    
+    console.log(telegramError)
 
 
     const titleProps = useSpring({
