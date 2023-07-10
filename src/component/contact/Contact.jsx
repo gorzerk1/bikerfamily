@@ -26,11 +26,8 @@
     const [isTelegramEmpty, setTelegramEmpty] = useState(false);
     const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
     const [isUserExists, setIsUserExists] = useState(false)
-    console.log("-------------------------------------------------------")
-    console.log(isUserExists)
-    console.log("-------------------------------------------------------")
+    console.log(telegramError)
     console.log(telegram)
-    console.log("-------------------------------------------------------")
 
     const titleProps = useSpring({
       from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
