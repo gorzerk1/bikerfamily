@@ -23,6 +23,7 @@ function Contact() {
   const [bikeError, setBikeError] = useState(false);
   const [locationError, setLocationError] = useState(false);
   const [telegramError, setTelegramError] = useState(false);
+  const [isTelegramEmpty, setTelegramEmpty] = useState(false);
   const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
    
 
@@ -129,9 +130,11 @@ function Contact() {
 
     if (!telegram) {
       setTelegramError(true);
+      setTelegramEmpty(true);
       isValid = false;
     } else {
       setTelegramError(false);
+      setTelegramEmpty(false);
     }
   
     return isValid;
@@ -167,8 +170,10 @@ function Contact() {
   
     if (!telegram && userHasClicked.telegram) {
       setTelegramError(true);
+      setTelegramEmpty(true);
     } else {
       setTelegramError(false);
+      setTelegramEmpty(false);
     }
   }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
@@ -203,15 +208,21 @@ function Contact() {
             <input type={locationError ? 'text1' : 'text'} placeholder="מאיפה בארץ ? (עיר \ ישוב)" dir="rtl" value={location} onChange={(e) => {setLocation(e.target.value); setUserHasClicked(prev => ({...prev, location: true}))}} />
           </animated.div>
           <animated.div style={input4Props}>
+            {isTelegramEmpty && <div className="contact--errors" dir="rtl">* Fill the box</div>}
             {telegramError && <div className="contact--errors" dir="rtl">המשתמש כבר קיים בקבוצה *</div>}
             <input 
-              type={telegramError ? 'text1' : 'text'} 
+              type={(telegramError || isTelegramEmpty) ? 'text1' : 'text'} 
               placeholder="שם משתמש בטלגרם"  
               dir="rtl" 
               value={telegram}
-              onChange={(e) => {setTelegram(e.target.value); setUserHasClicked(prev => ({...prev, telegram: true}))}}
+              onChange={(e) => {
+                setTelegram(e.target.value); 
+                setUserHasClicked(prev => ({...prev, telegram: true}));
+                setTelegramEmpty(e.target.value === ""); // check if input is empty
+              }}
             />
           </animated.div>
+
           <animated.div style={input5Props}>
             {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
             <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
