@@ -9,7 +9,7 @@
 
     // Add new state to track when component is in view
     const [ref, inView] = useInView({
-      triggerOnce: false,
+      triggerOnce: true,
       threshold: 0.3,
     });
 
@@ -25,9 +25,6 @@
     const [telegramError, setTelegramError] = useState(false);
     const [isTelegramEmpty, setTelegramEmpty] = useState(false);
     const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
-    const [isUserExists, setIsUserExists] = useState(false)
-    console.log(telegramError)
-    console.log(telegram)
 
     const titleProps = useSpring({
       from: {opacity: 0, transform: 'translate3d(0,50px,0)'},
@@ -129,16 +126,6 @@
         setLocationError(false);
       }
 
-      if (!telegram) {
-        setTelegramError(false); // No user exists error since input is empty
-        setTelegramEmpty(true); // Input is empty
-        isValid = false;
-    } else {
-        checkIfUserExists(telegram).then((userExists) => {
-            setTelegramError(userExists);
-            setTelegramEmpty(false);
-        });
-    }
     
       return isValid;
     }
@@ -146,7 +133,6 @@
 
     useEffect(() => {
       const nameRegex = /^[a-zA-Zא-ת\s]{2,}$/;
-      const telegramRegex = /^[a-zA-Zא-ת]{3,}$/;
       if (!nameRegex.test(name) && userHasClicked.name) {
         setNameError(true);
       } else {
@@ -171,13 +157,6 @@
         setLocationError(false);
       }
     
-      if (!telegram && userHasClicked.telegram) {
-        setTelegramError(true);
-        setTelegramEmpty(true);
-      } else {
-        setTelegramError(false);
-        setTelegramEmpty(false);
-      }
     }, [name, userHasClicked.name, instagram, userHasClicked.instagram, bike, userHasClicked.bike, location, userHasClicked.location, telegram, userHasClicked.telegram]);
 
     async function checkIfUserExists(telegram) {
@@ -186,9 +165,8 @@
           throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setTelegramError(data.exists)
-      return data.userExists;
-  }
+      return data.exists;
+    }
 
     
     return (
@@ -219,7 +197,7 @@
               dir="rtl" 
               value={telegram}
               onChange={(e) => {
-                const newTelegram = e.target.value;
+                const newTelegram = e.target.value.trim();
                 setTelegram(newTelegram); 
                 setUserHasClicked(prev => ({...prev, telegram: true}));
                 setTelegramEmpty(newTelegram === ""); // check if input is empty
@@ -229,9 +207,12 @@
                   checkIfUserExists(newTelegram).then((userExists) => {
                     setTelegramError(userExists);
                   });
+                } else {
+                  setTelegramError(false);
                 }
               }}
             />
+
           </animated.div>
             <animated.div style={input5Props}>
               {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
@@ -243,13 +224,17 @@
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="contact-whatsapp" 
-                onClick={(e) => { 
+                onClick={async (e) => { 
                     if (!validate()) {
                         e.preventDefault();
                     } else {
-                        const contactData = {name, bike, location, instagram, telegram};
-                        console.log(contactData);
-                        context.addContact(contactData);
+                        if (telegramError || isTelegramEmpty) {
+                            e.preventDefault();
+                        } else {
+                            const contactData = {name, bike, location, instagram, telegram};
+                            console.log(contactData);
+                            context.addContact(contactData);
+                        }
                     }
                 }}
             >
