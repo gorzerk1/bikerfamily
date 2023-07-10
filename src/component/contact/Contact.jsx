@@ -25,7 +25,7 @@
     const [telegramError, setTelegramError] = useState(false);
     const [isTelegramEmpty, setTelegramEmpty] = useState(false);
     const [userHasClicked, setUserHasClicked] = useState({name: false, instagram: false, bike: false, location: false, telegram: false});
-    const [isUserExists, setIsUserExists] = useState({})
+    const [isUserExists, setIsUserExists] = useState(false)
     console.log(isUserExists)
 
 
@@ -186,7 +186,7 @@
           throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setIsUserExists(data)
+      setIsUserExists(data.exists)
       return data.userExists;
   }
 
