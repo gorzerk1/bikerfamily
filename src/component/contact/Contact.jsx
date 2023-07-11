@@ -18,6 +18,7 @@
     const [bike, setBike] = useState("");
     const [location, setLocation] = useState("");
     const [instagram, setInstagram] = useState("");
+    const [isInstagramPrefilled, setIsInstagramPrefilled] = useState(false);
     const [telegram, setTelegram] = useState("");
     const [nameError, setNameError] = useState(false);
     const [instagramError, setInstagramError] = useState(false);
@@ -211,10 +212,28 @@
             />
 
           </animated.div>
-            <animated.div style={input5Props}>
-              {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
-              <input type={instagramError ? 'text1' : 'text'} placeholder="קישור של אינסטגרם" dir="rtl" value={instagram} onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} />
-            </animated.div>
+          <animated.div style={input5Props}>
+            {instagramError && <div className="contact--errors" dir="rtl">* צריך לרשום את הקישור של אינסטגרם</div>}
+            <input 
+              type={instagramError ? 'text1' : 'text'} 
+              placeholder="קישור של אינסטגרם" 
+              dir="rtl" 
+              value={instagram} 
+              onChange={(e) => {setInstagram(e.target.value); setUserHasClicked(prev => ({...prev, instagram: true}))}} 
+              onFocus={() => {
+                if (!isInstagramPrefilled) {
+                  setInstagram('instagram.com/');
+                  setIsInstagramPrefilled(true);
+                }
+              }}
+              onKeyDown={(e) => {
+                if (instagram === 'instagram.com/' && e.key === 'Backspace') {
+                  e.preventDefault();
+                }
+              }}
+            />
+          </animated.div>
+
             <animated.a 
                 style={aProps} 
                 href="https://t.me/+ljDsfjeuog81Njk0" 
