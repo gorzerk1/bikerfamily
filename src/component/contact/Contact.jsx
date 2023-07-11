@@ -3,7 +3,8 @@
   import "./contact.css";
   import { useInView } from 'react-intersection-observer';
   import { MyContext } from "../../data/ThemeProvider.jsx"
-
+  import { v4 as uuidv4 } from 'uuid';
+  
   function Contact() {
     const context = useContext(MyContext);
 
@@ -99,14 +100,12 @@
       } else {
         setNameError(false);
       }
-      /*
       if (!instagram.includes('instagram.com/')) {
         setInstagramError(true);
         isValid = false;
       } else {
         setInstagramError(false);
       }
-      */
       if (!bike) {
         setBikeError(true);
         isValid = false;
@@ -138,13 +137,11 @@
       } else {
         setNameError(false);
       }
-    /*
       if (!instagram.includes('instagram.com/') && userHasClicked.instagram) {
         setInstagramError(true);
       } else {
         setInstagramError(false);
       }
-    */
       if (!bike && userHasClicked.bike) {
         setBikeError(true);
       } else {
@@ -233,7 +230,14 @@
                     } else if (telegramError) {
                         e.preventDefault();
                     } else {
-                        const contactData = {name, bike, location, instagram, telegram};
+                      const contactData = {
+                        id: uuidv4(), 
+                        name, 
+                        bike, 
+                        location, 
+                        instagram, 
+                        telegram
+                      };
                         console.log(contactData);
                         context.addContact(contactData);
                     }
