@@ -236,7 +236,7 @@
 
             <animated.a 
                 style={aProps} 
-                href="https://t.me/+ljDsfjeuog81Njk0" 
+                href="https://t.me/+IKWndGikaHAzZDg0" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="contact-whatsapp" 
